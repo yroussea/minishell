@@ -22,6 +22,8 @@
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 typedef struct s_list
 {
@@ -109,4 +111,7 @@ size_t	ft_strcpy_until_bn(const char *s, char *result);
 char	*get_next_line(int fd);
 
 int		ft_abs(int nb);
+int		ft_vmin(int number_of_number, ...);
+int		ft_vmax(int number_of_number, ...);
+
 #endif

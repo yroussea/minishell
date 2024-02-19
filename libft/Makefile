@@ -72,6 +72,7 @@ SRCS = \
 	type/ft_itoa.c		\
 	gnl/get_next_line.c	\
 	gnl/get_next_line_utils.c	\
+	maths/vmin_vmax.c \
 	maths/ft_abs.c	
 OBJS = $(SRCS:.c=.o)
 
