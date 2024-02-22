@@ -19,9 +19,6 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
