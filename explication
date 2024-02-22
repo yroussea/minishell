@@ -1,0 +1,6 @@
+explication:
+
+comment utiliser magic_free:
+	magic_free("%1 %2 %X t l", char *, char **, char {X etoile}, int *, t_list **);
+	-- les tableau de int multidimentionnel (int ** ect) devrons etre free autrement
+	-- il faut bien envoyer les liste en t_list **
