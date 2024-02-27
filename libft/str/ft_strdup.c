@@ -18,15 +18,15 @@ char	*ft_strdup(const char *s)
 	char	*result;
 
 	i = 0;
-	if (!*s)
+	if (!s || !*s)
 		return (NULL);
-	while (s[i])
+	while (s && s[i])
 		i += 1;
 	result = ft_calloc(sizeof(char), (i + 1));
 	if (!result)
 		return (NULL);
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		result[i] = s[i];
 		i += 1;

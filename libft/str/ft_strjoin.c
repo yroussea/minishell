@@ -25,12 +25,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	result = ft_calloc(sizeof(char), (1 + ft_strlen(s1) + ft_strlen(s2)));
 	if (!result)
 		return (NULL);
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		result[i] = s1[i];
 		i += 1;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 	{
 		result[i + j] = s2[j];
 		j += 1;

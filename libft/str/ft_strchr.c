@@ -17,13 +17,13 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] == (unsigned char)c)
 			return ((char *)(s + i));
 		i += 1;
 	}
-	if (s[i] == (unsigned char)c)
+	if (s && s[i] == (unsigned char)c)
 		return ((char *)(s + i));
 	return (0);
 }

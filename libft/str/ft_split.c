@@ -23,7 +23,7 @@ static size_t	ft_len_split(char const *s, char c)
 	i = 1;
 	if (!s[0])
 		return (0);
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] != c && s[i - 1] == c)
 			k += 1;
@@ -35,7 +35,7 @@ static size_t	ft_len_split(char const *s, char c)
 static size_t	ft_len_next_w(char const *s, char c, size_t j)
 {
 	j = 0;
-	while (s[j] && s[j] != c)
+	while (s && s[j] && s[j] != c)
 		j += 1;
 	return (j);
 }
@@ -48,7 +48,7 @@ static char	**fill_split(char const *s, char c, char **result)
 
 	i = 0;
 	k = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		j = ft_len_next_w(s + i, c, j);
 		if (j != 0)

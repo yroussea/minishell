@@ -17,9 +17,9 @@ int	ft_c_in_charset(char c, char *charset)
 	int	i;
 
 	i = 0;
-	while (charset[i] && charset[i] != c)
+	while (charset && charset[i] && charset[i] != c)
 		i += 1;
-	if (charset[i])
+	if (charset && charset[i])
 		return (1);
 	return (0);
 }
@@ -29,7 +29,7 @@ void	ft_free_split(char **result)
 	size_t	i;
 
 	i = 0;
-	while (result[i])
+	while (result && result[i])
 	{
 		free(result[i]);
 		i += 1;
@@ -40,7 +40,7 @@ void	ft_free_split(char **result)
 static size_t	ft_len_next_w_charset(char const *s, char *charset, size_t j)
 {
 	j = 0;
-	while (s[j] && !ft_c_in_charset(s[j], charset))
+	while (s && s[j] && !ft_c_in_charset(s[j], charset))
 		j += 1;
 	return (j);
 }
@@ -53,7 +53,7 @@ static char	**fill_split_charset(char const *s, char *charset, char **result)
 
 	i = 0;
 	k = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		j = ft_len_next_w_charset(s + i, charset, j);
 		if (j != 0)
@@ -85,9 +85,9 @@ char	**ft_split_charset(char const *s, char *charset)
 	if (ft_c_in_charset(s[0], charset))
 		k = 0;
 	i = 1;
-	if (!s[0])
+	if (s && !s[0])
 		return (0);
-	while (s[i])
+	while (s && s[i])
 	{
 		if (!ft_c_in_charset(s[i], charset) && \
 			ft_c_in_charset(s[i - 1], charset))

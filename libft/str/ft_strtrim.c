@@ -21,7 +21,7 @@ static size_t	ft_len_w_trim(char const *s1, char const *set, size_t *end)
 	len = ft_strlen(s1);
 	i = 0;
 	start = 1;
-	while (s1[i] && start)
+	while (s1 && s1[i] && start)
 	{
 		if (!ft_strchr(set, s1[i]))
 			break ;
@@ -29,7 +29,7 @@ static size_t	ft_len_w_trim(char const *s1, char const *set, size_t *end)
 	}
 	start = i;
 	i = 0;
-	while (s1[len - i - 1] && *end && (len - i > start))
+	while (s1 && s1[len - i - 1] && *end && (len - i > start))
 	{
 		if (!ft_strchr(set, s1[len - i - 1]))
 			break ;

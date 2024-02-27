@@ -69,6 +69,7 @@ SRCS = \
 	str/ft_strrchr.c			\
 	str/ft_strtrim.c			\
 	str/ft_substr.c				\
+	str/ft_vjoin.c				\
 	type/ft_atoi.c				\
 	type/ft_itoa.c				\
 	gnl/get_next_line.c			\
