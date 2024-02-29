@@ -78,6 +78,16 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+size_t	ft_putmultstr_fd(char **strs, int fd);
+size_t	ft_putlchar_fd(int c, int fd);
+size_t	ft_putlhexa_low_fd(unsigned long int nb, int fd);
+size_t	ft_putlhexa_up_fd(unsigned long int nb, int fd);
+size_t	ft_putlnbr_fd(int n, int fd);
+size_t	ft_putlunbr_fd(unsigned int n, int fd);
+size_t	ft_putlpoint_fd(void *p, int fd);
+size_t	ft_putlstr_fd(char *s, int fd);
+
 size_t	ft_putlchar(int c);
 size_t	ft_putlhexa_low(unsigned long int nb);
 size_t	ft_putlhexa_up(unsigned long int nb);
@@ -87,7 +97,9 @@ size_t	ft_putlpoint(void *p);
 size_t	ft_putlstr(char *s);
 size_t	ft_putmultstr(char **strs);
 size_t	ft_put_stack(t_stack *stack);
+
 int		ft_printf(const char *str, ...);
+int		ft_printf_fd(int fd, const char *str, ...);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

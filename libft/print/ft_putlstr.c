@@ -12,19 +12,24 @@
 
 #include "../libft.h"
 
-size_t	ft_putlstr(char *s)
+size_t	ft_putlstr_fd(char *s, int fd)
 {
 	size_t	i;
 
 	if (s == NULL)
 	{
-		(write(1, "(null)", 6));
+		(write(fd, "(null)", 6));
 		return (6);
 	}
 	i = 0;
 	if (!s)
 		return (0);
 	while (s[i])
-		i += ft_putlchar(s[i]);
+		i += ft_putlchar_fd(s[i], fd);
 	return (i);
+}
+
+size_t	ft_putlstr(char *s)
+{
+	return (ft_putlstr_fd(s, 1));
 }

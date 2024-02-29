@@ -12,8 +12,13 @@
 
 #include "../libft.h"
 
+size_t	ft_putlchar_fd(int c, int fd)
+{
+	write(fd, &c, 1);
+	return (1);
+}
+
 size_t	ft_putlchar(int c)
 {
-	write(1, &c, 1);
-	return (1);
+	return (ft_putlchar_fd(c, 1));
 }

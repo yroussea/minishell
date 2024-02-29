@@ -12,9 +12,15 @@
 
 #include "../libft.h"
 
-size_t	ft_putlpoint(void *p)
+size_t	ft_putlpoint_fd(void *p, int fd)
 {
 	if (p == 0)
-		return (ft_putlstr("(nil)"));
-	return (ft_putlstr("0x") + ft_putlhexa_low((unsigned long long)p));
+		return (ft_putlstr_fd("(nil)", fd));
+	return (ft_putlstr_fd("0x", fd) + \
+			ft_putlhexa_low_fd((unsigned long long)p, fd));
+}
+
+size_t	ft_putlpoint(void *p)
+{
+	return (ft_putlpoint_fd(p, 1));
 }
