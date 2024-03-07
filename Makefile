@@ -4,18 +4,16 @@ CC = $(SILENT)cc $(CFLAGS)
 CFLAGS = -Wall -Werror -Wextra -g
 
 
-SCRS_DIR = src
+SRCS_DIR = src
 OBJS_DIR = obj
-LIBFT_DIR = $(SCRS_DIR)/libft
+LIBFT_DIR = $(SRCS_DIR)/libft
 INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS_FILES = 							\
 	minishell.c
 
-SRCS = \
-	   $(SCRS_DIR)/minishell.c \
-	   $(SCRS_DIR)/test.c
-OBJS := $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
+SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
+OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))
 
 PROJECT = minishell
 NAME = minishell
@@ -48,7 +46,7 @@ $(NAME): $(OBJS) | $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_READY)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
+$(OBJS): $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_COMPILING)
 	$(CC) -c $< -o $@
