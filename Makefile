@@ -3,9 +3,19 @@ SILENT = @
 CC = $(SILENT)cc $(CFLAGS)
 CFLAGS = -Wall -Werror -Wextra -g
 
-SRCS = 							\
+
+SCRS_DIR = src
+OBJS_DIR = obj
+LIBFT_DIR = $(SCRS_DIR)/libft
+INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a
+
+SRCS_FILES = 							\
 	minishell.c
-OBJS = $(SRCS:.c=.o)
+
+SRCS = \
+	   $(SCRS_DIR)/minishell.c \
+	   $(SCRS_DIR)/test.c
+OBJS := $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
 PROJECT = minishell
 NAME = minishell
@@ -30,32 +40,33 @@ MSG_CLEANED = "$(COLOUR_RED)$(bold)[🗑️ ]$(PROJECT) $(notbold)$(COLOUR_YELLO
 MSG_COMPILING = "$(COLOUR_YELLOW)$(bold)[💧 Compiling 💧]$(notbold)$(COLOUR_YELLOW) $(^)$(NO_COLOR)";
 MSG_READY = "$(PROJET_EMOJY) $(COLOUR_BLUE)$(bold)$(PROJECT) $(COLOUR_GREEN)$(bold)ready$(NO_COLOR)\n";
 
-INCLUDE_LIBFT = -L ./libft -lft 
-
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -s -C libft
-	$(CC) $(OBJS) -o $(NAME) $(INCLUDE_LIBFT)
+$(NAME): $(OBJS) | $(OBJS_DIR)
+	@make -s -C $(LIBFT_DIR)
+	$(CC) $^ -o $@ $(INCLUDE_LIBFT)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_READY)
 
-%.o: %.c
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_COMPILING)
-	$(CC) -c $^ -o $@
+	$(CC) -c $< -o $@
+
+$(OBJS_DIR):
+	$(SILENT)mkdir -p $@
 
 clean:
-	@make clean -s -C libft
+	@make clean -s -C $(LIBFT_DIR) 
 	$(PRINT) $(MSG_CLEANING)
-	$(RM) $(OBJS)
+	$(RM) $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_CLEANED)
 
 fclean:
-	@make fclean -s -C libft
+	@make fclean -s -C $(LIBFT_DIR)
 	$(PRINT) $(MSG_CLEANING)
-	$(RM) $(OBJS)
+	$(RM) $(OBJS_DIR)
 	$(RM) $(NAME)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_CLEANED)
