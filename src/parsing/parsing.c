@@ -6,13 +6,13 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/11 17:33:36 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:35:00 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_lst	*parsing(char *line)
+t_lst_cmd	*parsing(char *line)
 {
 	(void)line;
 	return (NULL);

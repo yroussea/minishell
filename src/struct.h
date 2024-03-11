@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/11 15:16:45 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:34:13 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,17 @@ typedef enum s_type_of_node
 	OR,
 }			t_type_of_node;
 
-typedef struct s_lst
+typedef struct s_lst_cmd
 {
-	t_type_of_node	type;
-	char			**cmd;
-	struct s_lst	*next;
-}				t_lst;
+	t_type_of_node		type;
+	char				**cmd;
+	struct s_lst_cmd	*next;
+}				t_lst_cmd;
+
+typedef struct s_lst_envp
+{
+	char				*variable;
+	struct s_lst_envp	*next;
+}				t_lst_envp;
 
 #endif
