@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yroussea <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 13:06:11 by yroussea          #+#    #+#              #
-#    Updated: 2024/01/16 10:18:18 by yroussea         ###   ########.fr        #
+#    Updated: 2024/03/11 14:01:41 by yroussea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS = \
 	mem/ft_memset.c				\
 	mem/magic_free.c			\
 	print/ft_printf.c			\
+	print/ft_printf_fd.c		\
 	print/ft_putchar_fd.c		\
 	print/ft_putendl_fd.c		\
 	print/ft_putlchar.c			\

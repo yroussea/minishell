@@ -10,7 +10,8 @@ LIBFT_DIR = $(SRCS_DIR)/libft
 INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS_FILES = 							\
-	minishell.c
+	minishell.c							\
+	utils/better_fnct.c
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))
@@ -47,6 +48,7 @@ $(NAME): $(OBJS) | $(OBJS_DIR)
 	$(PRINT) $(MSG_READY)
 
 $(OBJS): $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
+	@mkdir -p $(@D)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_COMPILING)
 	$(CC) -c $< -o $@
