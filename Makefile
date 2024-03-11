@@ -11,7 +11,9 @@ INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a -lreadline
 
 SRCS_FILES = 							\
 	minishell.c							\
-	utils/better_fnct.c
+	utils/better_fnct.c					\
+	parting/parting.c					\
+	exec/utils/print_lst_tree.c			\
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))
