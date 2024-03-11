@@ -14,6 +14,8 @@ SRCS_FILES = 							\
 	utils/better_fnct.c					\
 	parsing/parsing.c					\
 	exec/utils/print_lst_tree.c			\
+	utils/lst/lst_envp.c				
+
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))
