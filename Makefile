@@ -42,7 +42,7 @@ MSG_READY = "$(PROJET_EMOJY) $(COLOUR_BLUE)$(bold)$(PROJECT) $(COLOUR_GREEN)$(bo
 all: $(NAME)
 
 $(NAME): $(OBJS) | $(OBJS_DIR)
-	@make -s -C $(LIBFT_DIR)
+	@make -s -j -C $(LIBFT_DIR)
 	$(CC) $^ -o $@ $(INCLUDE_LIBFT)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_READY)
@@ -57,14 +57,14 @@ $(OBJS_DIR):
 	$(SILENT)mkdir -p $@
 
 clean:
-	@make clean -s -C $(LIBFT_DIR) 
+	@make clean -s -j -C $(LIBFT_DIR) 
 	$(PRINT) $(MSG_CLEANING)
 	$(RM) $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_CLEANED)
 
 fclean:
-	@make fclean -s -C $(LIBFT_DIR)
+	@make fclean -s -j -C $(LIBFT_DIR)
 	$(PRINT) $(MSG_CLEANING)
 	$(RM) $(OBJS_DIR)
 	$(RM) $(NAME)
