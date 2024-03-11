@@ -12,7 +12,7 @@ INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a -lreadline
 SRCS_FILES = 							\
 	minishell.c							\
 	utils/better_fnct.c					\
-	parting/parting.c					\
+	parsing/parsing.c					\
 	exec/utils/print_lst_tree.c			\
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))

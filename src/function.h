@@ -18,7 +18,7 @@ t_bool	ft_dup2(int first_fd, int second_fd);
 t_bool	ft_pipe(int fd_pipe[2]);
 int		ft_fork(void);
 
-t_lst	*parting(char *line);
+t_lst	*parsing(char *line);
 void	ft_print_lst(int fd, t_lst *lst);
 
 #endif
