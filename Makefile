@@ -17,6 +17,7 @@ SRCS_FILES = 							\
 	exec/utils/print_lst_tree.c			\
 	utils/lst/lst_envp.c				\
 	utils/lst/utils_lst_envp.c			\
+	utils/lst/lst_cmd.c					
 
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
