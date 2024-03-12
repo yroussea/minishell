@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: bastienverdier-vaissiere <bastienverdie    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/12 23:15:33 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:35:52 by bastienverd      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*replace(char *str, char *search, char *replace)
+char *replace(char *str, char *search, char *replace)
 {
-	char	*tmp;
-	t_bool	find;
+	char *tmp;
+	t_bool find;
 
 	find = FALSE;
 	while (str && search && *str && *search && *str == *search)
@@ -33,10 +33,10 @@ char	*replace(char *str, char *search, char *replace)
 		return (str);
 }
 
-char	*get_logo(t_lst_envp *lst_envp)
+char *get_logo(t_lst_envp *lst_envp)
 {
-	int		os;
-	char	*logo;
+	int os;
+	char *logo;
 
 	os = get_os(lst_envp);
 	if (os == 0)
@@ -50,10 +50,10 @@ char	*get_logo(t_lst_envp *lst_envp)
 	return (logo);
 }
 
-char	*smaller_pwd(char *pwd)
+char *smaller_pwd(char *pwd)
 {
-	char	*res;
-	char	*rchr;
+	char *res;
+	char *rchr;
 
 	res = ft_strdup(pwd);
 	if (!res)
@@ -68,11 +68,11 @@ char	*smaller_pwd(char *pwd)
 	return (res);
 }
 
-void	get_branch(char **branch, char *config_file)
+void get_branch(char **branch, char *config_file)
 {
-	char	*line;
-	int		fd;
-	char	*tmp;
+	char *line;
+	int fd;
+	char *tmp;
 
 	fd = open(config_file, 0);
 	line = get_next_line(fd);
@@ -82,7 +82,7 @@ void	get_branch(char **branch, char *config_file)
 		{
 			tmp = ft_strchr(line, '"');
 			if (!tmp)
-				continue ;
+				continue;
 			*branch = ft_strdup(tmp + 1);
 			*ft_strrchr(*branch, '"') = 0;
 		}
@@ -93,11 +93,11 @@ void	get_branch(char **branch, char *config_file)
 	close(fd);
 }
 
-t_bool	is_git_file(char *pwd, char **branch)
+t_bool is_git_file(char *pwd, char **branch)
 {
-	char	*join;
-	int		access_git;
-	char	*smal_pwd;
+	char *join;
+	int access_git;
+	char *smal_pwd;
 
 	if (!pwd)
 		return (FALSE);
@@ -116,27 +116,23 @@ t_bool	is_git_file(char *pwd, char **branch)
 	return (access_git);
 }
 
-char	*get_prompt(t_lst_envp *lst_envp)
+char *get_prompt(t_lst_envp *lst_envp, char *prompt)
 {
-	char	*pwd;
-	char	*new_pwd;
-	char	*prompt;
-	char	*home;
-	char	*logo;
+	char *pwd;
+	char *new_pwd;
+	char *home;
+	char *logo;
+	char *branch = NULL;
 
 	logo = get_logo(lst_envp);
 	pwd = get_envp_variable(lst_envp, "PWD");
-
-	char	*branch = NULL;
 	is_git_file(pwd, &branch);
-	ft_printf("%s", branch);
-	free(branch);
-
 	home = get_envp_variable(lst_envp, "HOME");
 	new_pwd = replace(pwd, home, "~");
-	prompt = ft_vjoin(16, "", GREY, BORDER_TOP, " ", DEFAULT, logo, " | ", GREEN, \
-		"petite-coquille: ", DEFAULT, FOLDER, " ", CYAN, new_pwd, GREY, \
-		BORDER_BOT, DEFAULT);
+	prompt = ft_vjoin(25, "", GREY, BORDER_TOP, " ", DEFAULT, logo, " | ", GREEN,
+					  "petite-coquille: ", DEFAULT, FOLDER, " ", CYAN, new_pwd, DEFAULT, " | ", GREEN, GIT, " ", BRANCH, " ", branch, " ", GREY,
+					  BORDER_BOT, DEFAULT);
+	free(branch);
 	free(pwd);
 	free(logo);
 	free(new_pwd);

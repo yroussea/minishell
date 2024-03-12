@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: bastienverdier-vaissiere <bastienverdie    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:12:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 20:10:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:35:30 by bastienverd      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		**get_all_path(t_lst_envp *lst_envp);
 char		*get_envp_variable(t_lst_envp *lst_envp, char *variable);
 int			get_os(t_lst_envp *lst_envp);
 
-char		*get_prompt(t_lst_envp	*lst_envp);
+char		*get_prompt(t_lst_envp	*lst_envp, char *prompt);
 
 
 t_lst_cmd	*init_node_cmd(char **s, t_type_of_node type);

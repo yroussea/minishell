@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bastienverdier-vaissiere <bastienverdie    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 20:52:51 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:27:09 by bastienverd      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@
 # define WINDOWS "\uF17A"
 # define FOLDER "\uF07C"
 # define NO_OS "\uF015"
+
+# define GIT "\uF113"
+# define BRANCH "\uF126"
+# define UNTRACKED "\uF128"
 
 # define BORDER_TOP "\u256D\u2574"
 # define BORDER_BOT "\n\u2570\u2574"
