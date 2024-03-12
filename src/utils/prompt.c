@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/12 21:05:30 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:44:58 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,6 @@ char	*replace(char *str, char *search, char *replace)
 		return (str);
 }
 
-char	*ft_strdel_last(char *str)
-{
-	char	*tmp;
-	size_t	i;
-
-	tmp = "";
-	i = 0;
-	while (i < ft_strlen(str) - 1)
-	{
-		tmp[i] = str[i];
-		i++;
-	}
-	return (tmp);
-}
-
 char	*get_logo(t_lst_envp *lst_envp)
 {
 	int		os;
@@ -65,6 +50,67 @@ char	*get_logo(t_lst_envp *lst_envp)
 	return (logo);
 }
 
+char	*smaller_pwd(char *pwd)
+{
+	char	*res;
+	char	*rchr;
+
+	res = ft_strdup(pwd);
+	if  (!res)
+		return (NULL);
+	rchr = ft_strrchr(res, '/');
+	if (!rchr || !res)
+	{
+		free(res);
+		return (NULL);
+	}
+	*rchr = 0;
+	return (res);
+}
+
+void	get_branch(char **branch, char *config_file)
+{
+	char	*line;
+	int		fd;
+
+	fd = open(config_file, 0);
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (!*branch && ft_strnstr(line, "branch", ft_strlen(line)))
+		{
+			*branch = ft_strdup(ft_strchr(line, '"'));
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+}
+
+t_bool	is_git_file(char *pwd, char **branch)
+{
+	char	*join;
+	int		access_git;
+	char	*smal_pwd;
+
+	if (!pwd)
+		return (FALSE);
+	join = ft_vjoin(2, "/", pwd, ".git/config");
+	access_git = access(join, R_OK) + 1;
+	if (access_git == TRUE)
+	{
+		get_branch(branch, join);
+		free(join);
+		return  (TRUE);
+	}
+	free(join);
+	smal_pwd = smaller_pwd(pwd);
+	access_git = is_git_file(smal_pwd, branch);
+	free(smal_pwd);
+	return (access_git);
+}
+
 char	*get_prompt(t_lst_envp	*lst_envp)
 {
 	char	*pwd;
@@ -76,6 +122,12 @@ char	*get_prompt(t_lst_envp	*lst_envp)
 
 	logo = get_logo(lst_envp);
 	pwd = get_envp_variable(lst_envp, "PWD");
+
+	char	*branch = NULL;
+	is_git_file(pwd, &branch);
+	ft_printf("%s", branch);
+	free(branch);
+
 	home = get_envp_variable(lst_envp, "HOME");
 	new_pwd = replace(pwd, home, "~");
 	prompt = ft_vjoin(16, "", GREY, BORDER_TOP, " ", DEFAULT, logo, " | ", GREEN, \
