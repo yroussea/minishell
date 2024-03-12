@@ -6,11 +6,24 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 17:37:40 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:09:52 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	get_os(t_lst_envp *lst_envp)
+{
+	while (lst_envp)
+	{
+		if (ft_strnstr(lst_envp->value, "ubuntu", ft_strlen(lst_envp->value)))
+			return (1);
+		if (ft_strnstr(lst_envp->value, "Apple", ft_strlen(lst_envp->value)))
+			return (2);
+		lst_envp = lst_envp->next;
+	}
+	return (0);
+}
 
 int	envp_lst_len(t_lst_envp *lst_envp)
 {
