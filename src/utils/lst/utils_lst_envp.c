@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 17:01:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:37:40 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ char	**envp_to_char(t_lst_envp *lst_envp)
 		i += 1;
 	}
 	return (envp);
+}
+
+char	*get_envp_variable(t_lst_envp *lst_envp, char *variable)
+{
+	while (lst_envp)
+	{
+		if (ft_strncmp(lst_envp->key, variable, ft_strlen(variable) + 1) == 0)
+			return (ft_strdup(lst_envp->value));
+		lst_envp = lst_envp->next;
+	}
+	return (NULL);
 }
 
 char	**get_all_path(t_lst_envp *lst_envp)
