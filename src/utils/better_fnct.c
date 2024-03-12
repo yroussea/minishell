@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/11 15:18:57 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:15:28 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_bool	ft_close(int nb, ...)
 {
-	va_list args;
+	va_list	args;
 	int		error;
 	int		fd;
 

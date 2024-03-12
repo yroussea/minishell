@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/11 19:34:13 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:01:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ typedef struct s_lst_cmd
 
 typedef struct s_lst_envp
 {
-	char				*variable;
+	char				*key;
+	char				*value;
 	struct s_lst_envp	*next;
 }				t_lst_envp;
 

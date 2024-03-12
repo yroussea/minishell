@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:31:20 by yroussea          #+#    #+#             */
-/*   Updated: 2023/11/29 10:10:53 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:57:06 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	*ft_memset(void *s, int c, size_t n);
 
 void	ft_magic_free(char *str, ...);
 
+int		ft_char_in_str(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
@@ -70,6 +71,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 void	ft_free_split(char **result);
 char	**ft_split(char const *s, char c);
 char	**ft_split_charset(char const *s, char *charset);
+char	**ft_split_first_sep(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_vjoin(size_t nb_str, char *sep, ...);

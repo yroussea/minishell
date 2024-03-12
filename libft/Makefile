@@ -6,7 +6,7 @@
 #    By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 13:06:11 by yroussea          #+#    #+#              #
-#    Updated: 2024/03/11 14:01:41 by yroussea         ###   ########.fr        #
+#    Updated: 2024/03/12 14:57:23 by yroussea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS = \
 	print/ft_putstack.c			\
 	str/ft_split.c				\
 	str/ft_split_charset.c		\
+	str/ft_split_first_sep.c	\
 	str/ft_strchr.c				\
 	str/ft_strdup.c				\
 	str/ft_striteri.c			\
