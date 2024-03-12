@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 18:48:17 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:13:49 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,13 @@ t_lst_cmd	*parsing(char *line)
 	while (args && args[i])
 	{
 		type = get_type(args[i]);
-		if (!ft_lst_cmd_add(lst_cmd, unzoom(args[i]), type))
+		if (!ft_lst_cmd_add(&lst_cmd, unzoom(args[i]), type))
 		{
 			ft_magic_free("%2 %1", args, line);
 			return (NULL);
 		}
 		i += 1;
 	}
-	free(line);
-	free(args);
+	ft_magic_free("%2 %1", args, line);
 	return (lst_cmd);
 }

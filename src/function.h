@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:12:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 18:36:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:13:41 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char		*get_prompt(t_lst_envp	*lst_envp);
 
 t_lst_cmd	*init_node_cmd(char **s, t_type_of_node type);
 void		ft_lst_cmd_free(t_lst_cmd *lst);
-t_bool		ft_lst_cmd_add(t_lst_cmd *lst, char **s, t_type_of_node type);
+t_bool		ft_lst_cmd_add(t_lst_cmd **lst, char **s, t_type_of_node type);
 void		lst_cmd_add_back(t_lst_cmd **lst, t_lst_cmd *new);
 
 #endif

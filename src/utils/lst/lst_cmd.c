@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:06:16 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 18:48:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:13:30 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ void	lst_cmd_add_back(t_lst_cmd **lst, t_lst_cmd *new)
 		lst_cmd_add_back(&(*lst)->next, new);
 }
 
-t_bool	ft_lst_cmd_add(t_lst_cmd *lst, char **s, t_type_of_node type)
+t_bool	ft_lst_cmd_add(t_lst_cmd **lst, char **s, t_type_of_node type)
 {
 	t_lst_cmd	*tmp;
 
 	if (!s || !*s)
 	{
-		ft_lst_cmd_free(lst);
+		ft_lst_cmd_free(*lst);
 		return (FALSE);
 	}
 	tmp = init_node_cmd(s, type);
 	if (!tmp)
 	{
-		ft_lst_cmd_free(lst);
+		ft_lst_cmd_free(*lst);
 		return (FALSE);
 	}
-	lst_cmd_add_back(&lst, tmp);
+	lst_cmd_add_back(lst, tmp);
 	return (TRUE);
 }
 
@@ -46,6 +46,7 @@ void	ft_lst_cmd_free(t_lst_cmd *lst)
 	while (lst)
 	{
 		tmp = lst;
+		ft_magic_free("%2", lst->cmd);
 		lst = lst->next;
 		free(tmp);
 	}

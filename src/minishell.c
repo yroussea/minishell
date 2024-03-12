@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 18:30:50 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:03:23 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		lst_line = parsing(line);
 		ft_print_lst(2, lst_line);
-		free_lst_envp(lst_envp);
-		free(line);
+		ft_lst_cmd_free(lst_line);
 	}
 	free(prompt);
 	free_lst_envp(lst_envp);
