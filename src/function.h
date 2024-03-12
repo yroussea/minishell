@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:12:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 17:32:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:08:23 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int			envp_lst_len(t_lst_envp *lst_envp);
 char		**envp_to_char(t_lst_envp *lst_envp);
 char		**get_all_path(t_lst_envp *lst_envp);
 char		*get_envp_variable(t_lst_envp *lst_envp, char *variable);
+
+char		*get_prompt(t_lst_envp	*lst_envp);
 
 #endif

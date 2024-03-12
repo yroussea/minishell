@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 17:39:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:30:50 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,31 @@ int	main(int argc, char **argv, char **envp)
 	t_lst_cmd	*lst_line;
 	char		*line;
 	t_lst_envp	*lst_envp;
+	char		*prompt;
 
 	if (argc != 1)
 		return (1);
 	lst_envp = init_lst_envp(envp);
 	//ft_printf("%S", get_all_path(lst_envp));
 
+	prompt = get_prompt(lst_envp);
+
 	while (1)
 	{
-		line = readline(get_envp_variable(lst_envp, "PWD"));
+		line = readline(prompt);
+		if (ft_strncmp(line, "exit", 5) == 0)
+		{
+			free(prompt);
+			free_lst_envp(lst_envp);
+			free(line);
+			return (0);
+		}
 		lst_line = parsing(line);
 		ft_print_lst(2, lst_line);
+		free_lst_envp(lst_envp);
 		free(line);
 	}
-
+	free(prompt);
 	free_lst_envp(lst_envp);
 	(void)argc;
 	(void)argv;
