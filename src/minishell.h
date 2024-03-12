@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 19:19:22 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:52:51 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
 # define DEFAULT "\033[m"
 # define BLACK "\e[0;30m"
@@ -30,6 +31,13 @@
 # define CYAN "\e[0;36m"
 # define WHITE "\e[0;37m"
 # define GREY "\e[0;90m"
+
+# define LNX "\uF17C"
+# define APPLE "\uF179"
+# define UBUNTU "\uF31b"
+# define WINDOWS "\uF17A"
+# define FOLDER "\uF07C"
+# define NO_OS "\uF015"
 
 # define BORDER_TOP "\u256D\u2574"
 # define BORDER_BOT "\n\u2570\u2574"

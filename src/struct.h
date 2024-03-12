@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 18:32:36 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:50:44 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ typedef struct s_lst_envp
 	char				*value;
 	struct s_lst_envp	*next;
 }				t_lst_envp;
+
 
 #endif
