@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 19:03:23 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:44:57 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (1);
 	lst_envp = init_lst_envp(envp);
-	//ft_printf("%S", get_all_path(lst_envp));
-
 	prompt = get_prompt(lst_envp);
 
 	while (1)

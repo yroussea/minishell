@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:13:58 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 15:14:00 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:44:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static size_t	ft_format_fd(const char c, va_list args, int fd)
 	if (c == 'p')
 		return (ft_putlpoint_fd(va_arg(args, void *), fd));
 	if (!c)
-		return (-1);
+		return (0);
 	return (ft_putlchar_fd('%', fd) + ft_putlchar_fd(c, fd));
 }
 
@@ -49,7 +49,7 @@ int	ft_printf_fd(int fd, const char *str, ...)
 	while (str && *str)
 	{
 		if (*str == '%')
-			len += ft_format_fd(*(str + 1), args, fd);
+			len += ft_format_fd(*(++str), args, fd);
 		else
 			len += ft_putlchar_fd(*str, fd);
 		str += 1;
