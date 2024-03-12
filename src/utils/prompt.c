@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/12 18:17:26 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:52:05 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_prompt(t_lst_envp	*lst_envp)
 	pwd = get_envp_variable(lst_envp, "PWD");
 	home = get_envp_variable(lst_envp, "HOME");
 	pwd = replace(pwd, home, "~");
-	prompt = ft_vjoin(3, "", "petite-coquille:", pwd, "\n >");
+	prompt = ft_vjoin(11, "", GREY, "╭─", GREEN, " petite-coquille:", CYAN, pwd, GREY, "\n╰─ ", MAGENTA, "> ", DEFAULT);
 	free(pwd);
 	return (prompt);
 }
