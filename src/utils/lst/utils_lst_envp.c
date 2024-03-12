@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 16:58:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:01:28 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ char	**envp_to_char(t_lst_envp *lst_envp)
 	while (envp && lst_envp)
 	{
 		envp[i] = ft_vjoin(2, "=", lst_envp->key, lst_envp->value);
+		if (!envp[i])
+		{
+			ft_magic_free("%2", envp);
+			return (NULL);
+		}
 		lst_envp = lst_envp->next;
 		i += 1;
 	}
