@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/12 22:44:58 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:15:33 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_logo(t_lst_envp *lst_envp)
 {
 	int		os;
 	char	*logo;
-	
+
 	os = get_os(lst_envp);
 	if (os == 0)
 		logo = ft_strdup(LNX);
@@ -56,7 +56,7 @@ char	*smaller_pwd(char *pwd)
 	char	*rchr;
 
 	res = ft_strdup(pwd);
-	if  (!res)
+	if (!res)
 		return (NULL);
 	rchr = ft_strrchr(res, '/');
 	if (!rchr || !res)
@@ -72,6 +72,7 @@ void	get_branch(char **branch, char *config_file)
 {
 	char	*line;
 	int		fd;
+	char	*tmp;
 
 	fd = open(config_file, 0);
 	line = get_next_line(fd);
@@ -79,7 +80,11 @@ void	get_branch(char **branch, char *config_file)
 	{
 		if (!*branch && ft_strnstr(line, "branch", ft_strlen(line)))
 		{
-			*branch = ft_strdup(ft_strchr(line, '"'));
+			tmp = ft_strchr(line, '"');
+			if (!tmp)
+				continue ;
+			*branch = ft_strdup(tmp + 1);
+			*ft_strrchr(*branch, '"') = 0;
 		}
 		free(line);
 		line = get_next_line(fd);
@@ -102,7 +107,7 @@ t_bool	is_git_file(char *pwd, char **branch)
 	{
 		get_branch(branch, join);
 		free(join);
-		return  (TRUE);
+		return (TRUE);
 	}
 	free(join);
 	smal_pwd = smaller_pwd(pwd);
@@ -111,14 +116,13 @@ t_bool	is_git_file(char *pwd, char **branch)
 	return (access_git);
 }
 
-char	*get_prompt(t_lst_envp	*lst_envp)
+char	*get_prompt(t_lst_envp *lst_envp)
 {
 	char	*pwd;
 	char	*new_pwd;
 	char	*prompt;
 	char	*home;
 	char	*logo;
-
 
 	logo = get_logo(lst_envp);
 	pwd = get_envp_variable(lst_envp, "PWD");
