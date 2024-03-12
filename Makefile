@@ -6,7 +6,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS_DIR = src
 OBJS_DIR = obj
-LIBFT_DIR = $(SRCS_DIR)/libft
+LIBFT_DIR = libft
 INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a -lreadline
 
 SRCS_FILES = 							\
