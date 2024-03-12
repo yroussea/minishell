@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 18:53:22 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:19:22 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,9 @@
 # define CYAN "\e[0;36m"
 # define WHITE "\e[0;37m"
 # define GREY "\e[0;90m"
+
+# define BORDER_TOP "\u256D\u2574"
+# define BORDER_BOT "\n\u2570\u2574"
+
 
 #endif

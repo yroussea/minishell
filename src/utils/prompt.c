@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/12 18:52:05 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:19:16 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ char	*replace(char *str, char *search, char *replace)
 char	*get_prompt(t_lst_envp	*lst_envp)
 {
 	char	*pwd;
+	char	*new_pwd;
 	char	*prompt;
 	char	*home;
 
 	pwd = get_envp_variable(lst_envp, "PWD");
 	home = get_envp_variable(lst_envp, "HOME");
-	pwd = replace(pwd, home, "~");
-	prompt = ft_vjoin(11, "", GREY, "╭─", GREEN, " petite-coquille:", CYAN, pwd, GREY, "\n╰─ ", MAGENTA, "> ", DEFAULT);
+	new_pwd = replace(pwd, home, "~");
+	prompt = ft_vjoin(9, "", GREY, BORDER_TOP, GREEN, " petite-coquille: | ", \
+		CYAN, new_pwd, GREY, BORDER_BOT, DEFAULT);
 	free(pwd);
+	free(new_pwd);
+	if (home)
+		free(home);
 	return (prompt);
 }
