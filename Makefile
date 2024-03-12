@@ -41,6 +41,7 @@ PRINT = $(SILENT) printf "\r%b"
 
 MSG_CLEANING = "$(COLOUR_RED)$(bold)🧹cleaning $(notbold)$(COLOUR_YELLOW)$(PROJECT)$(NO_COLOR)";
 MSG_CLEANED = "$(COLOUR_RED)$(bold)[🗑️ ]$(PROJECT) $(notbold)$(COLOUR_YELLOW)cleaned $(NO_COLOR)\n";
+MSG_TOTALY_CLEANED = "$(COLOUR_RED)$(bold)[🗑️ ]$(PROJECT) $(notbold)$(COLOUR_YELLOW)is totaly cleaned $(NO_COLOR)\n";
 MSG_COMPILING = "$(COLOUR_YELLOW)$(bold)[💧 Compiling 💧]$(notbold)$(COLOUR_YELLOW) $(^)$(NO_COLOR)";
 MSG_READY = "$(PROJET_EMOJY) $(COLOUR_BLUE)$(bold)$(PROJECT) $(COLOUR_GREEN)$(bold)ready$(NO_COLOR)\n";
 
@@ -64,6 +65,7 @@ $(OBJS_DIR):
 clean:
 	@make clean -s -j -C $(LIBFT_DIR) 
 	$(PRINT) $(MSG_CLEANING)
+	@sleep 0.3
 	$(RM) $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_CLEANED)
@@ -71,10 +73,11 @@ clean:
 fclean:
 	@make fclean -s -j -C $(LIBFT_DIR)
 	$(PRINT) $(MSG_CLEANING)
+	@sleep 0.3
 	$(RM) $(OBJS_DIR)
 	$(RM) $(NAME)
 	$(DELET_LINE)
-	$(PRINT) $(MSG_CLEANED)
+	$(PRINT) $(MSG_TOTALY_CLEANED)
 
 re: fclean all
 

@@ -3,17 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+         #
+#    By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 13:06:11 by yroussea          #+#    #+#              #
-#    Updated: 2024/03/12 14:57:23 by yroussea         ###   ########.fr        #
+#    Updated: 2024/03/12 17:10:45 by basverdi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra
-SRCS = \
-	char/ft_isalnum.c			\
+PROJECT = ft_libft
+NAME = libft.a
+PROJET_EMOJY = 📚
+CC = $(SILENT)cc $(CFLAGS)
+CFLAGS = -Wall -Wextra -Werror
+
+OBJS_DIR = obj
+
+SRCS_FILES = char/ft_isalnum.c			\
 	char/ft_isalpha.c			\
 	char/ft_isascii.c			\
 	char/ft_isdigit.c			\
@@ -79,41 +84,61 @@ SRCS = \
 	maths/vmin_vmax.c 			\
 	maths/ft_abs.c
 
-OBJS = $(SRCS:.c=.o)
+SRCS = 	$(addprefix ./, $(SRCS_FILES))
+OBJS = $(subst ./,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))
 
-PROJECT = libft
-NAME = libft.a
-DIR_NAME = libf
+DELET_LINE = $(SILENT) echo -n "\033[2K";
+RM = $(SILENT) rm -rf
 
+SILENT = @
 COLOUR_GREEN=\033[0;32m
 COLOUR_RED=\033[0;31m
+COLOUR_PURPULE = \033[38;5;197m
 COLOUR_BLUE=\033[0;34m
 COLOUR_YELLOW=\033[0;33m
-NO_COLOR    = \033[m
+NO_COLOR=\033[m
+
 bold := $(shell tput bold)
 notbold := $(shell tput sgr0)
 
+PRINT = $(SILENT) printf "\r%b"
+
+MSG_CLEANING = "$(COLOUR_RED)$(bold)🧹cleaning $(notbold)$(COLOUR_YELLOW)$(PROJECT)$(NO_COLOR)";
+MSG_CLEANED = "$(COLOUR_RED)$(bold)[🗑️ ]$(PROJECT) $(notbold)$(COLOUR_YELLOW)cleaned $(NO_COLOR)\n";
+MSG_TOTALY_CLEANED = "$(COLOUR_RED)$(bold)[🗑️ ]$(PROJECT) $(notbold)$(COLOUR_YELLOW)is totaly cleaned $(NO_COLOR)\n";
+MSG_COMPILING = "$(COLOUR_YELLOW)$(bold)[🔥 Compiling 🔥]$(notbold)$(COLOUR_YELLOW) $(^)$(NO_COLOR)";
+MSG_READY = "$(PROJET_EMOJY) $(COLOUR_BLUE)$(bold)$(PROJECT) $(COLOUR_GREEN)$(bold)ready$(NO_COLOR)\n";
+
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@printf "\r%b" "$(COLOUR_GREEN)Compiling $(PROJECT)$(NO_COLOR)";
+$(NAME): $(OBJS) | $(OBJS_DIR)
 	@ar rcs $(NAME) $(OBJS)
-	@echo -n "\033[2K";
-	@printf "\r%b" "🌟 $(COLOUR_BLUE)$(bold)$(PROJECT) $(COLOUR_GREEN)$(bold)ready$(NO_COLOR)\n";
+	$(DELET_LINE)
+	$(PRINT) $(MSG_READY)
 
-%.o: %.c
-	@echo -n "\033[2K";
-	@printf "\r%b" "$(COLOUR_YELLOW)$(bold)[🔥 Compiling 🔥]$(notbold)$(COLOUR_YELLOW) $(DIR_NAME)/$(^)$(NO_COLOR)";
-	@$(CC) $(CFLAGS) -c $^ -o $@
+$(OBJS): $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	@mkdir -p $(@D)
+	$(DELET_LINE)
+	$(PRINT) $(MSG_COMPILING)
+	$(CC) -c $< -o $@
+
+$(OBJS_DIR):
+	$(SILENT)mkdir -p $@
 
 clean:
-	@printf "\r%b" "$(COLOUR_RED)$(bold)🧹cleaning $(notbold)$(COLOUR_YELLOW)$(PROJECT)$(NO_COLOR)";
-	@rm -rf $(OBJS) $(OBJS_BONUS)
-	@echo -n "\033[2K"
-	@printf "\r%b" "$(COLOUR_RED)$(bold)[🗑️ ]$(PROJECT) $(notbold)$(COLOUR_YELLOW)cleaned $(NO_COLOR)\n";
+	$(PRINT) $(MSG_CLEANING)
+	@sleep 0.3
+	$(RM) $(OBJS_DIR)
+	$(DELET_LINE)
+	$(PRINT) $(MSG_CLEANED)
 
-fclean: clean
-	@rm -rf $(NAME)
+fclean:
+	$(PRINT) $(MSG_CLEANING)
+	@sleep 0.3
+	$(RM) $(OBJS_DIR)
+	$(RM) $(NAME)
+	$(DELET_LINE)
+	$(PRINT) $(MSG_TOTALY_CLEANED)
 
 re: fclean all
 
