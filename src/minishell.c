@@ -6,11 +6,12 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 15:13:00 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:43:17 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,13 +25,9 @@ int	main(int argc, char **argv, char **envp)
 	free(line);
 	lst_envp = init_lst_envp(envp);
 
-	t_lst_envp *tmp = lst_envp;
-	while (lst_envp)
-	{
-		ft_printf("%s = %s\n", lst_envp->key, lst_envp->value);
-		lst_envp = lst_envp->next;
-	}
-	free_lst_envp(tmp);
+	char	**en = envp_to_char(lst_envp);
+	ft_printf("%S", en);
+	free_lst_envp(lst_envp);
 
 	(void)argc;
 	(void)argv;

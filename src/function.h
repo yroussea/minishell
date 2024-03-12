@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:12:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 15:12:20 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:34:27 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ void		lst_envp_add_order(t_lst_envp **lst_envp, t_lst_envp *new, \
 		size_t len);
 void		free_lst_envp(t_lst_envp *lst_envp);
 t_lst_envp	*init_node_envp(char *key, char *value);
+int			envp_lst_len(t_lst_envp *lst_envp);
+char		**envp_to_char(t_lst_envp *lst_envp);
 
 #endif
