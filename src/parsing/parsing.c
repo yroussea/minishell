@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 19:51:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:02:33 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ t_lst_cmd	*parsing(char *line)
 		}
 		i += 1;
 	}
-	ft_magic_free("%2 %1", args, line);
+	ft_magic_free("%1 %2", line, args);
 	return (lst_cmd);
 }

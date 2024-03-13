@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:06:16 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 19:13:30 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:01:51 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_bool	ft_lst_cmd_add(t_lst_cmd **lst, char **s, t_type_of_node type)
 
 	if (!s || !*s)
 	{
+		ft_free_split(s);
 		ft_lst_cmd_free(*lst);
 		return (FALSE);
 	}
@@ -46,7 +47,7 @@ void	ft_lst_cmd_free(t_lst_cmd *lst)
 	while (lst)
 	{
 		tmp = lst;
-		ft_magic_free("%2", lst->cmd);
+		ft_free_split(lst->cmd);
 		lst = lst->next;
 		free(tmp);
 	}

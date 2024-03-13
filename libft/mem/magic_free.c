@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:13:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 15:13:46 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:07:17 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	ft_recur_free(int depth, void *alloc)
 	if (depth == 1)
 	{
 		free(alloc);
+		return ;
+	}
+	if (depth == 2)
+	{
+		ft_free_split(alloc);
 		return ;
 	}
 	while (alloc && *(char *)alloc)
