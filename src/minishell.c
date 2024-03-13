@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastienverdier-vaissiere <bastienverdie    +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 23:36:25 by bastienverd      ###   ########.fr       */
+/*   Updated: 2024/03/13 11:41:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_lst_cmd *lst_line;
-	char *line;
-	t_lst_envp *lst_envp;
-	char *prompt;
+	t_lst_cmd	*lst_line;
+	char		*line;
+	t_lst_envp	*lst_envp;
+	char		*prompt;
 
 	if (argc != 1)
 		return (1);
@@ -29,7 +29,7 @@ int main(int argc, char **argv, char **envp)
 		line = readline(prompt);
 		free(prompt);
 		if (line == NULL)
-			break;
+			break ;
 		if (ft_strncmp(line, "exit", 5) == 0)
 		{
 			free_lst_envp(lst_envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastienverdier-vaissiere <bastienverdie    +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:12:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 23:35:30 by bastienverd      ###   ########.fr       */
+/*   Updated: 2024/03/13 11:37:04 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		*get_envp_variable(t_lst_envp *lst_envp, char *variable);
 int			get_os(t_lst_envp *lst_envp);
 
 char		*get_prompt(t_lst_envp	*lst_envp, char *prompt);
-
+t_bool		is_git_file(char *pwd, char **branch);
 
 t_lst_cmd	*init_node_cmd(char **s, t_type_of_node type);
 void		ft_lst_cmd_free(t_lst_cmd *lst);

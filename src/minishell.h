@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastienverdier-vaissiere <bastienverdie    +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 23:27:09 by bastienverd      ###   ########.fr       */
+/*   Updated: 2024/03/13 11:42:38 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@
 
 # define BORDER_TOP "\u256D\u2574"
 # define BORDER_BOT "\n\u2570\u2574"
-
 
 #endif
