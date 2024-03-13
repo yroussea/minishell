@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 08:46:47 by yroussea          #+#    #+#             */
-/*   Updated: 2023/11/07 08:16:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:18:01 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,37 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		result[i + j] = s2[j];
 		j += 1;
 	}
+	return (result);
+}
+
+int	ft_str_str_len(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str && *str)
+	{
+		str += 1;
+		i += 1;
+	}
+	return (i);
+}
+
+char	**ft_str_realloc(char **str)
+{
+	int		i;
+	char	**result;
+
+	i = ft_str_str_len(str);
+	result = malloc((i + 2) * sizeof(char *));
+	i = 0;
+	while (str && str[i])
+	{
+		result[i] = ft_strdup(str[i]);
+		i += 1;
+	}
+	result[i] = NULL;
+	result[i + 1] = NULL;
+	ft_free_split(str);
 	return (result);
 }

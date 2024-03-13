@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 14:02:33 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:05:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,57 @@ char	**unzoom(char *s)
 	return (unzoomed);
 }
 
-t_lst_cmd	*parsing(char *line)
+int	get_successive_cmd(char ***cmd_and_arg, char **args)
 {
-	char			**args;
-	int				i;
-	t_lst_cmd		*lst_cmd;
-	t_type_of_node	type;
+	int		i;
+	char	**tmp;
 
 	i = 0;
-	lst_cmd = NULL;
-	args = split_line(line);
-	while (args && args[i])
+	tmp = NULL;
+	while (args && args[i] && get_type(args[i]) == CMD)
 	{
-		type = get_type(args[i]);
-		if (!ft_lst_cmd_add(&lst_cmd, unzoom(args[i]), type))
+		tmp = ft_str_realloc(tmp);
+		if (tmp)
+			tmp[ft_str_str_len(tmp)] = ft_strdup(args[i]);
+		else
 		{
-			ft_lst_cmd_free(lst_cmd);
-			ft_magic_free("%2 %1", args, line);
-			return (NULL);
+			i += 1;
+			break ;
 		}
 		i += 1;
 	}
+	*cmd_and_arg = tmp;
+	return (i);
+}
+
+void	test(char **args, t_lst_cmd **lst_cmd)
+{
+	int				i;
+	t_type_of_node	type;
+	char			**cmd_and_arg;
+
+	i = 0;
+	while (args && args[i])
+	{
+		type = get_type(args[i]);
+		cmd_and_arg = NULL;
+		if (type == CMD)
+			i += get_successive_cmd(&cmd_and_arg, args + i);
+		else
+			cmd_and_arg = unzoom(args[i++]);
+		if (!ft_lst_cmd_add(lst_cmd, cmd_and_arg, type))
+			*lst_cmd = NULL;
+	}
+}
+
+t_lst_cmd	*parsing(char *line)
+{
+	char			**args;
+	t_lst_cmd		*lst_cmd;
+
+	lst_cmd = NULL;
+	args = split_line(line);
+	test(args, &lst_cmd);
 	ft_magic_free("%1 %2", line, args);
 	return (lst_cmd);
 }

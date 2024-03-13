@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:31:20 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 14:57:06 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:25:00 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	**ft_str_realloc(char **str);
+int		ft_str_str_len(char **str);
 char	*ft_strtrim(char const *s1, char const *set);
 void	ft_free_split(char **result);
 char	**ft_split(char const *s, char c);
