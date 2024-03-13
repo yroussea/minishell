@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 11:57:07 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:27:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef enum s_bool
 	TRUE,
 }			t_bool;
 
+/*
+	commande, |, &&, ||, <<, <, >, >>, 2>
+*/
 typedef enum s_type_of_node
 {
 	NONE_TYPE = -1,
@@ -32,7 +35,11 @@ typedef enum s_type_of_node
 	PIPE,
 	AND,
 	OR,
-	FDS,
+	HEREDOC,
+	ADD,
+	DIRE_IN,
+	DIRE_OUT,
+	DIRE_TWO,
 }			t_type_of_node;
 
 typedef struct s_lst_cmd
