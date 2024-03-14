@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/14 19:53:17 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:20:34 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,6 @@ t_bool	ft_close(int nb, ...)
 		return (ERROR);
 	}
 	return (TRUE);
-}
-
-void	ft_free(int nb, ...)
-{
-	va_list	args;
-
-	va_start(args, nb);
-	while (nb--)
-	{
-		free(va_arg(args, char *));
-	}
 }
 
 t_bool	ft_dup2(int first_fd, int second_fd)

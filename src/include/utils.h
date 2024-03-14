@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/14 19:52:59 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:20:54 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
  * just better fonction
  */
 t_bool		ft_close(int nb, ...);
-void		ft_free(int nb, ...);
 t_bool		ft_dup2(int first_fd, int second_fd);
 t_bool		ft_pipe(int fd_pipe[2]);
 int			ft_fork(void);
