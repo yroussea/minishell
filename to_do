@@ -1,1 +1,28 @@
 thing to do: everything
+
+
+parsing:
+zsh:1: command not found: :wq
+separere la ligne par les opérateur ( && | || ; et parenthese ) 
+donc avoir une liste chainer comme ca:
+
+(cmd et redirection) -> (operateur) -> (cmd et redirection) ...
+
+les noeud opérateur on juste un type (et NULL comme argument char ** ainsi que comme redirection)
+
+les noeud cmd on une liste chainé de redirection (in/out/herdoc/out2)
+ainsi que un char ** qui contient le reste (commande et argument de commande)
+
+une fois la liste chainer faite, on virifie que tous les logique;
+
+on separe la liste en deux; (meme ordre) mais deux liste chainer, une avec les opérateurs l'autre avec les (cmds)
+
+on contruit les branches des arbres avec la premiere,
+(j ai les shema jcrois)
+
+puis les feuilles avec la seconde;
+-> a ce moment, ouvrir les redirections (fichier temp pour heredoc ect)
+
+->si deux noeuds pipe sont l'un au dessus de l'autre, les combiner en un pipex :)
+
+executer l'arbre bianire
