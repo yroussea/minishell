@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_lst_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 11:57:25 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:31:49 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_lst(int fd, t_lst_cmd *lst)
 {
-	static char	*type[5] = {"CMD", "PIPE", "AND", "OR", "FDS"};
+	static char	*type[11] = {"CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", "FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	while (lst)
 	{

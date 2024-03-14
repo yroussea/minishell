@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_envp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:44:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 15:10:55 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:26:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	lst_envp_add_order(t_lst_envp **lst_envp, t_lst_envp *new, size_t len)
 	else
 	{
 		new->next = (*lst_envp);
-		*lst_envp = new; 
+		*lst_envp = new;
 	}
 }
 

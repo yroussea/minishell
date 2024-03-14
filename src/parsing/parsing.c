@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 20:01:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:31:32 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ t_type_of_node	get_type(char *s)
 		return (HEREDOC);
 	if (ft_strncmp(s, "<", 2) == 0)
 		return (DIRE_IN);
+	if (ft_strncmp(s, "$", 1) == 0)
+		return (VARIABLE);
+	if (ft_strncmp(s, "-", 1) == 0)
+		return (FLAG);
 	return (CMD);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 19:27:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:31:04 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef enum s_type_of_node
 	DIRE_IN,
 	DIRE_OUT,
 	DIRE_TWO,
+	VARIABLE,
+	FLAG,
 }			t_type_of_node;
 
 typedef struct s_lst_cmd
