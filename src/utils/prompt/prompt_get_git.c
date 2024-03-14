@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_get_git.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:36:21 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 11:51:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:53:48 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*smaller_pwd(char *pwd)
 {
@@ -45,7 +45,8 @@ void	get_branch(char **branch, char *config_file)
 			tmp = ft_strchr(line, '"');
 			if (!tmp)
 				continue ;
-			*branch = ft_vjoin(5, " ", " |", GREEN, GIT, BRANCH, tmp + 1);
+			*branch = ft_vjoin(7, "", " | ", GREEN, GIT, " ", BRANCH, " ", \
+				tmp + 1);
 			if (*branch)
 				*ft_strrchr(*branch, '"') = 0;
 		}

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/13 11:48:21 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:51:48 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*replace(char *str, char *search, char *replace)
 {
@@ -64,13 +64,12 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 	is_git_file(pwd, &branch);
 	home = get_envp_variable(lst_envp, "HOME");
 	new_pwd = replace(pwd, home, "~");
-	prompt = ft_vjoin(19, "", GREY, BORDER_TOP, " ", DEFAULT, logo, " | ", \
-		GREEN, "petite-coquille: ", DEFAULT, FOLDER, " ", CYAN, \
-		new_pwd, DEFAULT, branch, " ", GREY, BORDER_BOT, DEFAULT);
-	free(branch);
-	free(pwd);
-	free(logo);
-	free(new_pwd);
+	prompt = ft_vjoin(19, "", GREY, BORDER_TOP, DEFAULTBG, logo, " | ", \
+		GREEN, "petite-coquille: ", CYAN, FOLDER, " ", new_pwd, DEFAULTBG, \
+		branch, " ", END, DEFAULT, GREY, BORDER_BOT, DEFAULT);
+	if (branch)
+		free(branch);
+	ft_free(3, pwd, logo, new_pwd);
 	if (home)
 		free(home);
 	return (prompt);

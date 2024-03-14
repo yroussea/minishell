@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 12:22:15 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:58:02 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_exit(char *line, t_lst_envp	*lst_envp)
+{
+	if (ft_strncmp(line, "exit", 5) == 0 || ft_strncmp(line, "e", 5) == 0)
+	{
+		free(line);
+		free_lst_envp(lst_envp);
+		return (0);
+	}
+	return (1);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -18,7 +29,6 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	t_lst_envp	*lst_envp;
 	char		*prompt;
-
 
 	if (argc != 1)
 		return (1);
@@ -31,19 +41,12 @@ int	main(int argc, char **argv, char **envp)
 		free(prompt);
 		if (line == NULL)
 			break ;
-		if (ft_strncmp(line, "exit", 5) == 0)
-		{
-			free_lst_envp(lst_envp);
-			free(line);
+		if (ft_exit(line, lst_envp) == 0)
 			return (0);
-		}
 		lst_line = parsing(line);
 		ft_print_lst(2, lst_line);
 		ft_lst_cmd_free(lst_line);
 	}
 	free_lst_envp(lst_envp);
-	(void)argc;
 	(void)argv;
-	(void)envp;
-
 }

@@ -12,8 +12,8 @@ INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a -lreadline
 SRCS_FILES = 							\
 	minishell.c							\
 	utils/better_fnct.c					\
-	utils/prompt.c						\
-	utils/prompt_get_git.c				\
+	utils/prompt/prompt.c				\
+	utils/prompt/prompt_get_git.c		\
 	parsing/parsing.c					\
 	exec/utils/print_lst_tree.c			\
 	utils/lst/lst_envp.c				\

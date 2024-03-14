@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/13 20:58:55 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:52:59 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * just better fonction
  */
 t_bool		ft_close(int nb, ...);
+void		ft_free(int nb, ...);
 t_bool		ft_dup2(int first_fd, int second_fd);
 t_bool		ft_pipe(int fd_pipe[2]);
 int			ft_fork(void);
@@ -43,7 +44,6 @@ char		**envp_to_char(t_lst_envp *lst_envp);
 char		**get_all_path(t_lst_envp *lst_envp);
 char		*get_envp_variable(t_lst_envp *lst_envp, char *variable);
 int			get_os(t_lst_envp *lst_envp);
-
 
 /*
  * just a better prompt
