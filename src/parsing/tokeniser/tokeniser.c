@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 12:20:05 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:46:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	**va_tokeniser(char *s, int nb, ...)
 	int		i;
 
 	i = 0;
-	token = malloc(sizeof(char *) * (nb + 1));
+	token = ft_calloc((nb + 1), sizeof(char *));
 	va_start(args, nb);
 	while (token && i < nb)
 	{
@@ -116,7 +116,6 @@ char	**va_tokeniser(char *s, int nb, ...)
 		}
 		i += 1;
 	}
-	token[i] = NULL;
 	va_end(args);
 	if (s && token)
 		result = ft_tokeniser(s, token);
