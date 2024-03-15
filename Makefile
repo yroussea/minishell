@@ -15,6 +15,7 @@ SRCS_FILES = 							\
 	utils/prompt/prompt.c				\
 	utils/prompt/prompt_get_git.c		\
 	parsing/parsing.c					\
+	parsing/tokeniser/tokeniser.c		\
 	exec/utils/print_lst_tree.c			\
 	utils/lst/lst_envp.c				\
 	utils/lst/utils_lst_envp.c			\
