@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 20:59:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 22:31:46 by yroussea         ###   ########.fr       */
+/*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
+/*   Updated: 2024/03/15 21:49:58 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef parsing_H
-# define parsing_H
+#include "../minishell.h"
 
-typedef enum s_quote
+void	exec(t_lst_cmd *lst_all)
 {
-	NONE,
-	SIMPLE,
-	DOUBLE,
-}			t_quote;
+	t_lst_ope	*operator;
+	t_lst_com	*cmd;
 
-char		**va_tokeniser(char *s, int nb, ...);
-t_lst_cmd	*parsing(char *line);
-size_t		len_quote(char *s, t_quote quote);
-
-#endif
+	ft_print_lst(1, lst_all);
+	ft_lst_cmd_free(lst_all);
+	(void)cmd;
+	(void)operator;
+}

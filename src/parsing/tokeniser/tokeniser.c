@@ -6,13 +6,12 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 18:04:46 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:50:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <stdarg.h>
-static size_t	len_quote(char *s, t_quote quote);
 
 int	is_token(char *s, char **token)
 {
@@ -25,41 +24,76 @@ int	is_token(char *s, char **token)
 	return (FALSE);
 }
 
-static size_t	ft_count_word(char *s, char **token)
+static size_t	jump_quote(char *s, size_t len, size_t *count)
 {
-	size_t	count;
+	size_t	tmp;
+
+	if (*s == 34 && *(s + 1))
+	{
+		tmp = len_quote(s + 1, DOUBLE) + 2;
+		if (len < tmp)
+		{
+			*count += 1;
+			tmp = len;
+		}
+		return (tmp);
+	}
+	if (*s == 39 && *(s + 1))
+	{
+		tmp = len_quote(s + 1, SIMPLE) + 2;
+		if (len < tmp)
+		{
+			*count += 1;
+			tmp = len;
+		}
+		return (tmp);
+	}
+	else if (*s == 34 || *s == 39)
+		return (1);
+	return (0);
+}
+
+static size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
+{
+	int	tmp;
+
+	tmp = is_token(s, token);
+	if (tmp)
+	{
+		*count += 1;
+		*bool = TRUE;
+	}
+	return (tmp);
+}
+
+static size_t	ft_count_word(char *s, char **token, size_t count)
+{
 	int		tmp;
 	t_bool	was_token;
 
-	count = 0;
 	was_token = TRUE;
 	while (s && *s)
 	{
-		tmp = is_token(s, token);
+		tmp = jump_token(s, token, &count, &was_token);
 		if (tmp)
-		{
-			count += 1;
 			s += tmp;
-			was_token = TRUE;
-		}
-		else if (*s == 34 && *(s + 1))
-			s += len_quote(s + 1, DOUBLE) + 2;
-		else if (*s == 39 && (s + 1))
-			s += len_quote(s + 1, SIMPLE) + 2;
-		else if (*s == 34 || *s == 39)
-			s += 1;
-		else
+		if (tmp)
+			continue ;
+		tmp = jump_quote(s, ft_strlen(s), &count);
+		s += tmp;
+		if (!tmp)
 		{
-			if (was_token == TRUE)
-				count += 1;
+			count += was_token;
 			was_token = FALSE;
-			s += 1;
+			s += 1 - tmp;
 		}
 	}
+	if (s && !*s && (*(s - 1) == 34 || *(s - 1) == 39))
+		count += 1;
 	return (count);
 }
 
-static size_t	len_quote(char *s, t_quote quote)
+size_t	len_quote(char *s, t_quote quote)
 {
 	char	*tmp;
 
@@ -75,19 +109,13 @@ static size_t	len_quote(char *s, t_quote quote)
 	return (tmp - s);
 }
 
-static size_t	len_next_word(char *s, char **token, char **tk_save, size_t len)
+static size_t	len_next_token(char *s, char **token, size_t len)
 {
-	size_t	j;
 	size_t	min;
 	char	*tmp;
-	size_t	next_quote;
+	size_t	j;
 
-	if (!s || !*s)
-		return (0);
 	min = len;
-	j = is_token(s, token);
-	if  (j)
-		return (j);
 	while (token && *token)
 	{
 		tmp = ft_strnstr(s, *token, len);
@@ -98,14 +126,30 @@ static size_t	len_next_word(char *s, char **token, char **tk_save, size_t len)
 		}
 		token += 1;
 	}
-	next_quote = ft_vmin(2, len_quote(s, DOUBLE), len_quote(s, SIMPLE));
-	if (next_quote == 0)
+	return (min);
+}
+
+static size_t	len_next_word(char *s, char **token, size_t len)
+{
+	size_t	j;
+	size_t	quote;
+	size_t	min;
+
+	if (!s || !*s)
+		return (0);
+	j = is_token(s, token);
+	if (j)
+		return (j);
+	min = len_next_token(s, token, len);
+	quote = ft_vmin(2, len_quote(s, DOUBLE), len_quote(s, SIMPLE));
+	if (quote == 0)
 	{
-		next_quote = ft_vmin(2, len_quote(s + 1, DOUBLE), len_quote(s + 1, SIMPLE)) + 2;
-		return (next_quote + len_next_word(s + next_quote, tk_save, tk_save, len - next_quote));
+		quote = ft_vmin(3, len_quote(s + 1, DOUBLE), \
+					len_quote(s + 1, SIMPLE), len - 2) + 2;
+		return (quote + len_next_word(s + quote, token, len - quote));
 	}
-	if (next_quote < min)
-		return (next_quote + len_next_word(s + next_quote, tk_save, tk_save, len - next_quote));
+	if (quote < min)
+		return (quote + len_next_word(s + quote, token, len - quote));
 	return (min);
 }
 
@@ -116,12 +160,12 @@ char	**ft_tokeniser(char *s, char **token)
 	size_t	k;
 
 	k = 0;
-	result = ft_calloc(sizeof(char *), ft_count_word(s, token) + 1);
-	if  (!result)
+	result = ft_calloc(sizeof(char *), ft_count_word(s, token, 0) + 1);
+	if (!result)
 		return (NULL);
 	while (s && *s)
 	{
-		j = len_next_word(s, token, token, ft_strlen(s));
+		j = len_next_word(s, token, ft_strlen(s));
 		result[k] = ft_calloc(sizeof(char *), (j + 1));
 		if (!result[k])
 		{
@@ -156,7 +200,7 @@ char	**va_tokeniser(char *s, int nb, ...)
 		i += 1;
 	}
 	va_end(args);
-	if (s && token)
+	if (s && *s && token)
 		result = ft_tokeniser(s, token);
 	else
 		result = NULL;

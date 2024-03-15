@@ -17,6 +17,7 @@ SRCS_FILES = 							\
 	parsing/parsing.c					\
 	parsing/tokeniser/tokeniser.c		\
 	exec/utils/print_lst_tree.c			\
+	exec/execution.c					\
 	utils/lst/lst_envp.c				\
 	utils/lst/utils_lst_envp.c			\
 	utils/lst/lst_cmd.c					
