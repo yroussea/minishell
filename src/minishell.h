@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 13:40:28 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:47:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,42 @@
 # include "include/struct.h"
 # include "include/function.h"
 # include <stdio.h>
+# include <unistd.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
 
-# define DEFAULT "\033[m"
-# define DEFAULTBG "\033[0;0;0;48;5;236m"
-# define BLACK "\e[0;30m"
-# define RED "\e[0;31m"
-# define GREEN "\e[38;5;2;48;5;236m"
-# define YELLOW "\e[0;33m"
-# define BLUE "\e[0;34m"
-# define MAGENTA "\e[0;35m"
-# define CYAN "\e[38;5;31;48;5;236m"
-# define WHITE "\e[0;37m"
-# define GREY "\e[38;5;245m"
-# define BG "\e[48;5;236m"
+# define BOLD "\001\e[1m\002"
 
-# define LNX " \uF17C"
-# define APPLE " \uF179"
-# define UBUNTU " \uF31b"
-# define WINDOWS " \uF17A"
-# define FOLDER "\uF07C"
-# define NO_OS "\uF015"
+# define DEFAULT "\001\033[m\002"
+# define DEFAULTBG "\001\033[0;0;0;48;5;236m\002"
+# define BLACK "\001\e[0;30m\002"
+# define RED "\001\e[0;31m\002"
+# define GREEN "\001\e[38;5;2;48;5;236m\002"
+# define GREENFLASH "\001\e[5m\e[38;5;2;48;5;236m\002"
+# define YELLOW "\001\e[0;33m\002"
+# define BLUE "\001\e[0;34m\002"
+# define MAGENTA "\001\e[0;35m\002"
+# define CYAN "\001\e[25m\e[38;5;31;48;5;236m\002"
+# define WHITE "\001\e[38;5;15;48;5;236m\002"
+# define GREY "\001\e[38;5;245m\002"
+# define BG "\001\e[48;5;236m\002"
 
-# define GIT "\uF113"
-# define BRANCH "\uF126"
-# define UNTRACKED "\uF128"
+# define LNX " \001\uF17C\002"
+# define APPLE " \001\uF179\002"
+# define UBUNTU " \001\uF31b\002"
+# define WINDOWS " \001\uF17A\002"
+# define FOLDER "\001\uF07C\002"
+# define NO_OS "\001\uF015\002"
 
-# define BORDER_TOP "\u256D\u2500"
-# define BORDER_BOT "\n\u2570\u2500 "
-# define END "\033[m\e[38;5;236m\uE0B0"
+# define GIT "\001\uF113\002"
+# define BRANCH "\001\uF126\002"
+# define UNTRACKED "\001\uF128\002"
+
+# define BORDER_TOP "\001\u256D\002"
+# define BORDER_BOT "\n\001\u2570\002 "
+# define ARROW "\n\001\u2192\002"
+# define END "\001\e[m\e[38;5;236m\uE0B0\002"
 
 #endif

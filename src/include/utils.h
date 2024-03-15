@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/14 20:20:54 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:51:45 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ int			get_os(t_lst_envp *lst_envp);
  */
 char		*get_prompt(t_lst_envp	*lst_envp, char *prompt);
 t_bool		is_git_file(char *pwd, char **branch);
+char		*get_user(t_lst_envp *lst_envp);
 
 #endif

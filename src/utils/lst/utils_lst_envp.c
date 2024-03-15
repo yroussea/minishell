@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lst_envp.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/12 20:09:52 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:52:34 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,19 @@ char	**envp_to_char(t_lst_envp *lst_envp)
 
 char	*get_envp_variable(t_lst_envp *lst_envp, char *variable)
 {
+	char	*buffer;
+	
 	while (lst_envp)
 	{
 		if (ft_strncmp(lst_envp->key, variable, ft_strlen(variable) + 1) == 0)
 			return (ft_strdup(lst_envp->value));
 		lst_envp = lst_envp->next;
+	}
+	if (ft_strncmp(variable, "PWD", 3) == 0)
+	{
+		buffer = ft_calloc(1000000, sizeof(char));
+		getcwd(buffer, 1000000);
+		return (ft_strdup(buffer));
 	}
 	return (NULL);
 }

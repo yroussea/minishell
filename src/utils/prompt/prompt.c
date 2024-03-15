@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/15 13:41:04 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:54:59 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@ char	*get_logo(t_lst_envp *lst_envp)
 	return (logo);
 }
 
+char	*get_user(t_lst_envp *lst_envp)
+{
+	char	*user;
+
+	user = get_envp_variable(lst_envp, "USER");
+	if (user)
+		return (ft_vjoin(2, "", user, ":"));
+	return (NULL);
+}
+
 char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 {
 	char	*pwd;
@@ -64,9 +74,9 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 	is_git_file(pwd, &branch);
 	home = get_envp_variable(lst_envp, "HOME");
 	new_pwd = replace(pwd, home, "~");
-	prompt = ft_vjoin(14, "", DEFAULTBG, logo, " │ ", \
-		GREEN, "petite-coquille: ", CYAN, FOLDER, " ", new_pwd, DEFAULTBG, \
-		branch, " ", END, DEFAULT);
+	prompt = ft_vjoin(19, "", DEFAULTBG, WHITE, logo, GREY, " │ ", \
+		GREENFLASH, "petite-coquille: ", CYAN, FOLDER, " ", new_pwd, DEFAULTBG, \
+		branch, " ", END, RED, "\n>", DEFAULT, " ");
 	if (branch)
 		free(branch);
 	ft_magic_free("%1 %1 %1", pwd, logo, new_pwd);

@@ -6,13 +6,14 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/14 21:31:04 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:33:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
+# define ERROR_ARGS "Invalid arguments\n"
 # define ERROR_CLOSE "(A/Mult) close fct didn't work??"
 # define ERROR_DUP "(A/Mult) dup fct didn't work??"
 # define ERROR_PIPE "(A/Mult) Pipe as fail"
