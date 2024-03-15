@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/14 21:31:32 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:27:42 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,10 @@ t_lst_cmd	*parsing(char *line)
 	t_lst_cmd		*lst_cmd;
 
 	lst_cmd = NULL;
-	args = split_line(line);
-	test(args, &lst_cmd);
+//	args = split_line(line);
+//	test(args, &lst_cmd);
+	args = va_tokeniser(line, 6, "||", "&&", "|", ";", "(", ")");
+	ft_printf("%S", args);
 	ft_magic_free("%1 %2", line, args);
 	return (lst_cmd);
 }
