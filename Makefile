@@ -69,7 +69,6 @@ $(OBJS_DIR):
 clean:
 	@make clean -s -j -C $(LIBFT_DIR) 
 	$(PRINT) $(MSG_CLEANING)
-	@sleep 0.3
 	$(RM) $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_CLEANED)
@@ -77,7 +76,6 @@ clean:
 fclean:
 	@make fclean -s -j -C $(LIBFT_DIR)
 	$(PRINT) $(MSG_CLEANING)
-	@sleep 0.3
 	$(RM) $(OBJS_DIR)
 	$(RM) $(NAME)
 	$(DELET_LINE)

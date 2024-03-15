@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+         #
+#    By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 13:06:11 by yroussea          #+#    #+#              #
-#    Updated: 2024/03/12 17:10:45 by basverdi         ###   ########.fr        #
+#    Updated: 2024/03/15 18:07:24 by yroussea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,14 +127,12 @@ $(OBJS_DIR):
 
 clean:
 	$(PRINT) $(MSG_CLEANING)
-	@sleep 0.3
 	$(RM) $(OBJS_DIR)
 	$(DELET_LINE)
 	$(PRINT) $(MSG_CLEANED)
 
 fclean:
 	$(PRINT) $(MSG_CLEANING)
-	@sleep 0.3
 	$(RM) $(OBJS_DIR)
 	$(RM) $(NAME)
 	$(DELET_LINE)
