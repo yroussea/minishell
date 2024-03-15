@@ -6,16 +6,11 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 12:27:42 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:19:45 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	**split_line(char *line)
-{
-	return (ft_split(line, ' '));
-}
 
 t_type_of_node	get_type(char *s)
 {
@@ -53,46 +48,18 @@ char	**unzoom(char *s)
 	return (unzoomed);
 }
 
-int	get_successive_cmd(char ***cmd_and_arg, char **args)
-{
-	int		i;
-	char	**tmp;
-
-	i = 0;
-	tmp = NULL;
-	while (args && args[i] && get_type(args[i]) == CMD)
-	{
-		tmp = ft_str_realloc(tmp);
-		if (tmp)
-			tmp[ft_str_str_len(tmp)] = ft_strdup(args[i]);
-		else
-		{
-			i += 1;
-			break ;
-		}
-		i += 1;
-	}
-	*cmd_and_arg = tmp;
-	return (i);
-}
-
 void	test(char **args, t_lst_cmd **lst_cmd)
 {
 	int				i;
-	t_type_of_node	type;
 	char			**cmd_and_arg;
 
 	i = 0;
 	while (args && args[i])
 	{
-		type = get_type(args[i]);
-		cmd_and_arg = NULL;
-		if (type == CMD)
-			i += get_successive_cmd(&cmd_and_arg, args + i);
-		else
-			cmd_and_arg = unzoom(args[i++]);
-		if (!ft_lst_cmd_add(lst_cmd, cmd_and_arg, type))
+		cmd_and_arg = va_tokeniser(args[i], 5, ">>", "2>", ">", "<", "<<");
+		if (!ft_lst_cmd_add(lst_cmd, cmd_and_arg, get_type(args[i])))
 			*lst_cmd = NULL;
+		i += 1;
 	}
 }
 
@@ -103,9 +70,9 @@ t_lst_cmd	*parsing(char *line)
 
 	lst_cmd = NULL;
 //	args = split_line(line);
-//	test(args, &lst_cmd);
 	args = va_tokeniser(line, 6, "||", "&&", "|", ";", "(", ")");
-	ft_printf("%S", args);
+	test(args, &lst_cmd);
+	//ft_printf("%S", args);
 	ft_magic_free("%1 %2", line, args);
 	return (lst_cmd);
 }

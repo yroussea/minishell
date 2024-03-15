@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 12:46:08 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:20:21 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static size_t	ft_count_word(char *s, char **token)
 {
 	size_t	count;
 	int		tmp;
+	t_bool	was_token;
 
 	count = 0;
+	was_token = TRUE;
 	while (s && *s)
 	{
 		tmp = is_token(s, token);
@@ -37,11 +39,17 @@ static size_t	ft_count_word(char *s, char **token)
 		{
 			count += 1;
 			s += tmp;
+			was_token = TRUE;
 		}
 		else
+		{
+			if (was_token == TRUE)
+				count += 1;
+			was_token = FALSE;
 			s += 1;
+		}
 	}
-	return (2 * count + 1);
+	return (count);
 }
 
 static size_t	len_next_word(char *s, char **token, size_t len)
