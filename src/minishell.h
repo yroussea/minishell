@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 12:55:17 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:40:28 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <readline/history.h>
 # include <fcntl.h>
 
-# define DEFAULT "\e[m"
-# define DEFAULTBG "\e[0;0;0;48;5;236m"
+# define DEFAULT "\033[m"
+# define DEFAULTBG "\033[0;0;0;48;5;236m"
 # define BLACK "\e[0;30m"
 # define RED "\e[0;31m"
 # define GREEN "\e[38;5;2;48;5;236m"

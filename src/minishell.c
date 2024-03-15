@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/14 21:17:08 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:41:44 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		prompt = get_prompt(lst_envp, prompt);
-		line = readline(prompt);
+		ft_putendl_fd(prompt, 1);
+		line = readline("-> ");
 		free(prompt);
 		if (line == NULL)
 			break ;
 		if (ft_exit(line, lst_envp) == 0)
 			return (0);
-		printf("line = %s\n", line);
 		lst_line = parsing(line);
 		ft_print_lst(2, lst_line);
 		ft_lst_cmd_free(lst_line);
