@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 15:06:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:01:48 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_print_redir(int fd, t_lst_redir *lst)
 		ft_printf_fd(fd, "/%s> %s", type[lst->type], lst->file);
 		lst = lst->next;
 	}
+	ft_printf_fd(fd, "\n");
 }
 
 void	ft_print_ope(int fd, t_lst_ope *lst)

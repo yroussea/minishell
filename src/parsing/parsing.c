@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 10:16:04 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:21:32 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ t_type_of_node	get_type(char *s)
 		return (PIPE);
 	if (ft_strncmp(s, "&&", 3) == 0)
 		return (AND);
-	if (ft_strncmp(s, "2>", 3) == 0)
+	if (ft_strncmp(s, " 2>", 3) == 0)
 		return (DIRE_TWO);
-	if (ft_strncmp(s, ">>", 3) == 0)
+	if (ft_strncmp(s, ">>", 2) == 0)
 		return (ADD);
-	if (ft_strncmp(s, "<<", 3) == 0)
+	if (ft_strncmp(s, "<<", 2) == 0)
 		return (HEREDOC);
-	if (ft_strncmp(s, "<", 2) == 0)
+	if (ft_strncmp(s, "<", 1) == 0)
 		return (DIRE_IN);
+	if (ft_strncmp(s, ">", 1) == 0)
+		return (DIRE_OUT);
 	if (ft_strncmp(s, "$", 1) == 0)
 		return (VARIABLE);
 	if (ft_strncmp(s, "-", 1) == 0)

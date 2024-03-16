@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 15:12:45 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:10:00 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 	while (lst_all)
 	{
 		type = lst_all->type;
-		if (type == CMD)
-			ft_lst_com_add(cmd, lst_all->cmd); //securiter
+		if (type < PIPE || type > OR)
+			ft_lst_com_add(cmd, lst_all->cmd);
 		else
-			ft_lst_ope_add(ope, type); //securiter
+			ft_lst_ope_add(ope, type);
 		lst_all = lst_all->next;
 	}
 	ft_print_com(STDOUT_FILENO, *cmd);
@@ -37,12 +37,13 @@ void	exec(t_lst_cmd *lst_all)
 
 	/*pre parsing : "&& &&" (faire attention au ; et au () ) + operateur au
 	 * debut / fin, c la merde
+	 * pareil pour les redirection dc
 	*/
-	ft_print_lst(STDOUT_FILENO, lst_all);
 	operator = NULL;
 	cmd = NULL;
 	split_two_lst(lst_all, &operator, &cmd);
+
 	ft_lst_cmd_free(lst_all);
-	(void)cmd;
-	(void)operator;
+	ft_lst_com_free(cmd);
+	ft_lst_ope_free(operator);
 }

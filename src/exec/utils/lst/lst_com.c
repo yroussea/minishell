@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:15:55 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 14:04:41 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:53:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_lst_com	*init_node_com(char **s)
 		return (NULL);
 	if (!split_args(s, new))
 	{
-		ft_magic_free("%2 %1", s, new);
+		ft_magic_free("%1", new);
 		return (NULL);
 	}
 	new->next = NULL;
