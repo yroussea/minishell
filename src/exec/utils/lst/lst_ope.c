@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:25:58 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 11:29:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:40:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool	ft_lst_ope_add(t_lst_ope **lst, t_type_of_node type)
 {
 	t_lst_ope	*tmp;
 
-	tmp = init_node_com(type);
+	tmp = init_node_ope(type);
 	if (!tmp)
 	{
 		ft_lst_ope_free(*lst);

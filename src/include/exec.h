@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 11:35:37 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:36:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void		ft_lst_redir_free(t_lst_redir *lst);
 t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, char *file);
 void		lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
 
+t_bool		split_args(char **s, t_lst_com *lst);
 
 #endif
