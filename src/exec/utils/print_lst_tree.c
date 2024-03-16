@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 14:09:04 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:06:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,36 @@ void	ft_print_ope(int fd, t_lst_ope *lst)
 		lst = lst->next;
 	}
 }
+
+void	ft_print_node(t_node *node)
+{
+	static char	*type[11] = {"CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", "FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
+
+	if (!node)
+		return ;
+	if (node->type == CMD)
+	{
+		ft_printf("|%s <%d %d>\n", node->cmd, node->infile, node->outfile);
+		ft_printf("%S\n{%p}{%p}", node->args, node->left, node->right);
+	}
+	else
+	{
+		ft_printf("|%s|", type[node->type]);
+		ft_printf("{%p}{%p}", node->left, node->right);
+	}
+	if (node->left)
+		printf("|%s|", type[node->left->type]);
+	if (node->right)
+		printf("            |%s|", type[node->left->type]);
+	printf("\n\n");
+}
+
+void	ft_print_tree(t_node *root)
+{
+	if (!root || root->type == CMD)
+		return ;
+	ft_print_node(root);
+	ft_print_tree(root->left);
+	ft_print_tree(root->right);
+}
+
