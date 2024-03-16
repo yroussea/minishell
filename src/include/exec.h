@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:17:27 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:13:13 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,14 @@ t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, \
 void		lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
 
 t_bool		split_args(char **s, t_lst_com *lst);
+
+/*
+ * tree
+*/
+t_bool		add_child(t_node *root, t_node *new_node, t_priority prio);
+t_node		*init_node(t_type_of_node type);
+t_bool		ft_add_all_leaf(t_node **node, t_lst_com *cmd);
+t_bool		ft_add_all_branch(t_node **node, t_lst_ope *ope);
+void		ft_free_tree(t_node *root);
 
 #endif

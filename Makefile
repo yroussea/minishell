@@ -22,12 +22,15 @@ SRCS_FILES = 							\
 	parsing/parsing.c					\
 	parsing/tokeniser/tokeniser.c		\
 	exec/utils/print_lst.c				\
-	exec/utils/print_tree.c			\
+	exec/utils/print_tree.c				\
 	exec/utils/lst/lst_com.c			\
 	exec/utils/lst/lst_ope.c			\
 	exec/utils/lst/lst_redir.c			\
 	exec/lst_com_split_args.c			\
 	exec/execution.c					\
+	exec/utils/node/init_node.c			\
+	exec/utils/node/add_branch.c		\
+	exec/utils/node/add_leaf.c
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))

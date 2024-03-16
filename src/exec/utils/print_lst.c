@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:34:42 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:20:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ void	ft_print_node(t_node *node)
 	if (node->type == CMD)
 	{
 		ft_printf("|%s <%d %d>\n", node->cmd, node->infile, node->outfile);
-		ft_printf("%S\n{%p}{%p}", node->args, node->left, node->right);
+		ft_printf("%S\n{%p}{%p}\n", node->args, node->left, node->right);
 	}
 	else
 	{
 		ft_printf("|%s|", type[node->type]);
-		ft_printf("{%p}{%p}", node->left, node->right);
+		ft_printf("{%p}{%p}\n", node->left, node->right);
 	}
 	if (node->left)
 		printf("|%s|", type[node->left->type]);
 	if (node->right)
-		printf("            |%s|", type[node->left->type]);
+		printf("            |%s|", type[node->right->type]);
 	printf("\n\n");
 }
