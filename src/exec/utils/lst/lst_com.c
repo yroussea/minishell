@@ -1,0 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_com.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/16 11:15:55 by yroussea          #+#    #+#             */
+/*   Updated: 2024/03/16 11:25:21 by yroussea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../minishell.h"
+
+void	lst_com_add_back(t_lst_com **lst, t_lst_com *new)
+{
+	if (!*lst)
+		*lst = new;
+	else
+		lst_com_add_back(&(*lst)->next, new);
+}
+
+t_bool	ft_lst_com_add(t_lst_com **lst, char **s)
+{
+	t_lst_com	*tmp;
+
+	if (!s || !*s)
+	{
+		ft_free_split(s);
+		ft_lst_com_free(*lst);
+		return (FALSE);
+	}
+	tmp = init_node_com(s);
+	if (!tmp)
+	{
+		ft_lst_com_free(*lst);
+		return (FALSE);
+	}
+	lst_com_add_back(lst, tmp);
+	return (TRUE);
+}
+
+void	ft_lst_com_free(t_lst_com *lst)
+{
+	t_lst_com	*tmp;
+
+	while (lst)
+	{
+		tmp = lst;
+		ft_magic_free("%1 %2",lst->cmd, lst->args);
+		ft_free_redir(lst->redir);
+		lst = lst->next;
+		free(tmp);
+	}
+}
+
+t_lst_com	*init_node_com(char **s)
+{
+	t_lst_com	*new;
+
+	new = ft_calloc(1, sizeof(t_lst_cmd));
+	if (!new)
+		return (NULL);
+	new->cmd = NULL;
+	new->args = NULL;
+	new->redir = NULL;
+	new->next = NULL;
+	return (new);
+}
+

@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 21:49:07 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 11:35:37 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ typedef struct s_lst_ope
 typedef	struct s_lst_redir
 {
 	t_type_of_node		type;
+	char				*file;
 	struct s_lst_redir	*next;
 }				t_lst_redir;
 
 typedef struct s_lst_com
 {
-	char		*cmd;
-	char		**args;
-	t_lst_redir	*redir;
+	char				*cmd;
+	char				**args;
+	t_lst_redir			*redir;
+	struct s_lst_com	*next;
 }				t_lst_com;
 
 typedef struct s_stack_id
@@ -57,5 +59,21 @@ typedef struct s_node
 
 void		ft_print_lst(int fd, t_lst_cmd *lst);
 void		exec(t_lst_cmd *lst_cmd);
+
+t_lst_com	*init_node_com(char **s);
+void		ft_lst_com_free(t_lst_com *lst);
+t_bool		ft_lst_com_add(t_lst_com **lst, char **s);
+void		lst_com_add_back(t_lst_com **lst, t_lst_com *new);
+
+t_lst_ope	*init_node_ope(t_type_of_node type);
+void		ft_lst_ope_free(t_lst_ope *lst);
+t_bool		ft_lst_ope_add(t_lst_ope **lst, t_type_of_node type);
+void		lst_ope_add_back(t_lst_ope **lst, t_lst_ope *new);
+
+t_lst_redir	*init_node_redir(t_type_of_node type, char *file);
+void		ft_lst_redir_free(t_lst_redir *lst);
+t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, char *file);
+void		lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
+
 
 #endif
