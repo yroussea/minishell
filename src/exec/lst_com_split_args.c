@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 16:58:53 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:38:15 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static t_lst_redir	*get_redir(char **s)
 	j = 0;
 	chose = 0;
 	lst = NULL;
+	ft_lst_redir_add(&lst, DIRE_IN, ft_strdup("/dev/stdin"));
+	ft_lst_redir_add(&lst, DIRE_OUT, ft_strdup("/dev/stdout"));
 	while (s && *(s + i + j))
 	{
 		if (ft_strncmp(*(s + i + j), " ", 2) == 0)
