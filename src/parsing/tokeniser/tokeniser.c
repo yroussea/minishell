@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 22:50:34 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 10:24:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,10 @@ static size_t	len_next_word(char *s, char **token, size_t len)
 	quote = ft_vmin(2, len_quote(s, DOUBLE), len_quote(s, SIMPLE));
 	if (quote == 0)
 	{
-		quote = ft_vmin(3, len_quote(s + 1, DOUBLE), \
-					len_quote(s + 1, SIMPLE), len - 2) + 2;
+		if (*s == 34)
+			quote = ft_vmin(2, len_quote(s + 1, DOUBLE) + 2, len);
+		if (*s == 39)
+			quote = ft_vmin(2, len_quote(s + 1, SIMPLE) + 2, len);
 		return (quote + len_next_word(s + quote, token, len - quote));
 	}
 	if (quote < min)

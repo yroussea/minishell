@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 18:05:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 10:16:04 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,17 @@ void	test(char **args, t_lst_cmd **lst_cmd)
 {
 	int				i;
 	char			**cmd_and_arg;
+	char			*tmp;
 
 	i = 0;
 	while (args && args[i])
 	{
-		cmd_and_arg = va_tokeniser(args[i], 6, ">>", " 2>", ">", "<<", "<", " ");
+		tmp = ft_vjoin(2, "", " ", args[i]);
+		cmd_and_arg = va_tokeniser(tmp, 6, ">>", " 2>", ">", "<<", "<", " ");
 		if (!ft_lst_cmd_add(lst_cmd, cmd_and_arg, get_type(args[i])))
 			*lst_cmd = NULL;
 		i += 1;
+		free(tmp);
 	}
 }
 
