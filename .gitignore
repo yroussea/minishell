@@ -1,6 +1,8 @@
 # trash :)
 *.vscode
 *.swp
+*.DS*
+*.nfs*
 *test
 *tags
 

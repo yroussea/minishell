@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:14:50 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:13:14 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 	while (1)
 	{
 		prompt = get_prompt(lst_envp, prompt);
+		// printf("prompt = [%s]\n", prompt);
+		rl_line_buffer = ft_strdup(prompt);
 		line = readline(prompt);
 		ft_magic_free("%1 %1", prompt, user);
 		if (line == NULL)
