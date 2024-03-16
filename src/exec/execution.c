@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:10:00 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:31:07 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	exec(t_lst_cmd *lst_all)
 	operator = NULL;
 	cmd = NULL;
 	split_two_lst(lst_all, &operator, &cmd);
-
 	ft_lst_cmd_free(lst_all);
 	ft_lst_com_free(cmd);
 	ft_lst_ope_free(operator);

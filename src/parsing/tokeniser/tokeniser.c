@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 10:24:57 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:41:02 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_token(char *s, char **token)
 	return (FALSE);
 }
 
-static size_t	jump_quote(char *s, size_t len, size_t *count)
+size_t	jump_quote(char *s, size_t len, size_t *count)
 {
 	size_t	tmp;
 
@@ -53,7 +53,7 @@ static size_t	jump_quote(char *s, size_t len, size_t *count)
 	return (0);
 }
 
-static size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
+size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
 {
 	int	tmp;
 
@@ -64,95 +64,6 @@ static size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
 		*bool = TRUE;
 	}
 	return (tmp);
-}
-
-static size_t	ft_count_word(char *s, char **token, size_t count)
-{
-	int		tmp;
-	t_bool	was_token;
-
-	was_token = TRUE;
-	while (s && *s)
-	{
-		tmp = jump_token(s, token, &count, &was_token);
-		if (tmp)
-			s += tmp;
-		if (tmp)
-			continue ;
-		tmp = jump_quote(s, ft_strlen(s), &count);
-		s += tmp;
-		if (!tmp)
-		{
-			count += was_token;
-			was_token = FALSE;
-			s += 1 - tmp;
-		}
-	}
-	if (s && !*s && (*(s - 1) == 34 || *(s - 1) == 39))
-		count += 1;
-	return (count);
-}
-
-size_t	len_quote(char *s, t_quote quote)
-{
-	char	*tmp;
-
-	tmp = s;
-	while (tmp && *tmp)
-	{
-		if (*tmp == 39 && quote == SIMPLE) 
-			break ;
-		if (*tmp == 34 && quote == DOUBLE) 
-			break ;
-		tmp += 1;
-	}
-	return (tmp - s);
-}
-
-static size_t	len_next_token(char *s, char **token, size_t len)
-{
-	size_t	min;
-	char	*tmp;
-	size_t	j;
-
-	min = len;
-	while (token && *token)
-	{
-		tmp = ft_strnstr(s, *token, len);
-		if (tmp)
-		{
-			j = tmp - s;
-			min = ft_vmin(2, min, j);
-		}
-		token += 1;
-	}
-	return (min);
-}
-
-static size_t	len_next_word(char *s, char **token, size_t len)
-{
-	size_t	j;
-	size_t	quote;
-	size_t	min;
-
-	if (!s || !*s)
-		return (0);
-	j = is_token(s, token);
-	if (j)
-		return (j);
-	min = len_next_token(s, token, len);
-	quote = ft_vmin(2, len_quote(s, DOUBLE), len_quote(s, SIMPLE));
-	if (quote == 0)
-	{
-		if (*s == 34)
-			quote = ft_vmin(2, len_quote(s + 1, DOUBLE) + 2, len);
-		if (*s == 39)
-			quote = ft_vmin(2, len_quote(s + 1, SIMPLE) + 2, len);
-		return (quote + len_next_word(s + quote, token, len - quote));
-	}
-	if (quote < min)
-		return (quote + len_next_word(s + quote, token, len - quote));
-	return (min);
 }
 
 char	**ft_tokeniser(char *s, char **token)

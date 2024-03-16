@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_com.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:15:55 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 15:53:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:21:12 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_lst_com_free(t_lst_com *lst)
 	while (lst)
 	{
 		tmp = lst;
-		ft_magic_free("%1 %2",lst->cmd, lst->args);
+		ft_magic_free("%1 %2", lst->cmd, lst->args);
 		ft_lst_redir_free(lst->redir);
 		lst = lst->next;
 		free(tmp);
@@ -70,4 +70,3 @@ t_lst_com	*init_node_com(char **s)
 	new->next = NULL;
 	return (new);
 }
-

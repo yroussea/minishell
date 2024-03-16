@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 21:31:13 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:14:50 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (ft_stop(argc, argv));
 	lst_envp = init_lst_envp(envp);
+	set_sigaction();
 	if (display_prompt(lst_envp) == FALSE)
 		return (0);
 	free_lst_envp(lst_envp);

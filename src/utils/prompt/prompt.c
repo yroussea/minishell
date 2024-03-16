@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/15 17:54:59 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:06:58 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 	new_pwd = replace(pwd, home, "~");
 	prompt = ft_vjoin(19, "", DEFAULTBG, WHITE, logo, GREY, " │ ", \
 		GREENFLASH, "petite-coquille: ", CYAN, FOLDER, " ", new_pwd, DEFAULTBG, \
-		branch, " ", END, RED, "\n>", DEFAULT, " ");
+		branch, " ", END, "\n", RED, "> ", DEFAULT);
 	if (branch)
 		free(branch);
 	ft_magic_free("%1 %1 %1", pwd, logo, new_pwd);

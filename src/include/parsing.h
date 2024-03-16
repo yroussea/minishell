@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:59:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 13:27:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:16:35 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef parsing_H
-# define parsing_H
+#ifndef PARSING_H
+# define PARSING_H
 
 typedef enum s_quote
 {

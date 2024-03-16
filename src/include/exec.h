@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 15:07:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:17:27 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_lst_ope
 	struct s_lst_ope	*next;
 }				t_lst_ope;
 
-typedef	struct s_lst_redir
+typedef struct s_lst_redir
 {
 	t_type_of_node		type;
 	char				*file;
@@ -78,7 +78,8 @@ void		lst_ope_add_back(t_lst_ope **lst, t_lst_ope *new);
 
 t_lst_redir	*init_node_redir(t_type_of_node type, char *file);
 void		ft_lst_redir_free(t_lst_redir *lst);
-t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, char *file);
+t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, \
+				char *file);
 void		lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
 
 t_bool		split_args(char **s, t_lst_com *lst);

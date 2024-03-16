@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/15 17:52:34 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:20:35 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**envp_to_char(t_lst_envp *lst_envp)
 char	*get_envp_variable(t_lst_envp *lst_envp, char *variable)
 {
 	char	*buffer;
-	
+
 	while (lst_envp)
 	{
 		if (ft_strncmp(lst_envp->key, variable, ft_strlen(variable) + 1) == 0)

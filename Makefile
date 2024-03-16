@@ -12,20 +12,22 @@ INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a -lreadline
 SRCS_FILES = 							\
 	minishell.c							\
 	utils/better_fnct.c					\
+	utils/lst/lst_envp.c				\
+	utils/lst/utils_lst_envp.c			\
+	utils/lst/lst_cmd.c					\
+	utils/parsing/utils_parsing.c		\
 	utils/prompt/prompt.c				\
 	utils/prompt/prompt_get_git.c		\
+	utils/sig/sig.c						\
 	parsing/parsing.c					\
 	parsing/tokeniser/tokeniser.c		\
-	exec/utils/print_lst_tree.c			\
+	exec/utils/print_lst.c				\
+	exec/utils/print_tree.c			\
 	exec/utils/lst/lst_com.c			\
 	exec/utils/lst/lst_ope.c			\
 	exec/utils/lst/lst_redir.c			\
 	exec/lst_com_split_args.c			\
 	exec/execution.c					\
-	utils/lst/lst_envp.c				\
-	utils/lst/utils_lst_envp.c			\
-	utils/lst/lst_cmd.c					
-
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))
