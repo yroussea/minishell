@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:15:55 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 12:35:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:04:41 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_bool	ft_lst_com_add(t_lst_com **lst, char **s)
 	{
 		ft_free_split(s);
 		ft_lst_com_free(*lst);
+		*lst = NULL;
 		return (FALSE);
 	}
 	tmp = init_node_com(s);
@@ -58,7 +59,7 @@ t_lst_com	*init_node_com(char **s)
 {
 	t_lst_com	*new;
 
-	new = ft_calloc(1, sizeof(t_lst_cmd));
+	new = ft_calloc(1, sizeof(t_lst_com));
 	if (!new)
 		return (NULL);
 	if (!split_args(s, new))

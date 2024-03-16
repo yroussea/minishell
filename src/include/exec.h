@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 12:36:34 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:40:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_node
 	struct s_node	*right;
 }				t_node;
 
+void		ft_print_ope(int fd, t_lst_ope *lst);
+void		ft_print_redir(int fd, t_lst_redir *lst);
+void		ft_print_com(int fd, t_lst_com *lst);
 void		ft_print_lst(int fd, t_lst_cmd *lst);
 void		exec(t_lst_cmd *lst_cmd);
 

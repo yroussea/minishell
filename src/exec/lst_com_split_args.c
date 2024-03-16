@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   lst_com_split_args.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 20:59:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 13:27:16 by yroussea         ###   ########.fr       */
+/*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
+/*   Updated: 2024/03/16 12:41:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef parsing_H
-# define parsing_H
+#include "../minishell.h"
 
-typedef enum s_quote
+t_bool	split_args(char **s, t_lst_com *lst)
 {
-	NONE,
-	SIMPLE,
-	DOUBLE,
-}			t_quote;
-
-t_type_of_node	get_type(char *s);
-char			**va_tokeniser(char *s, int nb, ...);
-t_lst_cmd		*parsing(char *line);
-size_t			len_quote(char *s, t_quote quote);
-
-#endif
+	lst->cmd = NULL;
+	lst->args = NULL;
+	lst->redir = NULL;
+	(void)s;
+	return (TRUE);
+}

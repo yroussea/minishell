@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:30:24 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 12:15:34 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:05:22 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_lst_redir	*init_node_redir(t_type_of_node type, char *file)
 {
 	t_lst_redir	*new;
 
-	new = ft_calloc(1, sizeof(t_lst_cmd));
+	new = ft_calloc(1, sizeof(t_lst_redir));
 	if (!new)
 		return (NULL);
 	new->type = type;

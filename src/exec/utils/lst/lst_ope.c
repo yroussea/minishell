@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:25:58 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 12:40:34 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:04:55 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_lst_ope	*init_node_ope(t_type_of_node type)
 {
 	t_lst_ope	*new;
 
-	new = ft_calloc(1, sizeof(t_lst_cmd));
+	new = ft_calloc(1, sizeof(t_lst_ope));
 	if (!new)
 		return (NULL);
 	new->type = type;
