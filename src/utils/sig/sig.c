@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/18 16:20:37 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:51:53 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	sigint_handler(int signal)
+void	handler(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -21,6 +21,8 @@ void	sigint_handler(int signal)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	if (signal == SIGQUIT)
+		return ;
 }
 
 void	set_sigaction(int state)
@@ -32,6 +34,6 @@ void	set_sigaction(int state)
 		data.c_lflag |= ECHOCTL;
 	else
 		data.c_lflag &= ~(ECHOCTL);
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigint_handler);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
 }
