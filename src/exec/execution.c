@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 16:18:40 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:19:55 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 	t_lst_ope	*operator;
 	t_lst_com	*cmd;
 	t_node		*root;
+	t_stack_id	*stk_pid;
+	t_fds		fds;
 
 	/*pre parsing : "&& &&" (faire attention au ; et au () ) + operateur au
 	 * debut / fin, c la merde
@@ -43,11 +45,14 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 	operator = NULL;
 	cmd = NULL;
 	root = NULL;
+	stk_pid = NULL;
+	fds.in = 0;
+	fds.out = 1;
 	if (!split_two_lst(lst_all, &operator, &cmd))
 		return ;
 	if (ft_add_all_branch(&root, operator))
 		ft_add_all_leaf(&root, cmd);
-	exec_tree(root, envp);
+	exec_tree(root, envp, stk_pid, fds);
 	ft_free_tree(root);
 	ft_lst_cmd_free(lst_all);
 	ft_lst_com_free(cmd);
