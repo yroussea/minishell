@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 19:20:36 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:35:02 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_print_redir(int fd, t_lst_redir *lst)
 
 	while (lst)
 	{
-		ft_printf_fd(fd, "/%s> %s", type[lst->type], lst->file);
+		ft_printf_fd(fd, "/%s> %s\n", type[lst->type], lst->file);
 		lst = lst->next;
 	}
 	ft_printf_fd(fd, "\n");
@@ -68,8 +68,10 @@ void	ft_print_node(t_node *node)
 		return ;
 	if (node->type == CMD)
 	{
-		ft_printf("|%s <%d %d>\n", node->cmd, node->infile, node->outfile);
-		ft_printf("%S\n{%p}{%p}\n", node->args, node->left, node->right);
+		ft_printf("|%s\n", node->cmd);
+		ft_print_redir(1, node->infile);
+		ft_print_redir(1, node->outfile);
+		ft_printf("%S\n", node->args);
 	}
 	else
 	{

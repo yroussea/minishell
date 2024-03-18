@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 19:13:13 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:33:38 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct s_node
 	t_type_of_node	type;
 	char			*cmd;
 	char			**args;
-	int				infile;
-	int				outfile;
+	t_lst_redir		*infile;
+	t_lst_redir		*outfile;
 	struct s_node	*left;
 	struct s_node	*right;
 }				t_node;
@@ -92,5 +92,11 @@ t_node		*init_node(t_type_of_node type);
 t_bool		ft_add_all_leaf(t_node **node, t_lst_com *cmd);
 t_bool		ft_add_all_branch(t_node **node, t_lst_ope *ope);
 void		ft_free_tree(t_node *root);
+t_bool		fill_node(t_node *node, t_lst_com *cmd);
+
+/*
+ * redir
+*/
+char	*ft_heredoc(char *eof);
 
 #endif

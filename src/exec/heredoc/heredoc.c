@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_tree.c                                       :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 17:34:34 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/17 13:28:22 by yroussea         ###   ########.fr       */
+/*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
+/*   Updated: 2024/03/18 14:33:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_print_tree(t_node *root)
+char	*ft_heredoc(char *eof)
 {
-	if (!root)
-		return ;
-	ft_print_node(root);
-	if (root->type == CMD)
-		return ;
-	ft_print_tree(root->left);
-	ft_print_tree(root->right);
+	return (ft_strdup(eof));
 }

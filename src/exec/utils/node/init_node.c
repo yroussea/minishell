@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:39:34 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 19:12:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:39:37 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,19 @@ t_node	*init_node(t_type_of_node type)
 	node->args = NULL;
 	node->left = NULL;
 	node->right = NULL;
-	node->infile = 0;
-	node->outfile = 1;
+	node->infile = NULL;
+	node->outfile = NULL;
 	node->type = type;
 	return (node);
+}
+
+t_bool	fill_node(t_node *node, t_lst_com *cmd)
+{
+	if (!node)
+		return (FALSE);
+	node->cmd = cmd->cmd;
+	node->args = cmd->args;
+	return (TRUE);
 }
 
 t_bool	add_child(t_node *root, t_node *new_node, t_priority prio)
@@ -50,7 +59,8 @@ void	ft_free_node(t_node *node)
 {
 	if (!node)
 		return ;
-	ft_magic_free("%1 %2", node->cmd, node->args);
+	ft_lst_redir_free(node->infile);
+	ft_lst_redir_free(node->outfile);
 	free(node);
 }
 

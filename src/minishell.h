@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:37:18 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:13:02 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
 # define BLACK "\001\e[0;30m\002"
 # define RED "\001\e[0;31m\002"
 # define GREEN "\001\e[38;5;2;48;5;236m\002"
-# define GREENFLASH "\001\e[5m\e[38;5;2;48;5;236m\002"
+//# define GREENFLASH "\001\e[5m\e[38;5;2;48;5;236m\002"
+# define GREENFLASH "\001\e[38;5;2;48;5;236m\002"
 # define YELLOW "\001\e[0;33m\002"
 # define BLUE "\001\e[0;34m\002"
 # define MAGENTA "\001\e[0;35m\002"
