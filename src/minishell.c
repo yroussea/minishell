@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 16:17:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:19:05 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 		if (line == NULL)
 		{
 			ft_printf("exit\n");
-			break;
+			break ;
 		}
 		if (ft_exit(line, lst_envp) == 0)
 			return (FALSE);

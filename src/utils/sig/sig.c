@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/18 15:34:26 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:18:44 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	set_sigaction(int state)
 	if (!state)
 		data.c_lflag |= ECHOCTL;
 	else
-		data.c_lflag &= ~(ECHOCTL); 
+		data.c_lflag &= ~(ECHOCTL);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigint_handler);
 }
