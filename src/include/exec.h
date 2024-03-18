@@ -6,13 +6,14 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 15:52:12 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:18:57 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
+#include "struct.h"
 typedef enum s_priority
 {
 	LEFT,
@@ -64,7 +65,7 @@ void		ft_print_lst(int fd, t_lst_cmd *lst);
 void		ft_print_tree(t_node *root);
 void		ft_print_node(t_node *node);
 
-void		exec(t_lst_cmd *lst_cmd);
+void		exec(t_lst_cmd *lst_cmd, t_lst_envp *envp);
 
 t_lst_com	*init_node_com(char **s);
 void		ft_lst_com_free(t_lst_com *lst);
@@ -94,7 +95,7 @@ t_bool		ft_add_all_branch(t_node **node, t_lst_ope *ope);
 void		ft_free_tree(t_node *root);
 t_bool		fill_node(t_node *node, t_lst_com *cmd);
 
-t_bool		exec_tree(t_node *root);
+t_bool		exec_tree(t_node *root, t_lst_envp *envp);
 /*
  * redir
 */
