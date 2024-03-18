@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   add_branch.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:17 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 19:19:06 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:24:11 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-
 t_bool	add_single_branch(t_node **root, t_node *new_node)
 {
 	if (((*root)->type == AND || (*root)->type == OR) \
-		&&  new_node->type == PIPE)
+		&& new_node->type == PIPE)
 	{
 		if (add_child(*root, new_node, RIGHT))
 			return (TRUE);

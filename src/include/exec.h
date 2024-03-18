@@ -6,14 +6,15 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 16:22:38 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:23:37 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-#include "struct.h"
+# include "struct.h"
+
 typedef enum s_priority
 {
 	LEFT,

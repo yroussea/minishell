@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_leaf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 14:45:37 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:25:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ t_bool	ft_open_redir(t_node *node, t_lst_com *cmd)
 	while (tmp)
 	{
 		if (tmp->type == DIRE_IN)
-			if (!ft_lst_redir_add(&node->infile, tmp->type, ft_strdup(tmp->file)))
+			if (!ft_lst_redir_add(&node->infile, tmp->type, \
+			ft_strdup(tmp->file)))
 				return (FALSE);
 		if (tmp->type == ADD || tmp->type == DIRE_OUT || tmp->type == DIRE_TWO)
-			if (!ft_lst_redir_add(&node->outfile, tmp->type, ft_strdup(tmp->file)))
+			if (!ft_lst_redir_add(&node->outfile, tmp->type, \
+			ft_strdup(tmp->file)))
 				return (FALSE);
 		if (tmp->type == HEREDOC)
-			if (!ft_lst_redir_add(&node->infile, tmp->type, ft_heredoc(tmp->file)))
+			if (!ft_lst_redir_add(&node->infile, tmp->type, \
+			ft_heredoc(tmp->file)))
 				return (FALSE);
 		tmp = tmp->next;
 	}
