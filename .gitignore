@@ -8,6 +8,8 @@
 
 # Object files
 *.o
+obj/
+
 
 # Libraries
 *.lib

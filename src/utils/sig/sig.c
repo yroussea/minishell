@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/16 19:23:02 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:34:26 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,19 @@ void	sigint_handler(int signal)
 		ft_printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		ft_printf("%s", rl_prompt);
+		rl_redisplay();
 	}
 }
 
-void	set_sigaction(void)
+void	set_sigaction(int state)
 {
-	struct sigaction	act;
+	static struct termios data;
 
-	ft_bzero(&act, sizeof(act));
-	act.sa_handler = &sigint_handler;
-	sigaction(SIGINT, &act, NULL);
+	tcgetattr(0, &data);
+	if (!state)
+		data.c_lflag |= ECHOCTL;
+	else
+		data.c_lflag &= ~(ECHOCTL); 
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
 }

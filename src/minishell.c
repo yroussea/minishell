@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 19:13:14 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:51:27 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 	while (1)
 	{
 		prompt = get_prompt(lst_envp, prompt);
-		// printf("prompt = [%s]\n", prompt);
 		rl_line_buffer = ft_strdup(prompt);
 		line = readline(prompt);
 		ft_magic_free("%1 %1", prompt, user);
@@ -73,10 +72,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_lst_envp	*lst_envp;
 
+	ft_printf("\033c");
 	if (argc != 1)
 		return (ft_stop(argc, argv));
 	lst_envp = init_lst_envp(envp);
-	set_sigaction();
+	set_sigaction(0);
 	if (display_prompt(lst_envp) == FALSE)
 		return (0);
 	free_lst_envp(lst_envp);

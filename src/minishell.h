@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 10:13:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:03:09 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,20 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <strings.h>
+# include <termios.h>
 
 # define BOLD "\001\e[1m\002"
 
 # define DEFAULT "\001\033[m\002"
-# define DEFAULTBG "\001\033[0;0;0;48;5;236m\002"
 # define BLACK "\001\e[0;30m\002"
 # define RED "\001\e[0;31m\002"
-# define GREEN "\001\e[38;5;2;48;5;236m\002"
-//# define GREENFLASH "\001\e[5m\e[38;5;2;48;5;236m\002"
-# define GREENFLASH "\001\e[38;5;2;48;5;236m\002"
+# define GREEN "\001\e[38;5;2m\002"
 # define YELLOW "\001\e[0;33m\002"
 # define BLUE "\001\e[0;34m\002"
 # define MAGENTA "\001\e[0;35m\002"
-# define CYAN "\001\e[25m\e[38;5;31;48;5;236m\002"
-# define WHITE "\001\e[38;5;15;48;5;236m\002"
-# define GREY "\001\e[38;5;245m\002"
+# define CYAN "\001\e[38;5;31m\002"
+# define WHITE "\001\e[0;97m\002"
+# define GREY "\001\e[0;90m\002"
 # define BG "\001\e[48;5;236m\002"
 
 # define LNX " \001\uF17C\002"

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:12:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 19:05:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:29:48 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 # include "cmd.h"
 # include "exec.h"
 
-void	set_sigaction(void);
+void	set_sigaction(int state);
 
 #endif
