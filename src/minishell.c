@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 15:51:27 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:17:03 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_exit(char *line, t_lst_envp	*lst_envp)
 	{
 		free(line);
 		free_lst_envp(lst_envp);
+		ft_printf("exit\n");
 		return (0);
 	}
 	return (1);
@@ -55,11 +56,13 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 	while (1)
 	{
 		prompt = get_prompt(lst_envp, prompt);
-		rl_line_buffer = ft_strdup(prompt);
 		line = readline(prompt);
 		ft_magic_free("%1 %1", prompt, user);
 		if (line == NULL)
-			break ;
+		{
+			ft_printf("exit\n");
+			break;
+		}
 		if (ft_exit(line, lst_envp) == 0)
 			return (FALSE);
 		lst_line = parsing(line);
