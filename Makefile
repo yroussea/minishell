@@ -31,7 +31,9 @@ SRCS_FILES = 							\
 	exec/utils/node/init_node.c			\
 	exec/utils/node/add_branch.c		\
 	exec/utils/node/add_leaf.c			\
-	exec/heredoc/heredoc.c
+	exec/heredoc/heredoc.c				\
+	exec/exectree/exec_tree.c
+	
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))

@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 15:42:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:53:45 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,9 @@ void	exec(t_lst_cmd *lst_all)
 	root = NULL;
 	if (!split_two_lst(lst_all, &operator, &cmd))
 		return ;
-	//ft_print_com(STDOUT_FILENO, cmd);
-	//ft_print_ope(STDOUT_FILENO, operator);
 	if (ft_add_all_branch(&root, operator))
 		ft_add_all_leaf(&root, cmd);
-	ft_print_tree(root);
+	exec_tree(root);
 	ft_free_tree(root);
 	ft_lst_cmd_free(lst_all);
 	ft_lst_com_free(cmd);

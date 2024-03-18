@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 14:33:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:52:12 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_bool		ft_add_all_branch(t_node **node, t_lst_ope *ope);
 void		ft_free_tree(t_node *root);
 t_bool		fill_node(t_node *node, t_lst_com *cmd);
 
+t_bool		exec_tree(t_node *root);
 /*
  * redir
 */
