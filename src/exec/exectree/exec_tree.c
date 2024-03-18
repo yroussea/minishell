@@ -3,22 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:50:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 17:28:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:53:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <sys/select.h>
-#include <unistd.h>
 
 t_bool	exec_pipe(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds)
 {
 	int		fd_pipe[2];
-	pid_t	pid_left;
-	pid_t	pid_right;
 
 	if (ft_pipe(fd_pipe) < 0)
 		return (ERROR);
@@ -38,6 +35,7 @@ t_bool	exec_and(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds)
 	(void)node;
 	(void)envp;
 	(void)stk_pid;
+	(void)fds;
 	return (ERROR);
 }
 
@@ -46,6 +44,7 @@ t_bool	exec_or(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds)
 	(void)node;
 	(void)envp;
 	(void)stk_pid;
+	(void)fds;
 	return (ERROR);
 }
 
@@ -68,19 +67,24 @@ t_bool	exec_cmd(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds)
 	}
 	//stack_id_add(pid)
 	waitpid(pid, NULL, 0);
+	(void)stk_pid;
+	(void)fds;
 	return (ERROR);
 }
 
 t_bool	exec_tree(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds)
 {
 	ft_print_tree(node);
-	if (node->type == PIPE)
+	(void)envp;
+	(void)stk_pid;
+	(void)fds;
+/*	if (node->type == PIPE)
 		exec_pipe(node, envp, stk_pid, fds);
 	if (node->type == AND)
 		exec_and(node, envp, stk_pid, fds);
 	if (node->type == OR)
 		exec_or(node, envp, stk_pid, fds);
 	if (node->type == CMD)
-		exec_cmd(node, envp, stk_pid, fds);
+		exec_cmd(node, envp, stk_pid, fds);*/
 	return (FALSE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 16:21:19 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:29:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 		}
 		if (ft_exit(line, lst_envp) == 0)
 			return (FALSE);
+		if (*line)
+			add_history(line);
 		lst_line = parsing(line);
 		exec(lst_line, lst_envp);
 	}
@@ -81,6 +83,10 @@ int	main(int argc, char **argv, char **envp)
 	lst_envp = init_lst_envp(envp);
 	set_sigaction(0);
 	if (display_prompt(lst_envp) == FALSE)
+	{
+		clear_history();
 		return (0);
+	}
 	free_lst_envp(lst_envp);
+	clear_history();
 }

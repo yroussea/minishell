@@ -5,11 +5,11 @@
 *.nfs*
 *test
 *tags
+heredoc_*
 
 # Object files
 *.o
 obj/
-
 
 # Libraries
 *.lib
