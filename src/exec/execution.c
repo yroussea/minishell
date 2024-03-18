@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 19:19:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:42:14 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 {
 	t_type_of_node	type;
 
+	if (!lst_all)
+		return (FALSE);
 	while (lst_all)
 	{
 		type = lst_all->type;
@@ -41,7 +43,8 @@ void	exec(t_lst_cmd *lst_all)
 	operator = NULL;
 	cmd = NULL;
 	root = NULL;
-	split_two_lst(lst_all, &operator, &cmd);
+	if (!split_two_lst(lst_all, &operator, &cmd))
+		return ;
 	//ft_print_com(STDOUT_FILENO, cmd);
 	//ft_print_ope(STDOUT_FILENO, operator);
 	if (ft_add_all_branch(&root, operator))
