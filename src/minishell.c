@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 18:29:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:39:42 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_lst_envp	*lst_envp;
 
-	ft_printf("\033c");
+	// ft_printf("\033c");
 	if (argc != 1)
 		return (ft_stop(argc, argv));
 	lst_envp = init_lst_envp(envp);
