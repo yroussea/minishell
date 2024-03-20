@@ -6,13 +6,13 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:16:27 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:39:21 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_bool	exec_cmd(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds)
+t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 {
 	int		pid;
 	char	**envp_char;
@@ -24,7 +24,7 @@ t_bool	exec_cmd(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds)
 	if (pid == 0)
 	{
 		//all redirection
-		envp_char = envp_to_char(envp);
+		envp_char = envp_to_char(*node->envp);
 		if (envp_char)
 		{
 			//remplirer cmd avec full path

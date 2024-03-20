@@ -6,13 +6,13 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:57:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:03:37 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:37:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_bool	exec_pipe(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds)
+t_bool	exec_pipe(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 {
 	int		fd_pipe[2];
 
@@ -21,11 +21,12 @@ t_bool	exec_pipe(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds)
 	ft_stk_pipe_add(stks->pipes, fd_pipe);
 	fds.in = 0;
 	fds.out = fd_pipe[1];
-	exec_tree(node->left, envp, stks, fds);
+	exec_tree(node->left, TRUE, stks, fds);
 	fds.in = fd_pipe[0];
 	fds.out = 1;
-	exec_tree(node->right, envp, stks, fds);
-	//wait la pipeline?
+	exec_tree(node->right, TRUE, stks, fds);
+	if (!from_pipe)
+		(void)from_pipe; //wait la pipeline
 	if (ft_close(2, fd_pipe[0], fd_pipe[1]) < 0)
 		return (ERROR);
 	return (TRUE);

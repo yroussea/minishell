@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:26:26 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:36:01 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_node
 	t_lst_redir		*outfile;
 	struct s_node	*left;
 	struct s_node	*right;
+	t_lst_envp		**envp;
 }				t_node;
 
 void		ft_print_ope(int fd, t_lst_ope *lst);
@@ -129,16 +130,16 @@ t_bool			ft_stk_pid_add(t_stack_id **stk, int pid);
 */
 t_bool		add_child(t_node *root, t_node *new_node, t_priority prio);
 t_node		*init_node(t_type_of_node type);
-t_bool		ft_add_all_leaf(t_node **node, t_lst_com *cmd);
+t_bool		ft_add_all_leaf(t_node **node, t_lst_com *cmd, t_lst_envp **envp);
 t_bool		ft_add_all_branch(t_node **node, t_lst_ope *ope);
 void		ft_free_tree(t_node *root);
 t_bool		fill_node(t_node *node, t_lst_com *cmd);
 
-t_bool		exec_tree(t_node *root, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
-t_bool		exec_pipe(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
-t_bool		exec_and(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
-t_bool		exec_or(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
-t_bool		exec_cmd(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
+t_bool		exec_tree(t_node *root, t_bool from_pipe, t_data_stk *stks, t_fds fds);
+t_bool		exec_pipe(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
+t_bool		exec_and(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
+t_bool		exec_or(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
+t_bool		exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
 /*
  * redir
 */

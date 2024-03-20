@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:25:30 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:41:26 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_bool	add_single_leaf(t_node *root, t_node *leaf)
 	return (FALSE);
 }
 
-t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd)
+t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 {
 	t_node	*new_node;
 
@@ -74,6 +74,7 @@ t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd)
 		}
 		if (!ft_open_redir(new_node, cmd))
 			return (ERROR);
+		new_node->envp = envp;
 		cmd = cmd->next;
 	}
 	return (TRUE);
