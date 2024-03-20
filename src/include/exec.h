@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:36:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:18:28 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ typedef struct s_node
 	t_type_of_node	type;
 	char			*cmd;
 	char			**args;
-	t_lst_redir		*infile;
-	t_lst_redir		*outfile;
+	t_lst_redir		*redir;
 	struct s_node	*left;
 	struct s_node	*right;
 	t_lst_envp		**envp;

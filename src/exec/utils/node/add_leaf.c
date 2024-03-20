@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:41:26 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:05:31 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ t_bool	ft_open_redir(t_node *node, t_lst_com *cmd)
 	tmp = cmd->redir->next->next;
 	while (tmp)
 	{
-		if (tmp->type == DIRE_IN)
-			if (!ft_lst_redir_add(&node->infile, tmp->type, \
-			ft_strdup(tmp->file)))
-				return (FALSE);
-		if (tmp->type == ADD || tmp->type == DIRE_OUT || tmp->type == DIRE_TWO)
-			if (!ft_lst_redir_add(&node->outfile, tmp->type, \
-			ft_strdup(tmp->file)))
-				return (FALSE);
 		if (tmp->type == HEREDOC)
-			if (!ft_lst_redir_heredoc(&node->infile, HEREDOC, \
-			ft_heredoc(tmp->file)))
+		{
+			if (!ft_lst_redir_heredoc(&node->redir, HEREDOC, \
+							 ft_heredoc(tmp->file)))
 				return (FALSE);
+		}
+		else
+		{
+			if (!ft_lst_redir_add(&node->redir, tmp->type, \
+			ft_strdup(tmp->file)))
+				return (FALSE);
+		}
 		tmp = tmp->next;
 	}
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:41:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:45:31 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_bool	exec_and(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 {
+	int	pid;
 	/*(si dans pipe faire la suite dans un fork puis exit)
 	 * dup2 entrer (si pas STDIN)
 	 * exectree pour la gauche
@@ -23,8 +24,15 @@ t_bool	exec_and(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 	 * si le fils a reussit (global ig)
 	 * ->executer a droite
 	 */
+	if (fds.in != 0)
+		ft_dup2(fds.in, STDIN_FILENO);
+	exec_tree(node->left, from_pipe, stks, fds);
+	pid = stk_pid_pop(stks->pids);
+	ft_close_pipe(*(stks)->pipes);
+	waitpid(pid, NULL, 0);
+	if (/*fils reussit*/ 1)
+		exec_tree(node->right, from_pipe, stks, fds);
 	(void)node;
-	(void)stks;
 	(void)fds;
 	return (ERROR);
 }

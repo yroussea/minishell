@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 14:35:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:09:27 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ void	ft_print_node(t_node *node)
 	if (node->type == CMD)
 	{
 		ft_printf("|%s\n", node->cmd);
-		ft_print_redir(1, node->infile);
-		ft_print_redir(1, node->outfile);
+		ft_print_redir(1, node->redir);
 		ft_printf("%S\n", node->args);
 	}
 	else
