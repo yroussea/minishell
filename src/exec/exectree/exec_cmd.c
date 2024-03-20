@@ -6,13 +6,13 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 17:00:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:16:27 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_bool	exec_cmd(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds)
+t_bool	exec_cmd(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds)
 {
 	int		pid;
 	char	**envp_char;
@@ -38,7 +38,7 @@ t_bool	exec_cmd(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds)
 	}
 	//close cmd redir
 	//stack_id_add(pid)
-	(void)stk_pid;
+	(void)stks;
 	(void)fds;
 	return (ERROR);
 }

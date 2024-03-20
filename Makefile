@@ -40,6 +40,7 @@ SRCS_FILES = 							\
 	exec/utils/node/add_branch.c		\
 	exec/utils/node/add_leaf.c			\
 	exec/utils/node/init_node.c			\
+	exec/utils/close.c
 	
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))

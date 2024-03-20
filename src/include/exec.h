@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:00:20 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:24:45 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_lst_redir
 {
 	t_type_of_node		type;
 	char				*file;
+	int					heredoc_fd;
 	struct s_lst_redir	*next;
 }				t_lst_redir;
 
@@ -100,9 +101,14 @@ t_lst_redir	*init_node_redir(t_type_of_node type, char *file);
 void		ft_lst_redir_free(t_lst_redir *lst);
 t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, \
 				char *file);
+t_bool		ft_lst_redir_heredoc(t_lst_redir **lst, t_type_of_node type, int fd);
 void		lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
 
 t_bool		split_args(char **s, t_lst_com *lst);
+
+//utils
+
+void		ft_close_pipe(t_stack_pipe *pipe);
 /*
  *
 */
