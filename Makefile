@@ -11,28 +11,29 @@ INCLUDE_LIBFT = $(LIBFT_DIR)/libft.a -lreadline
 
 SRCS_FILES = 							\
 	minishell.c							\
+	parsing/parsing.c					\
+	parsing/tokeniser/tokeniser.c		\
 	utils/better_fnct.c					\
+	utils/lst/lst_cmd.c					\
 	utils/lst/lst_envp.c				\
 	utils/lst/utils_lst_envp.c			\
-	utils/lst/lst_cmd.c					\
 	utils/parsing/utils_parsing.c		\
 	utils/prompt/prompt.c				\
 	utils/prompt/prompt_get_git.c		\
 	utils/sig/sig.c						\
-	parsing/parsing.c					\
-	parsing/tokeniser/tokeniser.c		\
+	exec/access/access.c				\
+	exec/execution.c					\
+	exec/exectree/exec_tree.c			\
+	exec/heredoc/heredoc.c				\
+	exec/lst_com_split_args.c			\
 	exec/utils/print_lst.c				\
 	exec/utils/print_tree.c				\
 	exec/utils/lst/lst_com.c			\
 	exec/utils/lst/lst_ope.c			\
 	exec/utils/lst/lst_redir.c			\
-	exec/lst_com_split_args.c			\
-	exec/execution.c					\
-	exec/utils/node/init_node.c			\
 	exec/utils/node/add_branch.c		\
 	exec/utils/node/add_leaf.c			\
-	exec/heredoc/heredoc.c				\
-	exec/exectree/exec_tree.c
+	exec/utils/node/init_node.c			\
 	
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))

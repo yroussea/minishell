@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 15:12:36 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:34:23 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@ char	ft_random()
 
 	fd = open("/dev/random", 0);
 	read(fd, buf, 1);
-	close(fd);
+	ft_close(1, fd);
 	return (97 + ft_abs(*buf % 26));
 }
 
 t_bool sig_heredoc(char *line, char *eof, int count)
 {
 	char	*tmp;
+	char	*nb;
 
 	if (line == NULL)
 	{
+		nb = ft_itoa(count + 1);
 		tmp = ft_vjoin(5, "", \
-			"petite-coquille: warning: here-document at line ", \
-			ft_itoa(count + 1), " delimited by end-of-file (wanted `", \
-			eof, "`)");
+			"petite-coquille: warning: here-document at line ", nb, \
+			" delimited by end-of-file (wanted `", eof, "`)");
 		ft_printf("%s\n", tmp);
-		free(tmp);
+		ft_magic_free("%1 %1", tmp, nb);
 		return (FALSE);
 	}
 	return (TRUE);
@@ -48,7 +49,7 @@ t_bool	exec_heredoc(char *eof, int fd)
 	int		count;
 
 	count = 0;
-	pid = fork();
+	pid = ft_fork();
 	while (pid == 0)
 	{
 		line = readline("> ");
@@ -77,18 +78,13 @@ char	*ft_heredoc(char *eof)
 	buf = ft_calloc(19, sizeof(char));
 	if (!buf)
 		return (NULL);	
-	ft_strlcat(buf, "heredoc_", 9);
+	ft_strlcat(buf, ".heredoc", 9);
 	i = 8;
 	while (i < 18)
 		buf[i++] = ft_random();
 	fd = open(buf, 577);
 	exec_heredoc(eof, fd);
-	close(fd);
-	if (unlink(buf))
-	{
-		free(buf);
-		return (NULL);
-	}
-	free(buf);
-	return (NULL);
+	ft_close(1, fd);
+	unlink(buf);
+	return (buf);
 }
