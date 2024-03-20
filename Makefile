@@ -24,11 +24,17 @@ SRCS_FILES = 							\
 	exec/access/access.c				\
 	exec/execution.c					\
 	exec/exectree/exec_tree.c			\
+	exec/exectree/exec_cmd.c			\
+	exec/exectree/exec_or.c				\
+	exec/exectree/exec_and.c			\
+	exec/exectree/exec_pipe.c			\
 	exec/heredoc/heredoc.c				\
 	exec/lst_com_split_args.c			\
 	exec/utils/print_lst.c				\
 	exec/utils/print_tree.c				\
 	exec/utils/lst/lst_com.c			\
+	exec/utils/lst/stkpid.c				\
+	exec/utils/lst/stkpipe.c			\
 	exec/utils/lst/lst_ope.c			\
 	exec/utils/lst/lst_redir.c			\
 	exec/utils/node/add_branch.c		\

@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 17:00:58 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:00:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ typedef struct s_stack_id
 	struct s_stack_id	*next;
 }				t_stack_id;
 
+typedef struct s_stack_pipe
+{
+	int					pipe[2];
+	struct s_stack_pipe	*next;
+}				t_stack_pipe;
+
+typedef struct s_data_stk
+{
+	t_stack_pipe	**pipes;
+	t_stack_id		**pids;
+}				t_data_stk;
+
 typedef struct s_node
 {
 	t_type_of_node	type;
@@ -91,7 +103,21 @@ t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, \
 void		lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
 
 t_bool		split_args(char **s, t_lst_com *lst);
+/*
+ *
+*/
 
+t_bool			ft_stk_pipe_add(t_stack_pipe **stk, int fds_pipe[2]);
+t_stack_pipe	*init_stk_pipe(int fds_pipe[2]);
+void			ft_stk_pipe_free(t_stack_pipe *stk);
+int				*stk_pipe_pop(t_stack_pipe **stk);
+void			stk_pipe_add_front(t_stack_pipe **stk, t_stack_pipe *new);
+
+void			stk_pid_add_front(t_stack_id **stk, t_stack_id *new);
+int				stk_pid_pop(t_stack_id **stk);
+void			ft_stk_pid_free(t_stack_id *stk);
+t_stack_id		*init_stk_pid(int s);
+t_bool			ft_stk_pid_add(t_stack_id **stk, int pid);
 /*
  * tree
 */
@@ -102,11 +128,11 @@ t_bool		ft_add_all_branch(t_node **node, t_lst_ope *ope);
 void		ft_free_tree(t_node *root);
 t_bool		fill_node(t_node *node, t_lst_com *cmd);
 
-t_bool		exec_tree(t_node *root, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
-t_bool		exec_pipe(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
-t_bool		exec_and(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
-t_bool		exec_or(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
-t_bool		exec_cmd(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
+t_bool		exec_tree(t_node *root, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
+t_bool		exec_pipe(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
+t_bool		exec_and(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
+t_bool		exec_or(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
+t_bool		exec_cmd(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
 /*
  * redir
 */
