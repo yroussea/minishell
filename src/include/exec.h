@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 17:17:13 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:00:58 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ void		ft_free_tree(t_node *root);
 t_bool		fill_node(t_node *node, t_lst_com *cmd);
 
 t_bool		exec_tree(t_node *root, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
+t_bool		exec_pipe(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
+t_bool		exec_and(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
+t_bool		exec_or(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
+t_bool		exec_cmd(t_node *node, t_lst_envp *envp, t_stack_id *stk_pid, t_fds fds);
 /*
  * redir
 */
