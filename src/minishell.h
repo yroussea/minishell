@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/19 15:45:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:27:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # include <signal.h>
 # include <strings.h>
 # include <termios.h>
-
-# define BOLD "\001\e[1m\002"
 
 # define DEFAULT "\001\033[m\002"
 # define BLACK "\001\e[0;30m\002"

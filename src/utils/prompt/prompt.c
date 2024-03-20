@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/18 16:36:15 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:01:39 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*replace(char *str, char *search, char *replace)
 		return (tmp);
 	}
 	else
-		return (str);
+		return (ft_strdup(str));
 }
 
 char	*get_logo(t_lst_envp *lst_envp)
