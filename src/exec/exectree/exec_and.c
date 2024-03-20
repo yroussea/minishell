@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:45:31 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:25:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bool	exec_and(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 {
 	int	pid;
 	/*(si dans pipe faire la suite dans un fork puis exit)
-	 * dup2 entrer (si pas STDIN)
+	 * dup2 entrer (si pas STDIN) et sortie
 	 * exectree pour la gauche
 	 * recup depuis la pile le pid
 	 * close les pipes
