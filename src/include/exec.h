@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:24:45 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:26:26 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,6 @@ t_bool		exec_cmd(t_node *node, t_lst_envp *envp, t_data_stk *stks, t_fds fds);
 /*
  * redir
 */
-char		*ft_heredoc(char *eof);
+int			ft_heredoc(char *eof);
 
 #endif
