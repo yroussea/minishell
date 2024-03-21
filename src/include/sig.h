@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:54:24 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/18 16:54:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:32:00 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define SIG_H
 
 void	set_sigaction(int state);
+void	handler(int signal);
+void	heredoc_handler(int signal);
 
 #endif

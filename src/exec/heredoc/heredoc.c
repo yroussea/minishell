@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 17:34:23 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:53:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	ft_random()
+char	ft_random(void)
 {
 	char	buf[1];
 	int		fd;
@@ -23,7 +23,7 @@ char	ft_random()
 	return (97 + ft_abs(*buf % 26));
 }
 
-t_bool sig_heredoc(char *line, char *eof, int count)
+t_bool	sig_heredoc(char *line, char *eof, int count)
 {
 	char	*tmp;
 	char	*nb;
@@ -52,6 +52,7 @@ t_bool	exec_heredoc(char *eof, int fd)
 	pid = ft_fork();
 	while (pid == 0)
 	{
+		signal(SIGINT, heredoc_handler);
 		line = readline("> ");
 		if (sig_heredoc(line, eof, count) == FALSE)
 			exit(0);
@@ -69,7 +70,7 @@ t_bool	exec_heredoc(char *eof, int fd)
 	return (TRUE);
 }
 
-char	*ft_heredoc(char *eof)
+int	ft_heredoc(char *eof)
 {
 	int		fd;
 	char	*buf;
@@ -77,14 +78,15 @@ char	*ft_heredoc(char *eof)
 
 	buf = ft_calloc(19, sizeof(char));
 	if (!buf)
-		return (NULL);	
+		return (-42);
 	ft_strlcat(buf, ".heredoc", 9);
 	i = 8;
 	while (i < 18)
 		buf[i++] = ft_random();
 	fd = open(buf, 577);
+	signal(SIGINT, SIG_IGN);
 	exec_heredoc(eof, fd);
-	ft_close(1, fd);
 	unlink(buf);
-	return (buf);
+	set_sigaction(0);
+	return (fd);
 }

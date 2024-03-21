@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/21 14:05:51 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:52:40 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,38 @@ typedef struct s_node
 	t_lst_envp		**envp;
 }				t_node;
 
-void		ft_print_ope(int fd, t_lst_ope *lst);
-void		ft_print_redir(int fd, t_lst_redir *lst);
-void		ft_print_com(int fd, t_lst_com *lst);
-void		ft_print_lst(int fd, t_lst_cmd *lst);
-void		ft_print_tree(t_node *root);
-void		ft_print_node(t_node *node);
+void			ft_print_ope(int fd, t_lst_ope *lst);
+void			ft_print_redir(int fd, t_lst_redir *lst);
+void			ft_print_com(int fd, t_lst_com *lst);
+void			ft_print_lst(int fd, t_lst_cmd *lst);
+void			ft_print_tree(t_node *root);
+void			ft_print_node(t_node *node);
 
-void		exec(t_lst_cmd *lst_cmd, t_lst_envp *envp);
+void			exec(t_lst_cmd *lst_cmd, t_lst_envp *envp);
 
-t_lst_com	*init_node_com(char **s);
-void		ft_lst_com_free(t_lst_com *lst);
-t_bool		ft_lst_com_add(t_lst_com **lst, char **s);
-void		lst_com_add_back(t_lst_com **lst, t_lst_com *new);
+t_lst_com		*init_node_com(char **s);
+void			ft_lst_com_free(t_lst_com *lst);
+t_bool			ft_lst_com_add(t_lst_com **lst, char **s);
+void			lst_com_add_back(t_lst_com **lst, t_lst_com *new);
 
-t_lst_ope	*init_node_ope(t_type_of_node type);
-void		ft_lst_ope_free(t_lst_ope *lst);
-t_bool		ft_lst_ope_add(t_lst_ope **lst, t_type_of_node type);
-void		lst_ope_add_back(t_lst_ope **lst, t_lst_ope *new);
+t_lst_ope		*init_node_ope(t_type_of_node type);
+void			ft_lst_ope_free(t_lst_ope *lst);
+t_bool			ft_lst_ope_add(t_lst_ope **lst, t_type_of_node type);
+void			lst_ope_add_back(t_lst_ope **lst, t_lst_ope *new);
 
-t_lst_redir	*init_node_redir(t_type_of_node type, char *file);
-void		ft_lst_redir_free(t_lst_redir *lst);
-t_bool		ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, \
-				char *file);
-t_bool		ft_lst_redir_heredoc(t_lst_redir **lst, t_type_of_node type, int fd);
-void		lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
+t_lst_redir		*init_node_redir(t_type_of_node type, char *file);
+void			ft_lst_redir_free(t_lst_redir *lst);
+t_bool			ft_lst_redir_add(t_lst_redir **lst, t_type_of_node type, \
+					char *file);
+t_bool			ft_lst_redir_heredoc(t_lst_redir **lst, t_type_of_node type, \
+					int fd);
+void			lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
 
-t_bool		split_args(char **s, t_lst_com *lst);
+t_bool			split_args(char **s, t_lst_com *lst);
 
 //utils
 
-void		ft_close_pipe(t_stack_pipe *pipe);
+void			ft_close_pipe(t_stack_pipe *pipe);
 /*
  *
 */
@@ -129,21 +130,27 @@ t_bool			ft_stk_pid_add(t_stack_id **stk, int pid);
 /*
  * tree
 */
-t_bool		add_child(t_node *root, t_node *new_node, t_priority prio);
-t_node		*init_node(t_type_of_node type);
-t_bool		ft_add_all_leaf(t_node **node, t_lst_com *cmd, t_lst_envp **envp);
-t_bool		ft_add_all_branch(t_node **node, t_lst_ope *ope);
-void		ft_free_tree(t_node *root);
-t_bool		fill_node(t_node *node, t_lst_com *cmd);
+t_bool			add_child(t_node *root, t_node *new_node, t_priority prio);
+t_node			*init_node(t_type_of_node type);
+t_bool			ft_add_all_leaf(t_node **node, t_lst_com *cmd, t_lst_envp \
+					**envp);
+t_bool			ft_add_all_branch(t_node **node, t_lst_ope *ope);
+void			ft_free_tree(t_node *root);
+t_bool			fill_node(t_node *node, t_lst_com *cmd);
 
-t_bool		exec_tree(t_node *root, t_bool from_pipe, t_data_stk *stks, t_fds fds);
-t_bool		exec_pipe(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
-t_bool		exec_and(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
-t_bool		exec_or(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
-t_bool		exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds);
+t_bool			exec_tree(t_node *root, t_bool from_pipe, t_data_stk *stks, \
+					t_fds fds);
+t_bool			exec_pipe(t_node *node, t_bool from_pipe, t_data_stk *stks, \
+					t_fds fds);
+t_bool			exec_and(t_node *node, t_bool from_pipe, t_data_stk *stks, \
+					t_fds fds);
+t_bool			exec_or(t_node *node, t_bool from_pipe, t_data_stk *stks, \
+					t_fds fds);
+t_bool			exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, \
+					t_fds fds);
 /*
  * redir
 */
-int			ft_heredoc(char *eof);
+int				ft_heredoc(char *eof);
 
 #endif

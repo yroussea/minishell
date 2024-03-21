@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 15:10:30 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:49:16 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 int	ft_exit(char *line, t_lst_envp	*lst_envp)
 {
+	if (line == NULL)
+	{
+		ft_printf("exit\n");
+		free_lst_envp(lst_envp);
+		return (0);
+	}
 	if (ft_strncmp(line, "exit", 5) == 0 || ft_strncmp(line, "e", 5) == 0)
 	{
 		free(line);
@@ -55,14 +61,10 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 	user = NULL;
 	while (1)
 	{
+		set_sigaction(0);
 		prompt = get_prompt(lst_envp, prompt);
 		line = readline(prompt);
 		ft_magic_free("%1 %1", prompt, user);
-		if (line == NULL)
-		{
-			ft_printf("exit\n");
-			return (FALSE);
-		}
 		if (ft_exit(line, lst_envp) == 0)
 			return (FALSE);
 		if (*line)
@@ -77,11 +79,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_lst_envp	*lst_envp;
 
-	// ft_printf("\033c");
+	ft_printf("\033c");
 	if (argc != 1)
 		return (ft_stop(argc, argv));
 	lst_envp = init_lst_envp(envp);
-	set_sigaction(0);
 	if (display_prompt(lst_envp) == FALSE)
 	{
 		clear_history();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_or.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:25 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:44:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:55:29 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	exec_or(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 	pid = stk_pid_pop(stks->pids);
 	ft_close_pipe(*(stks)->pipes);
 	waitpid(pid, NULL, 0);
-	if (/*fils echoue*/ 1)
+	if (1) /*fils echoue*/
 		exec_tree(node->right, from_pipe, stks, fds);
 	(void)node;
 	(void)fds;

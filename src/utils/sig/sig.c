@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/18 16:51:53 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:52:51 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@ void	handler(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+	}
+	if (signal == SIGQUIT)
+		return ;
+}
+
+void	heredoc_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		ft_printf("\n");
+		exit(0);
 	}
 	if (signal == SIGQUIT)
 		return ;
