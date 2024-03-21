@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 19:18:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:05:51 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_node
 	t_lst_redir		*redir;
 	struct s_node	*left;
 	struct s_node	*right;
+	int				infile;
+	int				outfile;
 	t_lst_envp		**envp;
 }				t_node;
 

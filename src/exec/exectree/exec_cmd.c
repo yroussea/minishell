@@ -6,12 +6,22 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 20:18:47 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:20:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <unistd.h>
+
+void	ft_close_command(t_node *node)
+{
+	if (!node)
+		return ;
+	if (node->infile > 2)
+		close(node->infile);
+	if (node->outfile > 2)
+		close(node->outfile);
+}
 
 t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 {
@@ -47,7 +57,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 		if (redir->type == DIRE_OUT)
 		{
 			if (fds.out != STDOUT_FILENO)
-			ft_close(1, fds.out);
+				ft_close(1, fds.out);
 			fds.out = open(redir->file, 577, 0664);
 			if (fds.out == -1)
 				break ;
@@ -64,8 +74,12 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 	}
 	if (fds_error == -1 || fds.in == -1 || fds.out == -1)
 		return (FALSE);
-	//dup2 !!!
-	//close all
+	if (fds.in != STDIN_FILENO)
+		ft_dup2(fds.in, STDIN_FILENO);
+	if (fds.out != STDOUT_FILENO)
+		ft_dup2(fds.out, STDOUT_FILENO);
+	if (fds_error != STDERR_FILENO)
+		ft_dup2(fds_error, STDERR_FILENO);
 	return (TRUE);
 }
 
@@ -79,12 +93,12 @@ t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 		return (ERROR);
 	if (pid == 0)
 	{
-		//all redirection
 		envp_char = envp_to_char(*node->envp);
 		if (envp_char)
 		{
+		//all redirection + condition
+		//ft_close_command(node) / tous l arbre ?
 			//remplirer cmd avec full path
-			//make all redir (dup2)
 			ft_close_pipe(*(stks)->pipes);
 			execve(node->cmd, node->args, envp_char);
 		}

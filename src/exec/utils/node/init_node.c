@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:39:34 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 14:39:37 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:08:26 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ t_node	*init_node(t_type_of_node type)
 	node->args = NULL;
 	node->left = NULL;
 	node->right = NULL;
-	node->infile = NULL;
-	node->outfile = NULL;
+	node->redir = NULL;
+	node->infile = 0;
+	node->outfile = 1;
 	node->type = type;
 	return (node);
 }
@@ -59,8 +60,7 @@ void	ft_free_node(t_node *node)
 {
 	if (!node)
 		return ;
-	ft_lst_redir_free(node->infile);
-	ft_lst_redir_free(node->outfile);
+	ft_lst_redir_free(node->redir);
 	free(node);
 }
 
