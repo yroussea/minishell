@@ -6,28 +6,34 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/21 18:55:34 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:15:13 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <unistd.h>
 
 char	*get_access(t_lst_envp *lst_envp, char *cmd)
 {
-	char	*paths;
-	char	path;
+	char	*path;
+	char	**allpaths;
+	int		i;
 
-	if (cmd && *cmd && access(cmd, F_OK) == 0)
-		return (ft_strdup(cmd));
-	paths = get_envp_variable(lst_envp, "PATH");
-	path = ft_strdup("");
-	while (paths && paths && path && access(path, F_OK))
+	if (cmd && *cmd && access(cmd, X_OK) == 0)
+		return (cmd);
+	allpaths = get_all_path(lst_envp);
+	i = 0;
+	while (allpaths && allpaths[i])
 	{
+		path = ft_vjoin(2, "/", allpaths[i], cmd);
+		if (path && *path && access(path, X_OK) == 0)
+		{
+			ft_magic_free("%1 %2", cmd, allpaths);
+			return (path);
+		}
 		free(path);
-		path = ft_vjoin(3, "", *paths++, "/", cmd);
+		i += 1;
 	}
-	ft_magic_free("%1", paths);
-	if (cmd)
-		free(cmd);
-	return (path);
+	ft_magic_free("%1 %2", cmd, allpaths);
+	return (NULL);
 }

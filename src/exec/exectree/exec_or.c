@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:25 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/21 17:55:29 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:36:33 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bool	exec_or(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 		ft_dup2(fds.in, STDIN_FILENO);
 	exec_tree(node->left, from_pipe, stks, fds);
 	pid = stk_pid_pop(stks->pids);
-	ft_close_pipe(*(stks)->pipes);
+	ft_close_pipe((stks)->pipes);
 	waitpid(pid, NULL, 0);
 	if (1) /*fils echoue*/
 		exec_tree(node->right, from_pipe, stks, fds);

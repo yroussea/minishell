@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/14 20:20:34 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:01:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ t_bool	ft_close(int nb, ...)
 		if (fd < 0)
 			error += ERROR;
 		else
-			error += close(fd);
+		{
+			if (close(fd) == -1)
+			{
+				ft_printf_fd(2, "FAILED %d\n", fd);
+				error += -1;
+			}
+		}
 	}
 	va_end(args);
 	if (error != 0)

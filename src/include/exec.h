@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/21 17:52:40 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:00:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ t_bool			split_args(char **s, t_lst_com *lst);
 
 //utils
 
-void			ft_close_pipe(t_stack_pipe *pipe);
+void			ft_close_pipe(t_stack_pipe **pipe);
+t_node			*ft_get_root(t_node	*node, t_bool reset);
+void			wait_all(t_stack_id **stk, int checkpoint);
 /*
  *
 */
@@ -152,5 +154,5 @@ t_bool			exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, \
  * redir
 */
 int				ft_heredoc(char *eof);
-
+char			*get_access(t_lst_envp *lst_envp, char *cmd);
 #endif

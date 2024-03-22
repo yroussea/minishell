@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:47:58 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 17:55:45 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:37:28 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	stk_pipe_add_front(t_stack_pipe **stk, t_stack_pipe *new)
 {
-	if (!stk || !new)
+	if (!new)
 		return ;
 	if ((*stk))
 		new->next = (*stk);
@@ -65,6 +65,7 @@ t_bool	ft_stk_pipe_add(t_stack_pipe **stk, int fds_pipe[2])
 	if (!tmp)
 	{
 		ft_stk_pipe_free(*stk);
+		*stk = NULL;
 		return (FALSE);
 	}
 	stk_pipe_add_front(stk, tmp);

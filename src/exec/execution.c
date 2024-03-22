@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:40:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:33:45 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,21 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 
 t_data_stk	*init_stks(void)
 {
-	t_stack_pipe	*stk_pipe;
-	t_stack_id		*stk_pid;
 	t_data_stk		*new;
 
 	new = malloc(sizeof(t_data_stk));
 	if (!new)
 		return (NULL);
-	stk_pipe = NULL;
-	new->pipes = &stk_pipe;
-	stk_pid = NULL;
-	new->pids = &stk_pid;
 	return (new);
+}
+
+t_node	*ft_get_root(t_node	*node, t_bool reset)
+{
+	static t_node	*root = NULL;
+
+	if (reset)
+		root = node;
+	return (root);
 }
 
 void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
@@ -53,6 +56,8 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 	t_node		*root;
 	t_data_stk	*stks;
 	t_fds		fds;
+	t_stack_pipe	*stk_pipe;
+	t_stack_id		*stk_pid;
 
 	/*pre parsing : "&& &&" (faire attention au ; et au () ) + operateur au
 	 * debut / fin, c la merde
@@ -64,14 +69,22 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 	stks = init_stks();
 	if (stks)
 	{
+		stk_pipe = NULL;
+		stks->pipes = &stk_pipe;
+		stk_pid = NULL;
+		stks->pids = &stk_pid;
 		fds.in = 0;
 		fds.out = 1;
 		if (!split_two_lst(lst_all, &operator, &cmd))
 			return ;
 		if (ft_add_all_branch(&root, operator))
 			ft_add_all_leaf(&root, cmd, &envp);
+		ft_get_root(root, TRUE);
 		exec_tree(root, FALSE, stks, fds);
+		wait_all(stks->pids, -1);
+		ft_get_root(NULL, TRUE);
 		ft_free_tree(root);
+		free(stks);
 	}
 	ft_lst_com_free(cmd);
 	ft_lst_ope_free(operator);
