@@ -121,7 +121,7 @@ void			wait_all(t_stack_id **stk, int checkpoint);
 t_bool			ft_stk_pipe_add(t_stack_pipe **stk, int fds_pipe[2]);
 t_stack_pipe	*init_stk_pipe(int fds_pipe[2]);
 void			ft_stk_pipe_free(t_stack_pipe *stk);
-int				*stk_pipe_pop(t_stack_pipe **stk);
+t_stack_pipe	*stk_pipe_pop(t_stack_pipe **stk);
 void			stk_pipe_add_front(t_stack_pipe **stk, t_stack_pipe *new);
 
 void			stk_pid_add_front(t_stack_id **stk, t_stack_id *new);

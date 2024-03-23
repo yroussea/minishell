@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/22 18:47:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:51:19 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 	}
 	if (fds_error == -1 || fds_in == -1 || fds_out == -1)
 		return (FALSE);
-	ft_printf_fd(2, "FDS: %d %d %d %d\n", fds_in, fds_out, fds.in, fds.out);
+	//ft_printf_fd(2, "FDS: %d %d %d %d\n", fds_in, fds_out, fds.in, fds.out);
 	if (fds_in != STDIN_FILENO)
 	{
 		ft_dup2(fds_in, STDIN_FILENO);
@@ -109,26 +109,33 @@ t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 
 //difference buildin et cmd
 	(void)from_pipe;
-	pid = ft_fork();
-	if (pid < 0)
-		return (ERROR);
-	if (pid == 0)
+	full_cmd = get_access(*(node->envp), node->cmd);
+	if (full_cmd)
 	{
-		envp_char = envp_to_char(*node->envp);
-		if (envp_char)
+		pid = ft_fork();
+		if (pid < 0)
+			return (ERROR);
+		if (pid == 0)
 		{
-			full_cmd = get_access(*(node->envp), node->cmd);
-			ft_printf_fd(2, "cmd:{%s}\n", full_cmd);
-			if (full_cmd && all_redir_cmd(node->redir, fds))
+			envp_char = envp_to_char(*node->envp);
+			if (envp_char)
 			{
-				ft_close_pipe(stks->pipes);
-				execve(full_cmd, node->args, envp_char);
+				if (all_redir_cmd(node->redir, fds))
+				{
+					ft_close_pipe(stks->pipes);
+					execve(full_cmd, node->args, envp_char);
+				}
+				else 
+					ft_close_pipe(stks->pipes);
+				free(full_cmd);
 			}
+			ft_free_split(envp_char);
+			exit(1);
 		}
-		free(envp_char);
-		exit(1);
+		ft_stk_pid_add(stks->pids, pid);
+		free(full_cmd);
+		return (TRUE);
 	}
 	//close cmd redir
-	ft_stk_pid_add(stks->pids, pid);
 	return (ERROR);
 }

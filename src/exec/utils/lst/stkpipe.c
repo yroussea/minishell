@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:47:58 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/22 17:37:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:41:41 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	stk_pipe_add_front(t_stack_pipe **stk, t_stack_pipe *new)
 	*stk = new;
 }
 
-int	*stk_pipe_pop(t_stack_pipe **stk)
+t_stack_pipe	*stk_pipe_pop(t_stack_pipe **stk)
 {
 	t_stack_pipe	*tmp;
 
@@ -29,7 +29,7 @@ int	*stk_pipe_pop(t_stack_pipe **stk)
 		return (NULL);
 	tmp = (*stk);
 	*stk = (*stk)->next;
-	return (tmp->pipe);
+	return (tmp);
 }
 
 void	ft_stk_pipe_free(t_stack_pipe *stk)

@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:29:11 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 17:47:08 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:43:08 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ void	stk_pid_add_front(t_stack_id **stk, t_stack_id *new)
 int	stk_pid_pop(t_stack_id **stk)
 {
 	t_stack_id	*tmp;
+	int			pid;
 
 	if (!stk || !*stk)
 		return (-1);
 	tmp = (*stk);
+	pid = tmp->pid;
 	*stk = (*stk)->next;
-	return (tmp->pid);
+	free(tmp);
+	return (pid);
 }
 
 void	ft_stk_pid_free(t_stack_id *stk)
