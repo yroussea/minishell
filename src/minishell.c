@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/21 17:49:16 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:11:07 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 			return (FALSE);
 		if (*line)
 			add_history(line);
-		lst_line = parsing(line);
+		lst_line = parsing(line, lst_envp);
 		exec(lst_line, lst_envp);
 	}
 	return (TRUE);

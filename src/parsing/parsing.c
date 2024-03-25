@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/22 15:44:08 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:10:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,17 @@ char	**unzoom(char *s)
 	return (unzoomed);
 }
 
-void	test(char **args, t_lst_cmd **lst_cmd)
+void	print_test(char	**cmd_and_args, t_lst_envp *lst_envp)
+{
+	while (cmd_and_args && *cmd_and_args)
+	{
+		if (**cmd_and_args != ' ')
+			ft_printf_fd(2, "defore:\n<%s>\nafter\n<%s>\n", *cmd_and_args, ft_unquote(*cmd_and_args, lst_envp));
+		cmd_and_args += 1;
+	}
+}
+
+void	test(char **args, t_lst_cmd **lst_cmd, t_lst_envp *lst_envp)
 {
 	int				i;
 	char			**cmd_and_arg;
@@ -61,6 +71,7 @@ void	test(char **args, t_lst_cmd **lst_cmd)
 	{
 		tmp = ft_vjoin(2, "", " ", args[i]);
 		cmd_and_arg = va_tokeniser(tmp, 6, ">>", " 2>", ">", "<<", "<", " ");
+		print_test(cmd_and_arg, lst_envp); //a enlever :)
 		if (!ft_lst_cmd_add(lst_cmd, cmd_and_arg, get_type(args[i])))
 			*lst_cmd = NULL;
 		i += 1;
@@ -68,14 +79,14 @@ void	test(char **args, t_lst_cmd **lst_cmd)
 	}
 }
 
-t_lst_cmd	*parsing(char *line)
+t_lst_cmd	*parsing(char *line, t_lst_envp *lst_envp)
 {
 	char			**args;
 	t_lst_cmd		*lst_cmd;
 
 	lst_cmd = NULL;
 	args = va_tokeniser(line, 3, "||", "&&", "|"); //parenthese et ;
-	test(args, &lst_cmd);
+	test(args, &lst_cmd, lst_envp);
 	ft_magic_free("%1 %2", line, args);
 	return (lst_cmd);
 }

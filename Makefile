@@ -13,6 +13,7 @@ SRCS_FILES = 							\
 	minishell.c							\
 	parsing/parsing.c					\
 	parsing/tokeniser/tokeniser.c		\
+	parsing/unquoting.c					\
 	utils/better_fnct.c					\
 	utils/lst/lst_cmd.c					\
 	utils/lst/lst_envp.c				\
