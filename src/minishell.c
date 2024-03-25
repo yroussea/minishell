@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:06:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 14:47:53 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:35:10 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exitcode;
 
 int	ft_exit(char *line, t_lst_envp	*lst_envp)
 {
@@ -79,13 +81,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_lst_envp	*lst_envp;
 
-	// ft_printf("\033c");
+	ft_printf("\033c");
 	if (argc != 1)
 		return (ft_stop(argc, argv));
 	lst_envp = init_lst_envp(envp);
 	if (display_prompt(lst_envp) == FALSE)
 	{
 		clear_history();
+		printf("exitcode = %d\n", g_exitcode);
 		return (0);
 	}
 	free_lst_envp(lst_envp);
