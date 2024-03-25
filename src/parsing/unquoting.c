@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 15:00:18 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:08:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	char	*res;
 	char	*variable;
 
-	res = strdup_until_sep(s, 3, 34, 36, 39);
+	res = strdup_until_sep(s, 4, 34, 36, 39, ' ');
 	variable = get_envp_variable(lst_envp, res);
 	free(res);
 	return (variable);
