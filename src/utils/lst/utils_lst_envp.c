@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:20:35 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:46:37 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**envp_to_char(t_lst_envp *lst_envp)
 
 char	*get_envp_variable(t_lst_envp *lst_envp, char *variable)
 {
-	char	*buffer;
+	char	buf[10000];
 
 	while (lst_envp)
 	{
@@ -65,9 +65,8 @@ char	*get_envp_variable(t_lst_envp *lst_envp, char *variable)
 	}
 	if (ft_strncmp(variable, "PWD", 3) == 0)
 	{
-		buffer = ft_calloc(1000000, sizeof(char));
-		getcwd(buffer, 1000000);
-		return (ft_strdup(buffer));
+		getcwd(buf, 10000);
+		return (ft_strdup(buf));
 	}
 	return (NULL);
 }
