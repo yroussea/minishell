@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:39:34 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/21 14:08:26 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:26:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ t_bool	fill_node(t_node *node, t_lst_com *cmd)
 {
 	if (!node)
 		return (FALSE);
-	node->cmd = cmd->cmd;
-	node->args = cmd->args;
+	if (cmd)
+	{
+		node->cmd = cmd->cmd;
+		node->args = cmd->args;
+	}
 	return (TRUE);
 }
 

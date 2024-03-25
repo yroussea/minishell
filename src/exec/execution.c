@@ -6,23 +6,25 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/22 17:33:45 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:11:23 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
+t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd, t_lst_envp *envp)
 {
 	t_type_of_node	type;
 
+	*ope = NULL;
+	*cmd = NULL;
 	if (!lst_all)
 		return (FALSE);
 	while (lst_all)
 	{
 		type = lst_all->type;
 		if (type < PIPE || type > OR)
-			ft_lst_com_add(cmd, lst_all->cmd);
+			ft_lst_com_add(cmd, lst_all->cmd, envp);
 		else
 			ft_lst_ope_add(ope, type);
 		lst_all = lst_all->next;
@@ -75,7 +77,7 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 		stks->pids = &stk_pid;
 		fds.in = 0;
 		fds.out = 1;
-		if (!split_two_lst(lst_all, &operator, &cmd))
+		if (!split_two_lst(lst_all, &operator, &cmd, envp))
 			return ;
 		if (ft_add_all_branch(&root, operator))
 			ft_add_all_leaf(&root, cmd, &envp);

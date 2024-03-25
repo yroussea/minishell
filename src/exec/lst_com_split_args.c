@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:38:15 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:04:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static t_lst_redir	*get_redir(char **s)
 	return (lst);
 }
 
-t_bool	split_args(char **s, t_lst_com *lst)
+t_bool	split_args(char **s, t_lst_com *lst, t_lst_envp *envp)
 {
 	lst->cmd = NULL;
 	lst->args = NULL;
@@ -103,17 +103,17 @@ t_bool	split_args(char **s, t_lst_com *lst)
 	lst->args = ft_duptab(s);
 	if (!lst->args || !*lst->args)
 		return (FALSE);
-	lst->cmd = ft_strdup(*(lst->args));
-	if (!lst->cmd || !lst->args || !*lst->args)
+	if (!lst->args || !*lst->args)
 	{
-		ft_magic_free("%1 %2", lst->cmd, lst->args);
+		ft_magic_free("%2", lst->args);
 		return (FALSE);
 	}
 	lst->redir = get_redir(s);
 	if (!lst->redir)
 	{
-		ft_magic_free("%1 %2", lst->cmd, lst->args);
+		ft_magic_free("%2", lst->args);
 		return (FALSE);
 	}
+	(void)envp; //enlever tous les besoin a envp en cascade
 	return (TRUE);
 }

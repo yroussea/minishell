@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 14:31:08 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:29:47 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,48 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 	return (TRUE);
 }
 
+void	parse_quote(t_node *node)
+{
+	int		i;
+	char	**result;
+
+	i = ft_str_str_len(node->args);
+	result = ft_calloc(sizeof(char *), i + 1);
+	i = 0;
+	while (result && node->args && *(node->args + i))
+	{
+		result[i] = ft_unquote(*(node->args + i), *(node->envp));
+		if (!result[i])
+		{
+			ft_free_split(result);
+			node->cmd = ft_strdup(*node->args);
+			return ;
+		}
+		i += 1;
+	}
+	if (!result)
+	{
+		node->cmd = ft_strdup(*node->args);
+		return ;
+	}
+	node->args = result;
+	node->cmd = ft_strdup(*result);
+}
+
 t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 {
 	int		pid;
 	char	**envp_char;
 	char	*full_cmd;
 
-//difference buildin et cmd
 	(void)from_pipe;
+	//unquoting :)
+	parse_quote(node);
+	
+	//difference buildin et cmd
+	ft_printf_fd(2, "<%s>\n%S", node->cmd, node->args);
 	full_cmd = get_access(*(node->envp), node->cmd);
+	free(node->cmd);
 	if (full_cmd)
 	{
 		pid = ft_fork();
@@ -129,13 +162,15 @@ t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 					ft_close_pipe(stks->pipes);
 				free(full_cmd);
 			}
-			ft_free_split(envp_char);
+			ft_magic_free("%2 %2", node->args, envp_char);
+			///free all
 			exit(1);
 		}
 		ft_stk_pid_add(stks->pids, pid);
-		free(full_cmd);
+		ft_magic_free("%1 %2", full_cmd, node->args);
 		return (TRUE);
 	}
+	ft_free_split(node->args);
 	//close cmd redir
 	return (ERROR);
 }
