@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 14:19:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/25 18:20:48 by basverdi         ###   ########.fr       */
+/*   Created: 2024/03/25 18:00:07 by basverdi          #+#    #+#             */
+/*   Updated: 2024/03/25 18:07:32 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_pwd(t_node *node)
+void	ft_env(t_node *node)
 {
-	char	buf[10000];
+	t_lst_envp	*envp;
 
-	getcwd(buf, 10000);
-	ft_printf_fd(node->outfile, "%s\n", buf);
+	envp = *(node->envp);
+	while (envp)
+	{
+		ft_printf_fd(node->outfile, "%s=%s\n", envp->key, envp->value);
+		envp = envp->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/25 15:20:35 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:36:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,6 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 	else
 		prompt = ft_vjoin(13, "", DEFAULT, logo, DEFAULT, " | ", GREEN, FOLDER, \
 			" ", new_pwd, DEFAULT, branch, CYAN, ") ", DEFAULT);
-	if (branch)
-		free(branch);
-	ft_magic_free("%1 %1 %1", pwd, logo, new_pwd);
-	if (home)
-		free(home);
+	ft_magic_free("%1 %1 %1 %1 %1", pwd, logo, new_pwd, branch, home);
 	return (prompt);
 }

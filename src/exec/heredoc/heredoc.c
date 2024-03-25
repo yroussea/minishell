@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/21 17:53:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:18:26 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,15 @@ t_bool	exec_heredoc(char *eof, int fd)
 int	ft_heredoc(char *eof)
 {
 	int		fd;
-	char	*buf;
+	char	buf[19];
 	int		i;
 
-	buf = ft_calloc(19, sizeof(char));
-	if (!buf)
-		return (-42);
-	ft_strlcat(buf, ".heredoc", 9);
+	ft_strlcpy(buf, ".heredoc", 9);
 	i = 8;
 	while (i < 18)
 		buf[i++] = ft_random();
-	fd = open(buf, 577);
+	buf[i] = 0;
+	fd = open((char *) buf, 577);
 	signal(SIGINT, SIG_IGN);
 	exec_heredoc(eof, fd);
 	unlink(buf);
