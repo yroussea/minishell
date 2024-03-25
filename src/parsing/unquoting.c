@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 15:08:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:04:11 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*strdup_until_sep(char *s, int nb_sep, ...)
 	int		min;
 	char	*tmp;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	min = ft_strlen(s);
 	va_start(seps, nb_sep);
@@ -33,11 +35,11 @@ char	*strdup_until_sep(char *s, int nb_sep, ...)
 			min = ft_vmin(2, min, tmp - s);
 		i++;
 	}
-	res = malloc(sizeof(char) * (min + 1));
+	va_end(seps);
+	res = ft_calloc(sizeof(char), (min + 1));
 	if (!res)
 		return (NULL);
 	ft_strlcpy(res, s, min + 1);
-	va_end(seps);
 	return (res);
 }
 
@@ -55,19 +57,27 @@ char	*ft_undoublequote(char *s, t_lst_envp *lst_envp)
 {
 	char	*res;
 	char	*tmp;
+	char	*str;
 
 	res = strdup_until_sep(s, 2, 34, 36);
 	while (s && *s && *s != 34 && *s != 36)
 		s++;
-	if (*s == 36)
+	if (s && *s == 36)
 	{
 		tmp = ft_undolars(++s, lst_envp);
-		while (s && *s && *s != 34 && *s != 36 && *s != 39)
+		while (s && *s && *s != 34 && *s != 36 && *s != 39 && *s != ' ')
 			s++;
-		return (ft_vjoin(3, "", res, tmp, ft_undoublequote(s, lst_envp)));
+		str = ft_vjoin(3, "", res, tmp, ft_undoublequote(s, lst_envp));
+		free(res);
+		free(tmp);
+		return (str);
 	}
 	if (s && *s && *(s + 1))
-		return (ft_vjoin(2, "", res, ft_unquote(s + 1, lst_envp)));
+	{
+		str = ft_vjoin(2, "", res, ft_unquote(s + 1, lst_envp));
+		free(res);
+		return (str);
+	}
 	return (res);
 }
 
@@ -85,26 +95,41 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 char	*ft_unsimplequote(char *s, t_lst_envp *lst_envp)
 {
 	char	*res;
+	char	*tmp;
 
 	res = strdup_until_sep(s, 1, 39);
 	while (s && *s && *s != 39)
 		s++;
-	return (ft_vjoin(2, "", res, ft_unquote(s + 1, lst_envp)));
+	tmp = ft_vjoin(2, "", res, ft_unquote(s + 1, lst_envp));
+	free(res);
+	return (tmp);
 }
 
 char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 {
 	char	*res;
+	char	*tmp;
 
 	res = strdup_until_sep(s, 3, 34, 36, 39);
 	while (s && *s && *s != 34 && *s != 36 && *s != 39)
 		s++;
-	ft_printf_fd(2, "#A->%s--%s\n",s,res);
 	if (s && *s == 34)
-		return (ft_vjoin(2, "", res, ft_undoublequote(s + 1, lst_envp)));
+	{
+		tmp = ft_vjoin(2, "", res, ft_undoublequote(s + 1, lst_envp));
+		free(res);
+		return (tmp);
+	}
 	if (s && *s == 36)
-		return (ft_vjoin(2, "", res, ft_undolars(s + 1, lst_envp)));
+	{
+		tmp = ft_vjoin(2, "", res, ft_undolars(s + 1, lst_envp));
+		free(res);
+		return (tmp);
+	}
 	if (s && *s == 39)
-		return (ft_vjoin(2, "", res, ft_unsimplequote(s + 1, lst_envp)));
+	{
+		tmp = ft_vjoin(2, "", res, ft_unsimplequote(s + 1, lst_envp));
+		free(res);
+		return (tmp);
+	}
 	return (res);
 }

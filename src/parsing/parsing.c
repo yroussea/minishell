@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 14:10:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:54:19 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,28 @@ char	**unzoom(char *s)
 	return (unzoomed);
 }
 
-void	print_test(char	**cmd_and_args, t_lst_envp *lst_envp)
+char	**parse_quote(char	**cmd_and_args, t_lst_envp *lst_envp)
 {
-	while (cmd_and_args && *cmd_and_args)
+	int		i;
+	char	**result;
+
+	i = ft_str_str_len(cmd_and_args);
+	result = ft_calloc(sizeof(char *), i + 1);
+	i = 0;
+	while (result && cmd_and_args && *(cmd_and_args + i))
 	{
-		if (**cmd_and_args != ' ')
-			ft_printf_fd(2, "defore:\n<%s>\nafter\n<%s>\n", *cmd_and_args, ft_unquote(*cmd_and_args, lst_envp));
-		cmd_and_args += 1;
+		result[i] = ft_unquote(*(cmd_and_args + i), lst_envp);
+		if (!result[i])
+		{
+			ft_free_split(result);
+			return (cmd_and_args);
+		}
+		i += 1;
 	}
+	if (!result)
+		return (cmd_and_args);
+	ft_free_split(cmd_and_args);
+	return (result);
 }
 
 void	test(char **args, t_lst_cmd **lst_cmd, t_lst_envp *lst_envp)
@@ -71,8 +85,11 @@ void	test(char **args, t_lst_cmd **lst_cmd, t_lst_envp *lst_envp)
 	{
 		tmp = ft_vjoin(2, "", " ", args[i]);
 		cmd_and_arg = va_tokeniser(tmp, 6, ">>", " 2>", ">", "<<", "<", " ");
-		print_test(cmd_and_arg, lst_envp); //a enlever :)
-		if (!ft_lst_cmd_add(lst_cmd, cmd_and_arg, get_type(args[i])))
+		char	**strs = parse_quote(cmd_and_arg, lst_envp); //a enlever :)
+		//(void)lst_envp;
+		//char	**strs = cmd_and_arg;
+		ft_printf_fd(2, "cmd: %S\n", strs);
+		if (!ft_lst_cmd_add(lst_cmd, strs, get_type(args[i])))
 			*lst_cmd = NULL;
 		i += 1;
 		free(tmp);
