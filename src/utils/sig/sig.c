@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/25 18:37:14 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:01:05 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	g_exitcode;
+extern int	g_exitcode;
 
 void	handler(int signal)
 {
