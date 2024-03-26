@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 14:46:37 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:26:33 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern int g_exitcode;
 
 int	get_os(t_lst_envp *lst_envp)
 {
@@ -68,6 +70,8 @@ char	*get_envp_variable(t_lst_envp *lst_envp, char *variable)
 		getcwd(buf, 10000);
 		return (ft_strdup(buf));
 	}
+	if (ft_strncmp(variable, "?", 1) == 0)
+		return (ft_itoa(g_exitcode));
 	return (NULL);
 }
 

@@ -6,15 +6,15 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 16:01:05 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:19:40 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-extern int	g_exitcode;
+extern int g_exitcode;
 
-void	handler(int signal)
+void handler(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -25,23 +25,23 @@ void	handler(int signal)
 		g_exitcode = 130;
 	}
 	if (signal == SIGQUIT)
-		return ;
+		return;
 }
 
-void	heredoc_handler(int signal)
+void heredoc_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
 		ft_printf("\n");
-		exit(0);
+		exit(130);
 	}
 	if (signal == SIGQUIT)
-		return ;
+		return;
 }
 
-void	set_sigaction(int state)
+void set_sigaction(int state)
 {
-	static struct termios	data;
+	static struct termios data;
 
 	tcgetattr(0, &data);
 	if (!state)
