@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 17:26:55 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/16 17:39:15 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:32:37 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ size_t	len_next_word(char *s, char **token, size_t len)
 		return (0);
 	j = is_token(s, token);
 	if (j)
-		return (j);
+		return (0);
 	min = len_next_token(s, token, len);
 	quote = ft_vmin(2, len_quote(s, DOUBLE), len_quote(s, SIMPLE));
 	if (quote == 0)

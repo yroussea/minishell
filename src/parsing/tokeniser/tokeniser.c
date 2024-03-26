@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:41:02 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:32:40 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ char	**ft_tokeniser(char *s, char **token)
 		return (NULL);
 	while (s && *s)
 	{
-		j = len_next_word(s, token, ft_strlen(s));
+		j = is_token(s, token);
+		if (!j)
+			j = len_next_word(s, token, ft_strlen(s));
 		result[k] = ft_calloc(sizeof(char *), (j + 1));
 		if (!result[k])
 		{
