@@ -89,9 +89,9 @@ void			ft_print_node(t_node *node);
 
 void			exec(t_lst_cmd *lst_cmd, t_lst_envp *envp);
 
-t_lst_com		*init_node_com(char **s, t_lst_envp *envp);
+t_lst_com		*init_node_com(char **s);
 void			ft_lst_com_free(t_lst_com *lst);
-t_bool			ft_lst_com_add(t_lst_com **lst, char **s, t_lst_envp *envp);
+t_bool			ft_lst_com_add(t_lst_com **lst, char **s);
 void			lst_com_add_back(t_lst_com **lst, t_lst_com *new);
 
 t_lst_ope		*init_node_ope(t_type_of_node type);
@@ -107,7 +107,7 @@ t_bool			ft_lst_redir_heredoc(t_lst_redir **lst, t_type_of_node type, \
 					int fd);
 void			lst_redir_add_back(t_lst_redir **lst, t_lst_redir *new);
 
-t_bool			split_args(char **s, t_lst_com *lst, t_lst_envp *envp);
+t_bool			split_args(char **s, t_lst_com *lst);
 
 //utils
 

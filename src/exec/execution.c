@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 21:11:23 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:44:37 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd, t_lst_envp *envp)
+t_bool split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 {
-	t_type_of_node	type;
+	t_type_of_node type;
 
 	*ope = NULL;
 	*cmd = NULL;
@@ -24,7 +24,7 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd, t_lst
 	{
 		type = lst_all->type;
 		if (type < PIPE || type > OR)
-			ft_lst_com_add(cmd, lst_all->cmd, envp);
+			ft_lst_com_add(cmd, lst_all->cmd);
 		else
 			ft_lst_ope_add(ope, type);
 		lst_all = lst_all->next;
@@ -32,9 +32,9 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd, t_lst
 	return (TRUE);
 }
 
-t_data_stk	*init_stks(void)
+t_data_stk *init_stks(void)
 {
-	t_data_stk		*new;
+	t_data_stk *new;
 
 	new = malloc(sizeof(t_data_stk));
 	if (!new)
@@ -42,30 +42,30 @@ t_data_stk	*init_stks(void)
 	return (new);
 }
 
-t_node	*ft_get_root(t_node	*node, t_bool reset)
+t_node *ft_get_root(t_node *node, t_bool reset)
 {
-	static t_node	*root = NULL;
+	static t_node *root = NULL;
 
 	if (reset)
 		root = node;
 	return (root);
 }
 
-void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
+void exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 {
-	t_lst_ope	*operator;
-	t_lst_com	*cmd;
-	t_node		*root;
-	t_data_stk	*stks;
-	t_fds		fds;
-	t_stack_pipe	*stk_pipe;
-	t_stack_id		*stk_pid;
+	t_lst_ope *operator;
+	t_lst_com *cmd;
+	t_node *root;
+	t_data_stk *stks;
+	t_fds fds;
+	t_stack_pipe *stk_pipe;
+	t_stack_id *stk_pid;
 
 	/*pre parsing : "&& &&" (faire attention au ; et au () ) + operateur au
 	 * debut / fin, c la merde
 	 * pareil pour les redirection dc
-	*/
-	operator = NULL;
+	 */
+	operator= NULL;
 	cmd = NULL;
 	root = NULL;
 	stks = init_stks();
@@ -77,8 +77,8 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 		stks->pids = &stk_pid;
 		fds.in = 0;
 		fds.out = 1;
-		if (!split_two_lst(lst_all, &operator, &cmd, envp))
-			return ;
+		if (!split_two_lst(lst_all, &operator, & cmd))
+			return;
 		if (ft_add_all_branch(&root, operator))
 			ft_add_all_leaf(&root, cmd, &envp);
 		ft_get_root(root, TRUE);

@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:15:55 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 20:50:53 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:45:30 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-void	lst_com_add_back(t_lst_com **lst, t_lst_com *new)
+void lst_com_add_back(t_lst_com **lst, t_lst_com *new)
 {
 	if (!*lst)
 		*lst = new;
@@ -20,9 +20,9 @@ void	lst_com_add_back(t_lst_com **lst, t_lst_com *new)
 		lst_com_add_back(&(*lst)->next, new);
 }
 
-t_bool	ft_lst_com_add(t_lst_com **lst, char **s, t_lst_envp *envp)
+t_bool ft_lst_com_add(t_lst_com **lst, char **s)
 {
-	t_lst_com	*tmp;
+	t_lst_com *tmp;
 
 	if (!s || !*s)
 	{
@@ -31,7 +31,7 @@ t_bool	ft_lst_com_add(t_lst_com **lst, char **s, t_lst_envp *envp)
 		*lst = NULL;
 		return (FALSE);
 	}
-	tmp = init_node_com(s, envp);
+	tmp = init_node_com(s);
 	if (!tmp)
 	{
 		ft_lst_com_free(*lst);
@@ -41,9 +41,9 @@ t_bool	ft_lst_com_add(t_lst_com **lst, char **s, t_lst_envp *envp)
 	return (TRUE);
 }
 
-void	ft_lst_com_free(t_lst_com *lst)
+void ft_lst_com_free(t_lst_com *lst)
 {
-	t_lst_com	*tmp;
+	t_lst_com *tmp;
 
 	while (lst)
 	{
@@ -55,14 +55,14 @@ void	ft_lst_com_free(t_lst_com *lst)
 	}
 }
 
-t_lst_com	*init_node_com(char **s, t_lst_envp *envp)
+t_lst_com *init_node_com(char **s)
 {
-	t_lst_com	*new;
+	t_lst_com *new;
 
 	new = ft_calloc(1, sizeof(t_lst_com));
 	if (!new)
 		return (NULL);
-	if (!split_args(s, new, envp))
+	if (!split_args(s, new))
 	{
 		ft_magic_free("%1", new);
 		return (NULL);
