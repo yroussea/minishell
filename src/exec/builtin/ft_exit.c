@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 17:44:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:48:39 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ void ft_exit(t_node *node)
 		else
 			g_exitcode = 0;
 	}
+	ft_printf_fd(node->outfile, "exit\n");
+	exit(0);
 }
