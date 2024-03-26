@@ -23,7 +23,12 @@ SRCS_FILES = 							\
 	utils/prompt/prompt_get_git.c		\
 	utils/sig/sig.c						\
 	exec/access/access.c				\
+	exec/builtin/ft_echo.c				\
+	exec/builtin/ft_env.c				\
+	exec/builtin/ft_exit.c				\
+	exec/builtin/ft_pwd.c				\
 	exec/execution.c					\
+	exec/exectree/exec_builtin.c		\
 	exec/exectree/exec_tree.c			\
 	exec/exectree/exec_cmd.c			\
 	exec/exectree/exec_or.c				\
@@ -42,7 +47,7 @@ SRCS_FILES = 							\
 	exec/utils/node/add_leaf.c			\
 	exec/utils/node/init_node.c			\
 	exec/utils/close.c
-	
+
 
 SRCS = 	$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS = $(subst $(SRCS_DIR)/,$(OBJS_DIR)/, $(subst .c,.o, $(SRCS)))
@@ -89,7 +94,7 @@ $(OBJS_DIR):
 	$(SILENT)mkdir -p $@
 
 clean:
-	@make clean -s -j -C $(LIBFT_DIR) 
+	@make clean -s -j -C $(LIBFT_DIR)
 	$(PRINT) $(MSG_CLEANING)
 	$(RM) $(OBJS_DIR)
 	$(DELET_LINE)

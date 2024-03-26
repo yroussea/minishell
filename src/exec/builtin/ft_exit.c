@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 17:00:13 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:44:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ void ft_exit(t_node *node)
 	}
 	else if (ft_str_str_len(node->args) == 1)
 	{
-		code = ft_atoll
+		code = ft_atoll(*node->args);
+		if (code > INT_MAX || code < INT_MIN)
+			g_exitcode = 1;
+		else if (code < 0)
+			g_exitcode = code % 256;
+		else if (code > 0 && code < 256)
+			g_exitcode = code;
+		else
+			g_exitcode = 0;
 	}
 }

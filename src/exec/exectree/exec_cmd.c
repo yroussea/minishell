@@ -6,28 +6,28 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 16:57:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:38:06 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <unistd.h>
 
-void	ft_close_command(t_node *node)
+void ft_close_command(t_node *node)
 {
 	if (!node)
-		return ;
+		return;
 	if (node->infile > 2)
 		close(node->infile);
 	if (node->outfile > 2)
 		close(node->outfile);
 }
 
-t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
+t_bool all_redir_cmd(t_lst_redir *redir, t_fds fds)
 {
-	int	fds_error;
-	int	fds_in;
-	int	fds_out;
+	int fds_error;
+	int fds_in;
+	int fds_out;
 
 	fds_in = 0;
 	fds_out = 1;
@@ -40,7 +40,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 				ft_close(1, fds_in);
 			fds_in = redir->heredoc_fd;
 			if (fds_in == -1)
-				break ;
+				break;
 		}
 		if (redir->type == DIRE_IN)
 		{
@@ -48,7 +48,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 				ft_close(1, fds_in);
 			fds_in = open(redir->file, 0);
 			if (fds_in == -1)
-				break ;
+				break;
 		}
 		if (redir->type == ADD)
 		{
@@ -56,7 +56,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 				ft_close(1, fds_out);
 			fds_out = open(redir->file, O_CREAT | O_WRONLY | O_APPEND, 0664);
 			if (fds_out == -1)
-				break ;
+				break;
 		}
 		if (redir->type == DIRE_OUT)
 		{
@@ -64,7 +64,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 				ft_close(1, fds_out);
 			fds_out = open(redir->file, 577, 0664);
 			if (fds_out == -1)
-				break ;
+				break;
 		}
 		if (redir->type == DIRE_TWO)
 		{
@@ -72,13 +72,13 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 				ft_close(1, fds_error);
 			fds_error = open(redir->file, 577, 0664);
 			if (fds_error == -1)
-				break ;
+				break;
 		}
 		redir = redir->next;
 	}
 	if (fds_error == -1 || fds_in == -1 || fds_out == -1)
 		return (FALSE);
-	//ft_printf_fd(2, "FDS: %d %d %d %d\n", fds_in, fds_out, fds.in, fds.out);
+	// ft_printf_fd(2, "FDS: %d %d %d %d\n", fds_in, fds_out, fds.in, fds.out);
 	if (fds_in != STDIN_FILENO)
 	{
 		ft_dup2(fds_in, STDIN_FILENO);
@@ -101,10 +101,10 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 	return (TRUE);
 }
 
-void	parse_quote(t_node *node)
+void parse_quote(t_node *node)
 {
-	int		i;
-	char	**result;
+	int i;
+	char **result;
 
 	i = ft_str_str_len(node->args);
 	result = ft_calloc(sizeof(char *), i + 1);
@@ -116,31 +116,32 @@ void	parse_quote(t_node *node)
 		{
 			ft_free_split(result);
 			node->cmd = ft_strdup(*node->args);
-			return ;
+			return;
 		}
 		i += 1;
 	}
 	if (!result)
 	{
 		node->cmd = ft_strdup(*node->args);
-		return ;
+		return;
 	}
 	node->args = result;
 	node->cmd = ft_strdup(*result);
 }
 
-t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
+t_bool exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 {
-	int			pid;
-	char		**envp_char;
-	char		*full_cmd;
-	t_builtin	builtin_type;
+	int pid;
+	char **envp_char;
+	char *full_cmd;
+	t_builtin builtin_type;
 
 	(void)from_pipe;
-	//unquoting :)
+	(void)builtin_type;
+	// unquoting :)
 	parse_quote(node);
-	
-	//difference buildin et cmd
+
+	// difference buildin et cmd
 	if (is_builtin(node))
 		return (ft_exec_builtin(node, from_pipe, stks, fds));
 	full_cmd = get_access(*(node->envp), node->cmd);
@@ -160,12 +161,12 @@ t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 					ft_close_pipe(stks->pipes);
 					execve(full_cmd, node->args, envp_char);
 				}
-				else 
+				else
 					ft_close_pipe(stks->pipes);
 				free(full_cmd);
 			}
 			ft_magic_free("%2 %2", node->args, envp_char);
-			///free all
+			/// free all
 			exit(1);
 		}
 		ft_stk_pid_add(stks->pids, pid);
@@ -173,6 +174,6 @@ t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 		return (TRUE);
 	}
 	ft_free_split(node->args);
-	//close cmd redir
+	// close cmd redir
 	return (ERROR);
 }
