@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 15:38:10 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:00:26 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,28 @@ int	ft_exit(char *line, t_lst_envp	*lst_envp)
 	return (1);
 }
 
-int	ft_stop(int ac, char **av)
+void	ft_stop(int ac, char **av)
 {
+	if (ac == 1 || ft_strncmp("--no-clear", av[1], 10))
+		ft_printf("\033c");
 	if (ac == 2)
 	{
-		if (strncmp(av[1], "--mini-coque", 12) == 0)
+		if (ft_strncmp(av[1], "--mini-coque", 12) == 0)
 		{
 			ft_printf("\u2B50 %s Bien joué! %s \u2B50\n", YELLOW, DEFAULT);
 			ft_printf("Vous avez trouvé un des easters eggs !\n");
 			ft_printf("PS : petite-coquille > bash\n");
 		}
-		else if (strncmp(av[1], "--goat", 6) == 0)
+		else if (ft_strncmp(av[1], "--goat", 6) == 0)
 			ft_printf("\u26A1 Made by Yroussea and Basverdi \u26A1\n");
-		else
+		else if (ft_strncmp("--no-clear", av[1], 10))
 			ft_printf("%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
 	}
-	else
+	else if (ac > 1)
+	{
 		ft_printf("%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
-	return (1);
+		exit(1);
+	}
 }
 
 t_bool	display_prompt(t_lst_envp *lst_envp)
@@ -81,9 +85,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_lst_envp	*lst_envp;
 
-	ft_printf("\033c");
-	if (argc != 1)
-		return (ft_stop(argc, argv));
+	ft_stop(argc, argv);
 	lst_envp = init_lst_envp(envp);
 	if (display_prompt(lst_envp) == FALSE)
 	{
