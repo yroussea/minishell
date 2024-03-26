@@ -78,6 +78,7 @@ SRCS_FILES = char/ft_isalnum.c			\
 	str/ft_substr.c				\
 	str/ft_vjoin.c				\
 	type/ft_atoi.c				\
+	type/ft_atoll.c
 	type/ft_itoa.c				\
 	gnl/get_next_line.c			\
 	gnl/get_next_line_utils.c	\

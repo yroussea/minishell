@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 17:00:13 by basverdi         ###   ########.fr       */
+/*   Created: 2024/02/06 15:52:23 by bastienverd       #+#    #+#             */
+/*   Updated: 2024/03/01 15:59:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../libft.h"
 
-extern int g_exitcode;
-
-void ft_exit(t_node *node)
+long long	ft_atoll(const char *nptr)
 {
-	int code;
+	int				i;
+	long long int	sign;
+	long long int	res;
 
-	code = 0;
-	if (ft_str_str_len(node->args) > 1)
+	i = 0;
+	sign = 1;
+	res = 0;
+	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
+		i++;
+	if (nptr[i] == '-')
+		sign = -1;
+	if (nptr[i] == '-' || nptr[i] == '+')
+		i++;
+	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		ft_printf_fd(node->outfile, "bash: exit: too many arguments\n");
-		g_exitcode = 1;
-		exit(0);
+		res = res * 10 + (nptr[i] - '0');
+		i++;
 	}
-	else if (ft_str_str_len(node->args) == 1)
-	{
-		code = ft_atoll
-	}
+	return (res * sign);
 }
