@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 16:18:26 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:00:58 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern int g_exitcode;
 
 char	ft_random(void)
 {
@@ -45,7 +47,6 @@ t_bool	exec_heredoc(char *eof, int fd)
 {
 	pid_t	pid;
 	char	*line;
-	char	*tmp;
 	int		count;
 
 	count = 0;
@@ -59,14 +60,13 @@ t_bool	exec_heredoc(char *eof, int fd)
 		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) != 0)
 		{
 			count++;
-			tmp = ft_vjoin(2, "", line, "\n");
-			ft_putstr_fd(tmp, fd);
-			free(tmp);
+			ft_printf_fd(fd, "%s\n", line);
 		}
 		else
 			exit(0);
 	}
 	waitpid(pid, NULL, 0);
+	g_exitcode = pid;
 	return (TRUE);
 }
 
