@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 16:02:22 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:45:28 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int g_exitcode;
 
-int ft_exit(char *line, t_lst_envp *lst_envp)
+int ft_empty_line(char *line, t_lst_envp *lst_envp)
 {
 	if (line == NULL)
 	{
@@ -22,13 +22,13 @@ int ft_exit(char *line, t_lst_envp *lst_envp)
 		free_lst_envp(lst_envp);
 		return (0);
 	}
-	if (ft_strncmp(line, "exit", 5) == 0 || ft_strncmp(line, "e", 5) == 0)
-	{
-		free(line);
-		free_lst_envp(lst_envp);
-		ft_printf("exit\n");
-		return (0);
-	}
+	// if (ft_strncmp(line, "exit", 5) == 0 || ft_strncmp(line, "e", 5) == 0)
+	// {
+	// 	free(line);
+	// 	free_lst_envp(lst_envp);
+	// 	ft_printf("exit\n");
+	// 	return (0);
+	// }
 	return (1);
 }
 
@@ -71,7 +71,7 @@ t_bool display_prompt(t_lst_envp *lst_envp)
 		prompt = get_prompt(lst_envp, prompt);
 		line = readline(prompt);
 		ft_magic_free("%1 %1", prompt, user);
-		if (ft_exit(line, lst_envp) == 0)
+		if (ft_empty_line(line, lst_envp) == 0)
 			return (FALSE);
 		if (*line)
 			add_history(line);

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 16:50:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:53:01 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum s_priority
 
 typedef enum s_builtin
 {
-	NONE,
+	NOT_A_BUILTIN,
 	ECHO,
 	EXIT,
 	PWD,
