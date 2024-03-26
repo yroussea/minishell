@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 16:45:47 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:57:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,10 @@ void	parse_quote(t_node *node)
 
 t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 {
-	int		pid;
-	char	**envp_char;
-	char	*full_cmd;
+	int			pid;
+	char		**envp_char;
+	char		*full_cmd;
+	t_builtin	builtin_type;
 
 	(void)from_pipe;
 	//unquoting :)
@@ -141,7 +142,7 @@ t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 	
 	//difference buildin et cmd
 	if (is_builtin(node))
-		ft_exec_builtin(node, from_pipe, stks, fds);
+		return (ft_exec_builtin(node, from_pipe, stks, fds));
 	full_cmd = get_access(*(node->envp), node->cmd);
 	free(node->cmd);
 	if (full_cmd)
