@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 17:14:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:50:43 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ typedef enum s_priority
 	LEFT,
 	RIGHT,
 }		t_priority;
+
+typedef enum s_builtin
+{
+	NONE,
+	ECHO,
+	EXIT,
+	PWD,
+	CD,
+	EXPORT,
+	UNSET,
+	ENV,
+}		t_builtin;
 
 typedef struct s_lst_ope
 {

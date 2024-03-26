@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 16:14:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:43:02 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 	char	*str;
 
 	res = strdup_until_sep(s, 3, 34, 36, 39);
-	ft_printf_fd(2, "{%s}\n", s);
 	while (s && *s && *s != 34 && *s != 36 && *s != 39)
 		s++;
 	if (s && *s == 34)
