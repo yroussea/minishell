@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 17:45:45 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:47:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_builtin is_builtin(t_node *node)
+t_builtin	is_builtin(t_node *node)
 {
 	if (!ft_strncmp(node->cmd, "exit", 5))
 		return (EXIT);
@@ -31,9 +31,10 @@ t_builtin is_builtin(t_node *node)
 	return (NOT_A_BUILTIN);
 }
 
-t_bool ft_exec_builtin(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
+t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
+	t_data_stk *stks, t_fds fds)
 {
-	int pid;
+	int	pid;
 
 	(void)fds;
 	if (from_pipe)

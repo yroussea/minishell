@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 16:26:33 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:26:11 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-extern int g_exitcode;
+extern int	g_exitcode;
 
 int	get_os(t_lst_envp *lst_envp)
 {

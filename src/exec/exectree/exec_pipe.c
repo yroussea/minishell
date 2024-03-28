@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:57:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/23 15:55:31 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:48:49 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ void	close_pipes(t_stack_pipe **stk_pipe)
 	free(stk);
 }
 
-
 void	wait_all(t_stack_id **stk, int checkpoint)
 {
-	int			pid;
+	int	pid;
 
 	while (stk && *stk)
 	{
@@ -46,7 +45,7 @@ t_bool	exec_pipe(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 	int			fd_pipe[2];
 	t_fds		tmp_fds;
 	int			pid;
-	t_stack_id *tmp;
+	t_stack_id	*tmp;
 
 	tmp = *stks->pids;
 	if (tmp)
@@ -57,9 +56,9 @@ t_bool	exec_pipe(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 	if (ft_pipe(fd_pipe) < 0)
 		return (ERROR);
 	ft_stk_pipe_add(stks->pipes, fd_pipe);
-	tmp_fds = (t_fds) {fds.in, fd_pipe[1]};
+	tmp_fds = (t_fds){fds.in, fd_pipe[1]};
 	exec_tree(node->left, TRUE, stks, tmp_fds);
-	tmp_fds = (t_fds) {fd_pipe[0], fds.out};
+	tmp_fds = (t_fds){fd_pipe[0], fds.out};
 	exec_tree(node->right, TRUE, stks, tmp_fds);
 	close_pipes(stks->pipes);
 	if (!from_pipe) //attention car:  cmd <- pipe -> et -> pipeline (enum dc)

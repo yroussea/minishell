@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_malloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 19:50:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 13:13:31 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:38:06 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdlib.h>
 
 void	close_heredoc(t_node *node)
 {
@@ -30,9 +29,9 @@ void	close_heredoc(t_node *node)
 	close_heredoc(node->right);
 }
 
-t_node *ft_get_root(t_node *node, t_bool reset, t_bool free_tree)
+t_node	*ft_get_root(t_node *node, t_bool reset, t_bool free_tree)
 {
-	static t_node *root = NULL;
+	static t_node	*root = NULL;
 
 	if (reset)
 		root = node;
@@ -45,10 +44,11 @@ t_node *ft_get_root(t_node *node, t_bool reset, t_bool free_tree)
 	return (root);
 }
 
-t_bool	ft_get_lsts(t_lst_ope *ope, t_lst_com *com, t_bool reset, t_bool free_lst)
+t_bool	ft_get_lsts(t_lst_ope *ope, t_lst_com *com, t_bool reset, \
+	t_bool free_lst)
 {
-	static t_lst_ope *lst_operator = NULL;
-	static t_lst_com *lst_cmd = NULL;
+	static t_lst_ope	*lst_operator = NULL;
+	static t_lst_com	*lst_cmd = NULL;
 
 	if (reset)
 	{
@@ -66,7 +66,7 @@ t_bool	ft_get_lsts(t_lst_ope *ope, t_lst_com *com, t_bool reset, t_bool free_lst
 
 t_bool	ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks)
 {
-	static t_data_stk *data_stks = NULL;
+	static t_data_stk	*data_stks = NULL;
 
 	if (reset)
 		data_stks = stks;
@@ -82,7 +82,7 @@ t_bool	ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks)
 
 t_bool	ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool free_envp)
 {
-	static t_lst_envp *envp = NULL;
+	static t_lst_envp	*envp = NULL;
 
 	if (reset)
 		envp = lst_envp;

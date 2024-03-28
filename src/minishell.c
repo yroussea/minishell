@@ -6,15 +6,15 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 16:45:28 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:06:01 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_exitcode;
+int	g_exitcode;
 
-int ft_empty_line(char *line, t_lst_envp *lst_envp)
+int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 {
 	if (line == NULL)
 	{
@@ -22,17 +22,10 @@ int ft_empty_line(char *line, t_lst_envp *lst_envp)
 		free_lst_envp(lst_envp);
 		return (0);
 	}
-	// if (ft_strncmp(line, "exit", 5) == 0 || ft_strncmp(line, "e", 5) == 0)
-	// {
-	// 	free(line);
-	// 	free_lst_envp(lst_envp);
-	// 	ft_printf("exit\n");
-	// 	return (0);
-	// }
 	return (1);
 }
 
-void ft_stop(int ac, char **av)
+void	ft_stop(int ac, char **av)
 {
 	if (ac == 1 || ft_strncmp("--no-clear", av[1], 10))
 		ft_printf("\033c");
@@ -56,12 +49,12 @@ void ft_stop(int ac, char **av)
 	}
 }
 
-t_bool display_prompt(t_lst_envp *lst_envp)
+t_bool	display_prompt(t_lst_envp *lst_envp)
 {
-	t_lst_cmd *lst_line;
-	char *line;
-	char *prompt;
-	char *user;
+	t_lst_cmd	*lst_line;
+	char		*line;
+	char		*prompt;
+	char		*user;
 
 	prompt = NULL;
 	user = NULL;
@@ -81,9 +74,9 @@ t_bool display_prompt(t_lst_envp *lst_envp)
 	return (TRUE);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_lst_envp *lst_envp;
+	t_lst_envp	*lst_envp;
 
 	ft_stop(argc, argv);
 	lst_envp = init_lst_envp(envp);

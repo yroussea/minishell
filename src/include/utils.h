@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 13:12:30 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:37:52 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			lst_cmd_add_back(t_lst_cmd **lst, t_lst_cmd *new);
 t_lst_envp		*init_lst_envp(char **envp);
 t_bool			lst_envp_add(t_lst_envp **lst_envp, char *variable);
 void			lst_envp_add_order(t_lst_envp **lst_envp, t_lst_envp *new, \
-		size_t len);
+					size_t len);
 void			free_lst_envp(t_lst_envp *lst_envp);
 t_lst_envp		*init_node_envp(char *key, char *value);
 int				envp_lst_len(t_lst_envp *lst_envp);
@@ -64,11 +64,12 @@ size_t			jump_token(char *s, char **token, size_t *count, t_bool *bool);
 /*
  * get malloc from anywhere
  */
-t_bool			ft_get_lsts(t_lst_ope *ope, t_lst_com *com, t_bool reset, t_bool free_lst);
+t_bool			ft_get_lsts(t_lst_ope *ope, t_lst_com *com, t_bool reset, \
+					t_bool free_lst);
 t_node			*ft_get_root(t_node *node, t_bool reset, t_bool free_tree);
 t_bool			ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks);
-t_bool			ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool free_envp);
+t_bool			ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool \
+					free_envp);
 void			close_heredoc(t_node *node);
-
 
 #endif

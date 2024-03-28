@@ -6,15 +6,15 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/27 20:14:12 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:04:18 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
+t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 {
-	t_type_of_node type;
+	t_type_of_node	type;
 
 	*ope = NULL;
 	*cmd = NULL;
@@ -32,9 +32,9 @@ t_bool split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 	return (TRUE);
 }
 
-t_data_stk *init_stks(void)
+t_data_stk	*init_stks(void)
 {
-	t_data_stk *new;
+	t_data_stk	*new;
 
 	new = malloc(sizeof(t_data_stk));
 	if (!new)
@@ -42,21 +42,21 @@ t_data_stk *init_stks(void)
 	return (new);
 }
 
-void exec(t_lst_cmd *lst_all, t_lst_envp *envp)
+void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 {
-	t_lst_ope *operator;
-	t_lst_com *cmd;
-	t_node *root;
-	t_data_stk *stks;
-	t_fds fds;
-	t_stack_pipe *stk_pipe;
-	t_stack_id *stk_pid;
+	t_lst_ope		*operator;
+	t_lst_com		*cmd;
+	t_node			*root;
+	t_data_stk		*stks;
+	t_fds			fds;
+	t_stack_pipe	*stk_pipe;
+	t_stack_id		*stk_pid;
 
 	/*pre parsing : "&& &&" (faire attention au ; et au () ) + operateur au
 	 * debut / fin, c la merde
 	 * pareil pour les redirection dc
 	 */
-	operator= NULL;
+	operator = NULL;
 	cmd = NULL;
 	root = NULL;
 	stks = init_stks();
@@ -71,7 +71,7 @@ void exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 		fds.in = 0;
 		fds.out = 1;
 		if (!split_two_lst(lst_all, &operator, &cmd))
-			return;
+			return ;
 		ft_lst_cmd_free(lst_all);
 		ft_get_lsts(operator, cmd, TRUE, FALSE);
 		if (ft_add_all_branch(&root, operator))

@@ -6,25 +6,25 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 15:46:12 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:06:51 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static t_bool is_redir(char *s)
+static t_bool	is_redir(char *s)
 {
 	if (get_type(s) >= 4 && get_type(s) <= 8)
 		return (TRUE);
 	return (FALSE);
 }
 
-static char **ft_duptab(char **s)
+static char	**ft_duptab(char **s)
 {
-	char **result;
-	int i;
-	int j;
-	t_bool skip;
+	char	**result;
+	int		i;
+	int		j;
+	t_bool	skip;
 
 	i = 0;
 	j = 0;
@@ -58,12 +58,12 @@ static char **ft_duptab(char **s)
 	return (result);
 }
 
-static t_lst_redir *get_redir(char **s)
+static t_lst_redir	*get_redir(char **s)
 {
-	t_lst_redir *lst;
-	int i;
-	int j;
-	t_type_of_node chose;
+	t_lst_redir		*lst;
+	int				i;
+	int				j;
+	t_type_of_node	chose;
 
 	i = 0;
 	j = 0;
@@ -93,7 +93,7 @@ static t_lst_redir *get_redir(char **s)
 	return (lst);
 }
 
-t_bool split_args(char **s, t_lst_com *lst)
+t_bool	split_args(char **s, t_lst_com *lst)
 {
 	lst->cmd = NULL;
 	lst->args = NULL;

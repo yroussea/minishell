@@ -6,14 +6,14 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/26 16:32:43 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:45:47 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <unistd.h>
 
-extern int g_exitcode;
+extern int	g_exitcode;
 
 char	*get_access(t_lst_envp *lst_envp, char *cmd)
 {

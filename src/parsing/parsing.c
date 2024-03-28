@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 16:32:46 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:38:19 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	**unzoom(char *s)
 	}
 	return (unzoomed);
 }
-
 
 void	test(char **args, t_lst_cmd **lst_cmd)
 {

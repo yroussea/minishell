@@ -6,19 +6,19 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 13:43:27 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:45:32 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <readline/history.h>
 
-extern int g_exitcode;
+extern int	g_exitcode;
 
-char ft_random(void)
+char	ft_random(void)
 {
-	char buf[1];
-	int fd;
+	char	buf[1];
+	int		fd;
 
 	fd = open("/dev/random", 0);
 	read(fd, buf, 1);
@@ -26,17 +26,17 @@ char ft_random(void)
 	return (97 + ft_abs(*buf % 26));
 }
 
-t_bool sig_heredoc(char *line, char *eof, int count)
+t_bool	sig_heredoc(char *line, char *eof, int count)
 {
-	char *tmp;
-	char *nb;
+	char	*tmp;
+	char	*nb;
 
 	if (line == NULL)
 	{
 		nb = ft_itoa(count + 1);
 		tmp = ft_vjoin(5, "",
-					   "petite-coquille: warning: here-document at line ", nb,
-					   " delimited by end-of-file (wanted `", eof, "`)");
+				"petite-coquille: warning: here-document at line ", nb,
+				" delimited by end-of-file (wanted `", eof, "`)");
 		ft_printf("%s\n", tmp);
 		ft_magic_free("%1 %1", tmp, nb);
 		return (FALSE);
@@ -57,12 +57,12 @@ void	ft_exit_heredoc(char *eof, int fd, char *line)
 	exit(0);
 }
 
-t_bool exec_heredoc(char *eof, int fd)
+t_bool	exec_heredoc(char *eof, int fd)
 {
-	pid_t pid;
-	char *line;
-	int count;
-	int status;
+	pid_t	pid;
+	char	*line;
+	int		count;
+	int		status;
 
 	count = 0;
 	pid = ft_fork();
@@ -86,7 +86,7 @@ t_bool exec_heredoc(char *eof, int fd)
 	return (TRUE);
 }
 
-int ft_heredoc(char *eof)
+int	ft_heredoc(char *eof)
 {
 	int		fd;
 	char	buf[19];
