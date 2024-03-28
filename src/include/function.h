@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:12:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 16:55:19 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/27 19:38:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # include "struct.h"
 
-# include "utils.h"
 # include "parsing.h"
 # include "cmd.h"
 # include "exec.h"
+# include "utils.h"
 # include "sig.h"
 
 #endif

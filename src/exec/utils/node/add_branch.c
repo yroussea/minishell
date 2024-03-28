@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:17 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/18 16:24:11 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:13:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ t_bool	ft_add_all_branch(t_node **node, t_lst_ope *ope)
 			return (ERROR);
 		ope = ope->next;
 	}
+	ft_get_root(*node, TRUE, FALSE);
 	return (TRUE);
 }

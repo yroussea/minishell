@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 17:38:06 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:44:41 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_bool all_redir_cmd(t_lst_redir *redir, t_fds fds)
 	}
 	if (fds_error == -1 || fds_in == -1 || fds_out == -1)
 		return (FALSE);
-	// ft_printf_fd(2, "FDS: %d %d %d %d\n", fds_in, fds_out, fds.in, fds.out);
 	if (fds_in != STDIN_FILENO)
 	{
 		ft_dup2(fds_in, STDIN_FILENO);
@@ -142,8 +141,8 @@ t_bool exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 	parse_quote(node);
 
 	// difference buildin et cmd
-	if (is_builtin(node))
-		return (ft_exec_builtin(node, from_pipe, stks, fds));
+//	if (is_builtin(node))
+//		return (ft_exec_builtin(node, from_pipe, stks, fds));
 	full_cmd = get_access(*(node->envp), node->cmd);
 	free(node->cmd);
 	if (full_cmd)
@@ -159,6 +158,7 @@ t_bool exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 				if (all_redir_cmd(node->redir, fds))
 				{
 					ft_close_pipe(stks->pipes);
+					close_heredoc(ft_get_root(NULL, FALSE, FALSE));
 					execve(full_cmd, node->args, envp_char);
 				}
 				else
@@ -166,6 +166,11 @@ t_bool exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 				free(full_cmd);
 			}
 			ft_magic_free("%2 %2", node->args, envp_char);
+			ft_get_envp(NULL, FALSE, TRUE);
+			ft_get_root(NULL, FALSE, TRUE);
+			ft_get_lsts(NULL, NULL, FALSE, TRUE);
+			ft_get_stks(NULL, FALSE, TRUE);
+			clear_history();
 			/// free all
 			exit(1);
 		}

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 20:53:53 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:12:57 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 	if (!*root)
 	{
 		*root = init_node(CMD);
+		ft_get_root(*root, TRUE, FALSE);
 		fill_node(*root, cmd);
 		ft_open_redir(*root, cmd);
 		(*root)->envp = envp;

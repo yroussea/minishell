@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/16 17:42:11 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:12:30 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,15 @@ size_t			len_next_token(char *s, char **token, size_t len);
 int				is_token(char *s, char **token);
 size_t			jump_quote(char *s, size_t len, size_t *count);
 size_t			jump_token(char *s, char **token, size_t *count, t_bool *bool);
+
+/*
+ * get malloc from anywhere
+ */
+t_bool			ft_get_lsts(t_lst_ope *ope, t_lst_com *com, t_bool reset, t_bool free_lst);
+t_node			*ft_get_root(t_node *node, t_bool reset, t_bool free_tree);
+t_bool			ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks);
+t_bool			ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool free_envp);
+void			close_heredoc(t_node *node);
+
 
 #endif
