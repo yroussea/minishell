@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 17:42:48 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:12:37 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,25 @@ t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 	if (!*root)
 	{
 		*root = init_node(CMD);
-		ft_get_root(*root, TRUE, FALSE);
 		fill_node(*root, cmd);
-		ft_open_redir(*root, cmd);
+		if (!ft_open_redir(*root, cmd))
+		{
+			ft_free_tree(*root);
+			return (ERROR);
+		}
 		(*root)->envp = envp;
+		ft_get_root(*root, TRUE, FALSE);
 		cmd = cmd->next;
 	}
 	while (cmd)
 	{
 		new_node = init_node(CMD);
 		if (!fill_node(new_node, cmd) || !add_single_leaf(*root, new_node))
+		{
 			ft_free_tree(new_node);
-		if (!fill_node(new_node, cmd) || !add_single_leaf(*root, new_node) || \
-			!ft_open_redir(new_node, cmd))
+			return (ERROR);
+		}
+		if (!ft_open_redir(new_node, cmd))
 			return (ERROR);
 		new_node->envp = envp;
 		cmd = cmd->next;
