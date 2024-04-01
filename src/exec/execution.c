@@ -6,27 +6,65 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 18:04:18 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/01 03:41:58 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
+
+t_bool	only_space(char **strs)
+{
+	int	j = 0;
+
+	while (strs && *strs)
+	{
+		while ((*strs)[j])
+		{
+			if ((*strs)[j] != ' ')
+				return (FALSE);
+			j += 1;
+		}
+		strs += 1;
+	}
+	return (TRUE);
+}
 
 t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 {
 	t_type_of_node	type;
+	t_bool			tmp;
 
 	*ope = NULL;
 	*cmd = NULL;
+	tmp = 0;
 	if (!lst_all)
 		return (FALSE);
 	while (lst_all)
 	{
+		if (only_space(lst_all->cmd))
+		{
+			lst_all = lst_all->next;
+			continue ;
+		}
 		type = lst_all->type;
 		if (type < PIPE || type > OR)
+		{
 			ft_lst_com_add(cmd, lst_all->cmd);
+			tmp = 0;
+		}
 		else
-			ft_lst_ope_add(ope, type);
+		{
+			if (tmp)
+			{
+				ft_lst_ope_add(ope, -1);
+				ft_printf_fd(2, "%s %s\n", "syntaxe error close to", "{to-fill}");
+				return (TRUE);
+			}
+			else
+				ft_lst_ope_add(ope, type);
+			tmp = 1;
+		}
 		lst_all = lst_all->next;
 	}
 	return (TRUE);
@@ -40,6 +78,15 @@ t_data_stk	*init_stks(void)
 	if (!new)
 		return (NULL);
 	return (new);
+}
+
+t_bool	verif_complete_tree(t_node *root)
+{
+	if (!root)
+		return (FALSE);
+	if (root->type == PIPE || root->type == AND || root->type == OR)
+		return (verif_complete_tree(root->left) && verif_complete_tree(root->right));
+	return (TRUE);
 }
 
 void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
@@ -72,12 +119,21 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 		fds.out = 1;
 		if (!split_two_lst(lst_all, &operator, &cmd))
 			return ;
+
+		// ft_print_ope(2, operator);
+		// ft_print_com(2, cmd);
+
 		ft_lst_cmd_free(lst_all);
 		ft_get_lsts(operator, cmd, TRUE, FALSE);
 		if (ft_add_all_branch(&root, operator))
 			ft_add_all_leaf(&root, cmd, &envp);
-		exec_tree(root, FALSE, stks, fds);
-		wait_all(stks->pids, -1);
+		if (verif_complete_tree(root))
+		{
+			exec_tree(root, FALSE, stks, fds);
+			wait_all(stks->pids, -1);
+		}
+		else
+			ft_printf_fd(2, "Uncomplete line\n");
 		ft_get_root(NULL, FALSE, TRUE);
 		free(stks);
 	}

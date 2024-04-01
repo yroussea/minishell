@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/29 16:12:37 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:47:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_bool	ft_open_redir(t_node *node, t_lst_com *cmd)
 {
 	t_lst_redir	*tmp;
 
-	if (!cmd || !cmd->redir || !cmd->redir->next)
+	if (!cmd || !cmd->redir)
 		return (ERROR);
-	tmp = cmd->redir->next->next;
+	tmp = cmd->redir;
 	while (tmp)
 	{
 		if (tmp->type == HEREDOC)
@@ -41,7 +41,7 @@ t_bool	ft_open_redir(t_node *node, t_lst_com *cmd)
 t_bool	add_single_leaf(t_node *root, t_node *leaf)
 {
 	if (!root)
-		return (ERROR);
+		return (FALSE);
 	if (!root->left)
 		return (add_child(root, leaf, LEFT));
 	if (root->left->type != CMD && add_single_leaf(root->left, leaf))
@@ -57,11 +57,12 @@ t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 {
 	t_node	*new_node;
 
-	if (!root)
+	if (!root || !cmd)
 		return (ERROR);
 	if (!*root)
 	{
 		*root = init_node(CMD);
+		ft_get_root(*root, TRUE, FALSE);
 		fill_node(*root, cmd);
 		if (!ft_open_redir(*root, cmd))
 		{
@@ -69,7 +70,6 @@ t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 			return (ERROR);
 		}
 		(*root)->envp = envp;
-		ft_get_root(*root, TRUE, FALSE);
 		cmd = cmd->next;
 	}
 	while (cmd)

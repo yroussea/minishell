@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 18:06:51 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:06:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ static t_lst_redir	*get_redir(char **s)
 	j = 0;
 	chose = 0;
 	lst = NULL;
-	ft_lst_redir_add(&lst, DIRE_IN, ft_strdup("/dev/stdin"));
-	ft_lst_redir_add(&lst, DIRE_OUT, ft_strdup("/dev/stdout"));
 	while (s && *(s + i + j))
 	{
 		if (ft_strncmp(*(s + i + j), " ", 2) == 0)
@@ -101,16 +99,10 @@ t_bool	split_args(char **s, t_lst_com *lst)
 	if (!s)
 		return (FALSE);
 	lst->args = ft_duptab(s);
-	if (!lst->args || !*lst->args)
-		return (FALSE);
-	if (!lst->args || !*lst->args)
-	{
-		ft_magic_free("%2", lst->args);
-		return (FALSE);
-	}
 	lst->redir = get_redir(s);
-	if (!lst->redir)
+	if ((!lst->args || !*lst->args) && (!lst->redir))
 	{
+		ft_printf_fd(2, "AAA");
 		ft_magic_free("%2", lst->args);
 		return (FALSE);
 	}

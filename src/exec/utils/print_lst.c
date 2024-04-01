@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 19:09:27 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:34:50 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_print_lst(int fd, t_lst_cmd *lst)
 {
-	static char	*type[11] = {"CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
 		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	while (lst)
 	{
-		ft_printf_fd(fd, "<%s>\n%S\n", type[lst->type], lst->cmd);
+		ft_printf_fd(fd, "<%s>\n%S\n", type[lst->type + 1], lst->cmd);
 		lst = lst->next;
 	}
 }
@@ -36,12 +36,12 @@ void	ft_print_com(int fd, t_lst_com *lst)
 
 void	ft_print_redir(int fd, t_lst_redir *lst)
 {
-	static char	*type[11] = {"CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
 		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	while (lst)
 	{
-		ft_printf_fd(fd, "/%s> %s\n", type[lst->type], lst->file);
+		ft_printf_fd(fd, "/%s> %s\n", type[lst->type + 1], lst->file);
 		lst = lst->next;
 	}
 	ft_printf_fd(fd, "\n");
@@ -49,19 +49,19 @@ void	ft_print_redir(int fd, t_lst_redir *lst)
 
 void	ft_print_ope(int fd, t_lst_ope *lst)
 {
-	static char	*type[11] = {"CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
 		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	while (lst)
 	{
-		ft_printf_fd(fd, "#%s\n", type[lst->type]);
+		ft_printf_fd(fd, "#%s\n", type[lst->type + 1]);
 		lst = lst->next;
 	}
 }
 
 void	ft_print_node(t_node *node)
 {
-	static char	*type[11] = {"CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
 		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	if (!node)
@@ -74,12 +74,12 @@ void	ft_print_node(t_node *node)
 	}
 	else
 	{
-		ft_printf("|%s|", type[node->type]);
+		ft_printf("|%s|", type[node->type + 1]);
 		ft_printf("{%p}{%p}\n", node->left, node->right);
 	}
 	if (node->left)
-		printf("|%s|", type[node->left->type]);
+		printf("|%s|", type[node->left->type + 1]);
 	if (node->right)
-		printf("            |%s|", type[node->right->type]);
+		printf("            |%s|", type[node->right->type + 1]);
 	printf("\n\n");
 }

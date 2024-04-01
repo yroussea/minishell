@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:17 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/27 20:13:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:21:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_bool	add_single_branch(t_node **root, t_node *new_node)
 {
-	if (((*root)->type == AND || (*root)->type == OR) \
-		&& new_node->type == PIPE)
+	if ((((*root)->type == AND || (*root)->type == OR) \
+		&& new_node->type == PIPE))
 	{
 		if (add_child(*root, new_node, RIGHT))
 			return (TRUE);
