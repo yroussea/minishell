@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:30:24 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 18:24:11 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:56:40 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_bool	ft_lst_redir_heredoc(t_lst_redir **lst, t_type_of_node type, int fd)
 {
 	t_lst_redir	*tmp;
 
+	if (fd == -1)
+		return (FALSE);
 	tmp = init_node_redir(type, NULL);
 	if (!tmp)
 	{

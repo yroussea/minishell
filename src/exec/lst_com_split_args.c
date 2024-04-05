@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/29 17:06:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:55:05 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_bool	split_args(char **s, t_lst_com *lst)
 	lst->redir = get_redir(s);
 	if ((!lst->args || !*lst->args) && (!lst->redir))
 	{
-		ft_printf_fd(2, "AAA");
 		ft_magic_free("%2", lst->args);
 		return (FALSE);
 	}

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/26 16:32:40 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:32:02 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ size_t	jump_quote(char *s, size_t len, size_t *count)
 		}
 		return (tmp);
 	}
-	else if (*s == 34 || *s == 39)
-		return (1);
-	return (0);
+	*count += 1;
+	return (*s == 34 || *s == 39);
 }
 
 size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
@@ -73,7 +72,7 @@ char	**ft_tokeniser(char *s, char **token)
 	size_t	k;
 
 	k = 0;
-	result = ft_calloc(sizeof(char *), ft_count_word(s, token, 0) + 1);
+	result = ft_calloc(sizeof(char *), ft_count_word(s, token, 0) + 2);
 	if (!result)
 		return (NULL);
 	while (s && *s)
