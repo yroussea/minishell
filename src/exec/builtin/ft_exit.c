@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 19:05:04 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:24:20 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 extern int	g_exitcode;
 
-void	free_exit(void)
+void	free_exit(t_node *node)
 {
+	ft_magic_free("%1 %2", node->cmd, node->args);
 	ft_get_lsts(NULL, NULL, FALSE, TRUE);
 	ft_get_stks(NULL, FALSE, TRUE);
 	ft_get_root(NULL, FALSE, TRUE);
@@ -42,10 +43,10 @@ void	ft_exit(t_node *node)
 		{
 			ft_printf_fd(node->outfile, "bash: exit: %s: numeric argument required\n", node->args[1]);
 			g_exitcode = 2;
-			free_exit();
+			free_exit(node);
 		}
 		code = ft_atoll(node->args[1]);
 		g_exitcode = code % 256;
 	}
-	free_exit();
+	free_exit(node);
 }
