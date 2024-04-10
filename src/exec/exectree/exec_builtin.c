@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:50:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:16:54 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ t_builtin	is_builtin(t_node *node)
 	return (NOT_A_BUILTIN);
 }
 
-void	exec_builtin(char *cmd, char **args)
+void	exec_builtin(char *cmd, t_node *node)
 {
 	if (!ft_strncmp(cmd, "exit", 4))
 	{
+		ft_exit(node);
 	}
 	if (!ft_strncmp(cmd, "pwd", 4))
 	{
+		ft_pwd(node);
 	}
 	if (!ft_strncmp(cmd, "cd", 3))
 	{
@@ -55,10 +57,11 @@ void	exec_builtin(char *cmd, char **args)
 	}
 	if (!ft_strncmp(cmd, "env", 4))
 	{
+		ft_env(node);
 	}
 	if (!ft_strncmp(cmd, "echo", 5))
 	{
-		
+		ft_echo(node);
 	}
 }
 
@@ -79,7 +82,7 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 				ft_close_pipe(stks->pipes);
 				close_heredoc(ft_get_root(NULL, FALSE, FALSE));
 				//exec node->cmd, node->args
-				exec_builtin(node->cmd, node->args);
+				exec_builtin(node->cmd, node);
 			}
 			ft_magic_free("%1 %2", node->cmd, node->args);
 			exit(1);
@@ -90,7 +93,7 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 	}
 	else
 	{
-		exec_builtin(node->cmd, node->args);
+		exec_builtin(node->cmd, node);
 		// exec
 	}
 	ft_free_split(node->args);
