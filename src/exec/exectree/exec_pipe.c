@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:57:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 19:01:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:05:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ t_bool	exec_pipe(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fd
 	//si pipe->pipe->cmd => exec_pipe_under_pipe
 	//si pipe->pipe->pipe->cmd => exec_pipe_under_pipe -> exec_pipe_under_pipe
 	////
-	ft_printf_fd(2, "A\n");
 	tmp = *stks->pids;
 	if (tmp)
 		pid = tmp->pid;
