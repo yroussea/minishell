@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/01 09:07:08 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:56:35 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,14 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 		ft_lst_cmd_free(lst_all);
 		ft_get_lsts(operator, cmd, TRUE, FALSE);
 		if (ft_add_all_branch(&root, operator))
-			ft_add_all_leaf(&root, cmd, &envp);
+		{
+			if (ft_add_all_leaf(&root, cmd, &envp) == ERROR)
+			{
+				free(stks);
+				ft_get_lsts(NULL, NULL, FALSE, TRUE);
+				return;
+			}
+		}
 		if (verif_complete_tree(root))
 		{
 			exec_tree(root, FALSE, stks, fds);

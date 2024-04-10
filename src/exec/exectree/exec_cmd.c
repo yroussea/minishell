@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 17:50:42 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:31:44 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
 	// unquoting :)
 	parse_quote(node);
 	// difference buildin et cmd
-//	if (is_builtin(node))
-//		return (ft_exec_builtin(node, from_pipe, stks, fds));
+	if (is_builtin(node))
+		return (ft_exec_builtin(node, from_pipe, stks, fds));
 	full_cmd = get_access(*(node->envp), node->cmd);
 	free(node->cmd);
 	if (full_cmd)

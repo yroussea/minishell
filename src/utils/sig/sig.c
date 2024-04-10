@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/28 17:25:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:59:03 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,29 @@ void	handler(int signal)
 		return ;
 }
 
+void	free_heredoc(t_bool reset, char *eof, int fd)
+{
+	static char *limit = NULL;
+	static int fd_file;
+
+	if (reset)
+	{
+		fd_file = fd;
+		limit = eof;
+	}
+	else
+	{
+		free(limit);
+		ft_close(1, fd_file);
+	}
+}
+
 void	heredoc_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
 		ft_printf("\n");
+		free_heredoc(FALSE, NULL, 0);
 		exit(130);
 	}
 	if (signal == SIGQUIT)

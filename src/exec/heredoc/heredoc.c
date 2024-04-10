@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 17:45:32 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:59:38 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,9 @@ t_bool	sig_heredoc(char *line, char *eof, int count)
 
 void	ft_exit_heredoc(char *eof, int fd, char *line)
 {
-	ft_get_lsts(NULL, NULL, FALSE, TRUE);
-	ft_get_stks(NULL, FALSE, TRUE);
-	ft_get_root(NULL, FALSE, TRUE);
-	ft_get_envp(NULL, FALSE, TRUE);
 	free(line);
 	free(eof);
 	close(fd);
-	clear_history();
 	exit(0);
 }
 
@@ -66,24 +61,34 @@ t_bool	exec_heredoc(char *eof, int fd)
 
 	count = 0;
 	pid = ft_fork();
-	while (pid == 0)
+	if (pid == 0)
 	{
-		signal(SIGINT, heredoc_handler);
-		line = readline("> ");
-		if (sig_heredoc(line, eof, count) == FALSE)
-			ft_exit_heredoc(eof, fd, line);
-		if (eof && ft_strncmp(line, eof, ft_strlen(eof) + 1) != 0)
+		free_heredoc(TRUE, eof, fd);
+		ft_get_lsts(NULL, NULL, FALSE, TRUE);
+		ft_get_stks(NULL, FALSE, TRUE);
+		ft_get_root(NULL, FALSE, TRUE);
+		ft_get_envp(NULL, FALSE, TRUE);
+		clear_history();
+		line = "";
+		while (ft_strncmp(line, eof, ft_strlen(line) + 1) != 0)
 		{
-			count++;
-			ft_printf_fd(fd, "%s\n", line);
+			signal(SIGINT, heredoc_handler);
+			line = readline("> ");
+			if (sig_heredoc(line, eof, count) == FALSE)
+				ft_exit_heredoc(eof, fd, line);
+			if (eof && ft_strncmp(line, eof, ft_strlen(eof) + 1) != 0)
+			{
+				count++;
+				ft_printf_fd(fd, "%s\n", line);
+			}
+			else
+				ft_exit_heredoc(eof, fd, line);
 		}
-		else
-			ft_exit_heredoc(eof, fd, line);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_exitcode = WEXITSTATUS(status);
-	return (TRUE);
+	return (!g_exitcode);
 }
 
 int	ft_heredoc(char *eof)
@@ -101,7 +106,14 @@ int	ft_heredoc(char *eof)
 	buf[i] = 0;
 	fd = open((char *)buf, 577, 0664);
 	signal(SIGINT, SIG_IGN);
-	exec_heredoc(word_end, fd);
+	if (!exec_heredoc(word_end, fd))
+	{
+		free(word_end);
+		set_sigaction(0);
+		unlink(buf);
+		close(fd);
+		return (-1);
+	}
 	close(fd);
 	fd = open((char *)buf, 0);
 	unlink(buf);

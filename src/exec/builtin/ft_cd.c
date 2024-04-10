@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig.h                                              :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 16:54:24 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 16:38:47 by basverdi         ###   ########.fr       */
+/*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
+/*   Updated: 2024/04/10 13:34:29 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIG_H
-# define SIG_H
+#include "../../minishell.h"
 
-void	set_sigaction(int state);
-void	handler(int signal);
-void	free_heredoc(t_bool reset, char *eof, int fd);
-void	heredoc_handler(int signal);
+void	ft_cd(t_node *node)
+{
+	char	buf[10000];
 
-
-#endif
+	getcwd(buf, 10000);
+	
+}

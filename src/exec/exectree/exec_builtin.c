@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:26:38 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_builtin	is_builtin(t_node *node)
 {
-	if (!ft_strncmp(node->cmd, "exit", 5))
+	if (!ft_strncmp(node->cmd, "exit", 4))
 		return (EXIT);
 	if (!ft_strncmp(node->cmd, "pwd", 4))
 		return (PWD);
