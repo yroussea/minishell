@@ -6,13 +6,19 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 18:29:13 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:59:23 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exitcode;
+
+void	ft_print_exit(char *str)
+{
+	ft_printf("%s", str);
+	exit(42);
+}
 
 int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 {
@@ -27,21 +33,21 @@ int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 
 void	ft_stop(int ac, char **av)
 {
-	if (ac == 1 || ft_strncmp("--no-clear", av[1], 10))
-		ft_printf("\033c");
 	if (ac == 2)
 	{
 		if (ft_strncmp(av[1], "--mini-coque", 12) == 0)
 		{
 			ft_printf("\u2B50 %s Bien joué! %s \u2B50\n", YELLOW, DEFAULT);
 			ft_printf("Vous avez trouvé un des easters eggs !\n");
-			ft_printf("PS : petite-coquille > bash\n");
+			ft_print_exit("PS : petite-coquille > bash\n");
 		}
 		else if (ft_strncmp(av[1], "--goat", 6) == 0)
-			ft_printf("\u26A1 Made by Yroussea and Basverdi \u26A1\n");
+			ft_print_exit("\u26A1 Made by Yroussea and Basverdi \u26A1\n");
 		else if (ft_strncmp("--no-clear", av[1], 10))
 			ft_printf("%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
 	}
+	else if (ac == 1 || ft_strncmp("--no-clear", av[1], 10))
+		ft_printf("\033c");
 	else if (ac > 1)
 	{
 		ft_printf("%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);

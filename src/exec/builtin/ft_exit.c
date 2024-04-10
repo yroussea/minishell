@@ -6,13 +6,23 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 18:25:07 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:05:04 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 extern int	g_exitcode;
+
+void	free_exit(void)
+{
+	ft_get_lsts(NULL, NULL, FALSE, TRUE);
+	ft_get_stks(NULL, FALSE, TRUE);
+	ft_get_root(NULL, FALSE, TRUE);
+	ft_get_envp(NULL, FALSE, TRUE);
+	clear_history();
+	exit(g_exitcode);
+}
 
 void	ft_exit(t_node *node)
 {
@@ -32,10 +42,10 @@ void	ft_exit(t_node *node)
 		{
 			ft_printf_fd(node->outfile, "bash: exit: %s: numeric argument required\n", node->args[1]);
 			g_exitcode = 2;
-			exit(g_exitcode);
+			free_exit();
 		}
 		code = ft_atoll(node->args[1]);
 		g_exitcode = code % 256;
 	}
-	exit(g_exitcode);
+	free_exit();
 }
