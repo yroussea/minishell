@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:31:20 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/01 09:03:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:46:26 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+# define LLMAX "9223372036854775807"
+# define LLMIN "9223372036854775808"
 
 typedef struct s_list
 {
@@ -35,9 +37,17 @@ typedef struct s_stack
 	struct s_stack	*next;
 }					t_stack;
 
+typedef enum s_bool
+{
+	ERROR = -1,
+	FALSE,
+	TRUE,
+}				t_bool;
+
 int			ft_atoi(const char *nptr);
-long long	ft_atoll(const char *nptr);
+long long	ft_atoll(char *s);
 char		*ft_itoa(int n);
+t_bool		ft_overflow(char *s);
 
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);

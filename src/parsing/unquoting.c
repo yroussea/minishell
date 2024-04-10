@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unquoting.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/01 09:05:07 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:34:56 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp); //ilegale
 
 char	*join_and_free(size_t nb_str, char *sep, ...)
 {
-	va_list args;
-	va_list copy;
+	va_list	args;
+	va_list	copy;
 	char	*s;
 
 	va_start(args, sep);

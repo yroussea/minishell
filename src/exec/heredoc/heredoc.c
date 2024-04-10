@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 16:59:38 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:37:01 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	ft_heredoc(char *eof)
 	if (!exec_heredoc(word_end, fd))
 	{
 		free(word_end);
-		set_sigaction(0);
 		unlink(buf);
 		close(fd);
 		return (-1);
@@ -118,6 +117,5 @@ int	ft_heredoc(char *eof)
 	fd = open((char *)buf, 0);
 	unlink(buf);
 	free(word_end);
-	set_sigaction(0);
 	return (fd);
 }

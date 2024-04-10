@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 16:59:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:33:46 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	handler(int signal)
 
 void	free_heredoc(t_bool reset, char *eof, int fd)
 {
-	static char *limit = NULL;
-	static int fd_file;
+	static char		*limit = NULL;
+	static int		fd_file;
 
 	if (reset)
 	{

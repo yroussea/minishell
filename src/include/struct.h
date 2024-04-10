@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/20 19:18:18 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:37:53 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@
 # define ERROR_DUP "(A/Mult) dup fct didn't work??"
 # define ERROR_PIPE "(A/Mult) Pipe as fail"
 # define ERROR_FORK "(A/Mult) fork as fail??"
-
-typedef enum s_bool
-{
-	ERROR = -1,
-	FALSE,
-	TRUE,
-}			t_bool;
 
 /*
 	commande, |, &&, ||, <<, <, >, >>, 2>

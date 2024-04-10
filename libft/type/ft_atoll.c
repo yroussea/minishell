@@ -6,31 +6,28 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:52:23 by bastienverd       #+#    #+#             */
-/*   Updated: 2024/03/01 15:59:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:26:39 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-long long	ft_atoll(const char *nptr)
+long long	ft_atoll(char *s)
 {
-	int				i;
-	long long int	sign;
-	long long int	res;
+	long long	result;
+	int			neg;
 
-	i = 0;
-	sign = 1;
-	res = 0;
-	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
-		i++;
-	if (nptr[i] == '-')
-		sign = -1;
-	if (nptr[i] == '-' || nptr[i] == '+')
-		i++;
-	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
+	result = 0;
+	neg = 1;
+	if (*s == '-' || *s == '+')
 	{
-		res = res * 10 + (nptr[i] - '0');
-		i++;
+		neg = (*s == '-') * -1 + (*s == '+') * 1;
+		s += 1;
 	}
-	return (res * sign);
+	while (s && *s)
+	{
+		result = result * 10 + (*s - '0');
+		s += 1;
+	}
+	return (result * neg);
 }

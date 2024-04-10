@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:30:04 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/31 18:34:50 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:35:57 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_print_lst(int fd, t_lst_cmd *lst)
 {
-	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
-		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", \
+	"ADD", "FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	while (lst)
 	{
@@ -36,8 +36,8 @@ void	ft_print_com(int fd, t_lst_com *lst)
 
 void	ft_print_redir(int fd, t_lst_redir *lst)
 {
-	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
-		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", \
+	"ADD", "FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	while (lst)
 	{
@@ -49,8 +49,8 @@ void	ft_print_redir(int fd, t_lst_redir *lst)
 
 void	ft_print_ope(int fd, t_lst_ope *lst)
 {
-	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
-		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", \
+	"ADD", "FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	while (lst)
 	{
@@ -61,8 +61,8 @@ void	ft_print_ope(int fd, t_lst_ope *lst)
 
 void	ft_print_node(t_node *node)
 {
-	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", "ADD", \
-		"FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
+	static char	*type[12] = {"EROOR", "CMD", "PIPE", "AND", "OR", "HEREDOC", \
+	"ADD", "FD_IN", "FD_OUT", "DIRE_TWO", "VARIABLE", "FLAG"};
 
 	if (!node)
 		return ;

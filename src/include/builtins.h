@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig.h                                              :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 16:54:24 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 17:34:02 by basverdi         ###   ########.fr       */
+/*   Created: 2024/04/10 18:00:58 by basverdi          #+#    #+#             */
+/*   Updated: 2024/04/10 18:01:14 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIG_H
-# define SIG_H
-
-void	set_sigaction(int state);
-void	handler(int signal);
-void	free_heredoc(t_bool reset, char *eof, int fd);
-void	heredoc_handler(int signal);
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
 #endif
