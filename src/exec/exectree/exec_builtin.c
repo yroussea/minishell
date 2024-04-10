@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 13:26:38 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:50:43 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,38 @@ t_builtin	is_builtin(t_node *node)
 		return (EXPORT);
 	if (!ft_strncmp(node->cmd, "env", 4))
 		return (ENV);
+	if (!ft_strncmp(node->cmd, "echo", 5))
+		return (ECHO);
 	return (NOT_A_BUILTIN);
+}
+
+void	exec_builtin(char *cmd, char **args)
+{
+	if (!ft_strncmp(cmd, "exit", 4))
+	{
+	}
+	if (!ft_strncmp(cmd, "pwd", 4))
+	{
+	}
+	if (!ft_strncmp(cmd, "cd", 3))
+	{
+	}
+	if (!ft_strncmp(cmd, "cat", 4))
+	{
+	}
+	if (!ft_strncmp(cmd, "unset", 6))
+	{
+	}
+	if (!ft_strncmp(cmd, "export", 7))
+	{
+	}
+	if (!ft_strncmp(cmd, "env", 4))
+	{
+	}
+	if (!ft_strncmp(cmd, "echo", 5))
+	{
+		
+	}
 }
 
 t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
@@ -36,7 +67,6 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 {
 	int	pid;
 
-	(void)fds;
 	if (from_pipe)
 	{
 		pid = ft_fork();
@@ -44,8 +74,13 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 			return (ERROR);
 		if (pid == 0)
 		{
-			// all_redir
-			// closepipe
+			if (all_redir_cmd(node->redir, fds)) //?
+			{
+				ft_close_pipe(stks->pipes);
+				close_heredoc(ft_get_root(NULL, FALSE, FALSE));
+				//exec node->cmd, node->args
+				exec_builtin(node->cmd, node->args);
+			}
 			ft_magic_free("%1 %2", node->cmd, node->args);
 			exit(1);
 		}
@@ -53,6 +88,11 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 		ft_magic_free("%1 %2", node->cmd, node->args);
 		return (TRUE);
 	}
-	// exec
-	return (TRUE);
+	else
+	{
+		exec_builtin(node->cmd, node->args);
+		// exec
+	}
+	ft_free_split(node->args);
+	return (ERROR);
 }
