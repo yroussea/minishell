@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 19:07:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:16:00 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 	t_type_of_node	type;
 	t_bool			tmp;
 
+	ft_print_lst(2, lst_all);
 	*ope = NULL;
 	*cmd = NULL;
 	tmp = 0;
@@ -42,7 +43,7 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 		return (FALSE);
 	while (lst_all)
 	{
-		if (only_space(lst_all->cmd))
+		if (lst_all->type == CMD && only_space(lst_all->cmd))
 		{
 			lst_all = lst_all->next;
 			continue ;
@@ -119,10 +120,6 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 		fds.out = 1;
 		if (!split_two_lst(lst_all, &operator, &cmd))
 			return ;
-
-		// ft_print_ope(2, operator);
-		// ft_print_com(2, cmd);
-
 		ft_lst_cmd_free(lst_all);
 		ft_get_lsts(operator, cmd, TRUE, FALSE);
 		if (ft_add_all_branch(&root, operator))
@@ -134,7 +131,6 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 				return;
 			}
 		}
-		ft_print_tree(root);
 		if (verif_complete_tree(root))
 		{
 			exec_tree(root, NO_PIPE, stks, fds);
