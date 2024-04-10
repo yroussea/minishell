@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 18:16:54 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:29:26 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 		exec_builtin(node->cmd, node);
 		// exec
 	}
-	ft_free_split(node->args);
+	ft_magic_free("%1 %2", node->cmd, node->args);
 	return (ERROR);
 }
