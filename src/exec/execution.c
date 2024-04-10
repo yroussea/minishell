@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 19:16:00 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:26:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 	t_type_of_node	type;
 	t_bool			tmp;
 
-	ft_print_lst(2, lst_all);
 	*ope = NULL;
 	*cmd = NULL;
 	tmp = 0;
