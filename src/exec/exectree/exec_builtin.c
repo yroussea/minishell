@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 18:29:26 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:02:46 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_builtin	is_builtin(t_node *node)
 		return (PWD);
 	if (!ft_strncmp(node->cmd, "cd", 3))
 		return (CD);
-	if (!ft_strncmp(node->cmd, "cat", 4))
-		return (CAT);
 	if (!ft_strncmp(node->cmd, "unset", 6))
 		return (UNSET);
 	if (!ft_strncmp(node->cmd, "export", 7))
@@ -65,12 +63,12 @@ void	exec_builtin(char *cmd, t_node *node)
 	}
 }
 
-t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
+t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 	t_data_stk *stks, t_fds fds)
 {
 	int	pid;
 
-	if (from_pipe)
+	if (from_pipe != NO_PIPE)
 	{
 		pid = ft_fork();
 		if (pid < 0)
@@ -82,6 +80,7 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 				ft_close_pipe(stks->pipes);
 				close_heredoc(ft_get_root(NULL, FALSE, FALSE));
 				//exec node->cmd, node->args
+				ft_printf_fd(2, "<%d %d>\n", node->infile, node->outfile);
 				exec_builtin(node->cmd, node);
 			}
 			ft_magic_free("%1 %2", node->cmd, node->args);
@@ -93,9 +92,10 @@ t_bool	ft_exec_builtin(t_node *node, t_bool from_pipe, \
 	}
 	else
 	{
+		ft_printf_fd(2, "#%d %d>\n", node->infile, node->outfile);
 		exec_builtin(node->cmd, node);
 		// exec
 	}
 	ft_magic_free("%1 %2", node->cmd, node->args);
-	return (ERROR);
+	return (TRUE);
 }

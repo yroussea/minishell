@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 16:56:35 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:07:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,10 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 				return;
 			}
 		}
+		ft_print_tree(root);
 		if (verif_complete_tree(root))
 		{
-			exec_tree(root, FALSE, stks, fds);
+			exec_tree(root, NO_PIPE, stks, fds);
 			wait_all(stks->pids, -1);
 		}
 		else
