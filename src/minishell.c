@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/03/28 18:06:01 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:29:13 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	main(int argc, char **argv, char **envp)
 	if (display_prompt(lst_envp) == FALSE)
 	{
 		clear_history();
-		printf("exitcode = %d\n", g_exitcode);
 		return (0);
 	}
 	free_lst_envp(lst_envp);
