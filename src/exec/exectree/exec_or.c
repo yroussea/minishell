@@ -6,15 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:25 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/01 08:50:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:54:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <sys/wait.h>
-#include <unistd.h>
 
-t_bool	exec_or(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
+t_bool	exec_or(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds)
 {
 	int	pid;
 	/*(si dans pipe faire la suite dans un fork puis exit)

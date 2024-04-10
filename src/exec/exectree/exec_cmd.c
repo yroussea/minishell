@@ -6,12 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:43:31 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:56:24 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <unistd.h>
 
 void	ft_close_command(t_node *node)
 {
@@ -128,15 +127,12 @@ void	parse_quote(t_node *node)
 	node->cmd = ft_strdup(*result);
 }
 
-t_bool	exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks, t_fds fds)
+t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds)
 {
 	int			pid;
 	char		**envp_char;
 	char		*full_cmd;
-	t_builtin	builtin_type;
 
-	(void)from_pipe;
-	(void)builtin_type;
 	parse_quote(node);
 	// difference buildin et cmd
 	if (is_builtin(node))

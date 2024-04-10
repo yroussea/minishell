@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:49:25 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:47:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ typedef struct s_fds
 	int	in;
 	int	out;
 }				t_fds;
+
+typedef enum s_from_pipe
+{
+	NO_PIPE,
+	LEFT_PIPE,
+	RIGHT_PIPE,
+}			t_from_pipe;
+
 
 typedef enum s_priority
 {
@@ -152,15 +160,15 @@ t_bool			ft_add_all_branch(t_node **node, t_lst_ope *ope);
 void			ft_free_tree(t_node *root);
 t_bool			fill_node(t_node *node, t_lst_com *cmd);
 
-t_bool			exec_tree(t_node *root, t_bool from_pipe, t_data_stk *stks,
+t_bool			exec_tree(t_node *root, t_from_pipe from_pipe, t_data_stk *stks,
 					t_fds fds);
-t_bool			exec_pipe(t_node *node, t_bool from_pipe, t_data_stk *stks,
+t_bool			exec_pipe(t_node *node, t_from_pipe from_pipe, t_data_stk *stks,
 					t_fds fds);
-t_bool			exec_and(t_node *node, t_bool from_pipe, t_data_stk *stks,
+t_bool			exec_and(t_node *node, t_from_pipe from_pipe, t_data_stk *stks,
 					t_fds fds);
-t_bool			exec_or(t_node *node, t_bool from_pipe, t_data_stk *stks,
+t_bool			exec_or(t_node *node, t_from_pipe from_pipe, t_data_stk *stks,
 					t_fds fds);
-t_bool			exec_cmd(t_node *node, t_bool from_pipe, t_data_stk *stks,
+t_bool			exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks,
 					t_fds fds);
 /*
  * redir
@@ -171,7 +179,7 @@ char			*get_access(t_lst_envp *lst_envp, char *cmd);
 t_bool			all_redir_cmd(t_lst_redir *redir, t_fds fds);
 
 t_builtin		is_builtin(t_node *node);
-t_bool			ft_exec_builtin(t_node *node, t_bool from_pipe, t_data_stk \
+t_bool			ft_exec_builtin(t_node *node, t_from_pipe from_pipe, t_data_stk \
 					*stks, t_fds fds);
 
 #endif
