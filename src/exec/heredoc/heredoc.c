@@ -6,16 +6,15 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:37:01 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:07:57 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <readline/history.h>
 
 extern int	g_exitcode;
 
-char	ft_random(void)
+static char	ft_random(void)
 {
 	char	buf[1];
 	int		fd;
@@ -91,6 +90,23 @@ t_bool	exec_heredoc(char *eof, int fd)
 	return (!g_exitcode);
 }
 
+char	*end_word(char *eof)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = malloc(ft_strlen(eof) + 1);
+	while (eof && *eof)
+	{
+		if (*eof != 34 && *eof != 39)
+			str[i++] = *eof;
+		eof += 1;
+	}
+	str[i] = 0;
+	return (str);
+}
+
 int	ft_heredoc(char *eof)
 {
 	int		fd;
@@ -98,7 +114,7 @@ int	ft_heredoc(char *eof)
 	int		i;
 	char	*word_end;
 
-	word_end = ft_strdup(eof);
+	word_end = end_word(eof);
 	ft_strlcpy(buf, ".heredoc", 9);
 	i = 8;
 	while (i < 18)

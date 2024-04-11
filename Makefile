@@ -36,6 +36,7 @@ SRCS_FILES = 							\
 	exec/exectree/exec_and.c			\
 	exec/exectree/exec_pipe.c			\
 	exec/heredoc/heredoc.c				\
+	exec/heredoc/heredoc_reopen.c		\
 	exec/lst_com_split_args.c			\
 	exec/utils/print_lst.c				\
 	exec/utils/print_tree.c				\

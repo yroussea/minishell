@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:34:56 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:35:22 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ char	*strdup_until_sep(char *s, int nb_sep, ...)
 * 36 = $
 * 39 = '
 */
-char	*ft_unsimplequote(char *s, t_lst_envp *lst_envp);
-char	*ft_undolars(char *s, t_lst_envp *lst_envp);
-char	*ft_undoublequote(char *s, t_lst_envp *lst_envp);
-char	*ft_unquote(char *s, t_lst_envp *lst_envp); //ilegale
 
 char	*join_and_free(size_t nb_str, char *sep, ...)
 {
@@ -95,7 +91,7 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	char	*res;
 	char	*variable;
 
-	res = strdup_until_sep(s, 4, 34, 36, 39, ' ');
+	res = strdup_until_sep(s, 5, 34, 36, 39, ' ', '\n');
 	variable = get_envp_variable(lst_envp, res);
 	free(res);
 	return (variable);
@@ -129,7 +125,9 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		str = ft_undolars(s + 1, lst_envp);
-		return (join_and_free(2, "", res, str));
+		while (s && *s && *s != 34 && *s != 36 && *s != 39 && *s != ' ')
+			s++;
+		return (join_and_free(3, "", res, str, ft_unquote(s, lst_envp)));
 	}
 	if (s && *s == 39)
 	{

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 20:01:05 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:07:24 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,18 @@ void	ft_close_command(t_node *node)
 		close(node->outfile);
 }
 
-t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
+t_bool	no_replace_heredoc(char *str)
+{
+	while (str && *str)
+	{
+		if (*str == 34 && *str == 39)
+			return (FALSE);
+		str += 1;
+	}
+	return (TRUE);
+}
+
+t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 {
 	int	fds_error;
 	int	fds_in;
@@ -40,6 +51,8 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds)
 			fds_in = redir->heredoc_fd;
 			if (fds_in == -1)
 				break ;
+			if (no_replace_heredoc(redir->file) == FALSE)
+				fds_in = heredoc_reopen(fds_in, lst_envp);
 		}
 		if (redir->type == DIRE_IN)
 		{
@@ -149,7 +162,7 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds
 			envp_char = envp_to_char(*node->envp);
 			if (envp_char)
 			{
-				if (all_redir_cmd(node->redir, fds))
+				if (all_redir_cmd(node->redir, fds, *node->envp))
 				{
 					ft_close_pipe(stks->pipes);
 					close_heredoc(ft_get_root(NULL, FALSE, FALSE));

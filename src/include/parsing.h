@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:59:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/25 20:48:23 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:28:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ char			**va_tokeniser(char *s, int nb, ...);
 t_lst_cmd		*parsing(char *line);
 size_t			len_quote(char *s, t_quote quote);
 
+char			*strdup_until_sep(char *s, int nb_sep, ...);
+char			*ft_unsimplequote(char *s, t_lst_envp *lst_envp);
+char			*ft_undolars(char *s, t_lst_envp *lst_envp);
+char			*ft_undoublequote(char *s, t_lst_envp *lst_envp);
 char			*ft_unquote(char *s, t_lst_envp *lst_envp);
 
 #endif
