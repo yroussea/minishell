@@ -6,12 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 19:37:38 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:39:51 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <unistd.h>
 
 extern int	g_exitcode;
 
@@ -40,5 +39,9 @@ char	*get_access(t_lst_envp *lst_envp, char *cmd)
 	}
 	ft_magic_free("%2", allpaths);
 	g_exitcode = 127;
+	if (*cmd == '/')
+		ft_printf_fd(2, "petit-coquillage: %s: No such file or directory\n", cmd);
+	else
+		ft_printf_fd(2, "%s: command not found\n", cmd);
 	return (NULL);
 }

@@ -6,11 +6,22 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 13:52:06 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:58:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*ft_undolars_heredoc(char *s, t_lst_envp *lst_envp)
+{
+	char	*res;
+	char	*variable;
+
+	res = strdup_until_sep(s, 5, 34, 36, 39, ' ', '\n');
+	variable = get_envp_variable(lst_envp, res);
+	free(res);
+	return (variable);
+}
 
 static char	ft_random(void)
 {
@@ -35,7 +46,7 @@ char	*replace_dollar(char *s, t_lst_envp *lst_envp)
 		s++;
 	if (s && *s == 36)
 	{
-		str = ft_undolars(++s, lst_envp);
+		str = ft_undolars_heredoc(++s, lst_envp);
 		while (s && *s && *s != 34 && *s != 36 && \
 			*s != 39 && *s != ' ' && *s != '\n')
 			s++;

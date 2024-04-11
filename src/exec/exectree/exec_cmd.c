@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 14:07:24 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:49:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,7 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds
 	}
 	ft_free_split(node->args);
 	// close cmd redir
+
+
 	return (ERROR);
 }

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 16:10:57 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:56:43 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void	exec_builtin(char *cmd, t_node *node, t_bool from_pipe)
 		ft_pwd(node);
 	}
 	if (!ft_strncmp(cmd, "cd", 3))
-	{
-	}
-	if (!ft_strncmp(cmd, "cat", 4))
 	{
 	}
 	if (!ft_strncmp(cmd, "unset", 6))
@@ -94,7 +91,7 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 		ft_magic_free("%1 %2", node->cmd, node->args);
 		return (TRUE);
 	}
-	else
+	else //redirection stp
 		exec_builtin(node->cmd, node, FALSE);
 	ft_magic_free("%1 %2", node->cmd, node->args);
 	return (TRUE);
