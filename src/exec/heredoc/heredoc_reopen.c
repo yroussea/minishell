@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_reopen.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 16:58:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:04:13 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_undolars_heredoc(char *s, t_lst_envp *lst_envp)
 	return (variable);
 }
 
-static char	ft_random(void)
+char	ft_random(void)
 {
 	char	buf[1];
 	int		fd;

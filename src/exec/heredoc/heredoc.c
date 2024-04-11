@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 14:07:57 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:09:50 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,22 @@
 
 extern int	g_exitcode;
 
-static char	ft_random(void)
-{
-	char	buf[1];
-	int		fd;
-
-	fd = open("/dev/random", 0);
-	read(fd, buf, 1);
-	ft_close(1, fd);
-	return (97 + ft_abs(*buf % 26));
-}
-
-t_bool	sig_heredoc(char *line, char *eof, int count)
-{
-	char	*tmp;
-	char	*nb;
-
-	if (line == NULL)
-	{
-		nb = ft_itoa(count + 1);
-		tmp = ft_vjoin(5, "",
-				"petite-coquille: warning: here-document at line ", nb,
-				" delimited by end-of-file (wanted `", eof, "`)");
-		ft_printf("%s\n", tmp);
-		ft_magic_free("%1 %1", tmp, nb);
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
 void	ft_exit_heredoc(char *eof, int fd, char *line)
 {
 	free(line);
 	free(eof);
 	close(fd);
 	exit(0);
+}
+char	*init_pid(char *eof, int fd)
+{
+	free_heredoc(TRUE, eof, fd);
+	ft_get_lsts(NULL, NULL, FALSE, TRUE);
+	ft_get_stks(NULL, FALSE, TRUE);
+	ft_get_root(NULL, FALSE, TRUE);
+	ft_get_envp(NULL, FALSE, TRUE);
+	clear_history();
+	return ("");
 }
 
 t_bool	exec_heredoc(char *eof, int fd)
@@ -62,13 +43,7 @@ t_bool	exec_heredoc(char *eof, int fd)
 	pid = ft_fork();
 	if (pid == 0)
 	{
-		free_heredoc(TRUE, eof, fd);
-		ft_get_lsts(NULL, NULL, FALSE, TRUE);
-		ft_get_stks(NULL, FALSE, TRUE);
-		ft_get_root(NULL, FALSE, TRUE);
-		ft_get_envp(NULL, FALSE, TRUE);
-		clear_history();
-		line = "";
+		line = init_pid(eof, fd);
 		while (ft_strncmp(line, eof, ft_strlen(line) + 1) != 0)
 		{
 			signal(SIGINT, heredoc_handler);
@@ -76,17 +51,13 @@ t_bool	exec_heredoc(char *eof, int fd)
 			if (sig_heredoc(line, eof, count) == FALSE)
 				ft_exit_heredoc(eof, fd, line);
 			if (eof && ft_strncmp(line, eof, ft_strlen(eof) + 1) != 0)
-			{
-				count++;
-				ft_printf_fd(fd, "%s\n", line);
-			}
+				ft_printf_fd(fd, "%s\n", line, count++);
 			else
 				ft_exit_heredoc(eof, fd, line);
 		}
 	}
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		g_exitcode = WEXITSTATUS(status);
+	g_exitcode = WEXITSTATUS(status);
 	return (!g_exitcode);
 }
 

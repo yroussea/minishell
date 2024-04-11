@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 19:44:54 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:45:52 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,24 @@ void	free_heredoc(t_bool reset, char *eof, int fd)
 		free(limit);
 		ft_close(1, fd_file);
 	}
+}
+
+t_bool	sig_heredoc(char *line, char *eof, int count)
+{
+	char	*tmp;
+	char	*nb;
+
+	if (line == NULL)
+	{
+		nb = ft_itoa(count + 1);
+		tmp = ft_vjoin(5, "",
+				"petite-coquille: warning: here-document at line ", nb,
+				" delimited by end-of-file (wanted `", eof, "`)");
+		ft_printf("%s\n", tmp);
+		ft_magic_free("%1 %1", tmp, nb);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 void	heredoc_handler(int signal)

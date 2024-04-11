@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 17:37:52 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:59 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_bool			ft_close(int nb, ...);
 t_bool			ft_dup2(int first_fd, int second_fd);
 t_bool			ft_pipe(int fd_pipe[2]);
 int				ft_fork(void);
+char			ft_random(void);
 
 /*
  * lst_cmd
@@ -71,5 +72,6 @@ t_bool			ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks);
 t_bool			ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool \
 					free_envp);
 void			close_heredoc(t_node *node);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:54:24 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 17:34:02 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:06 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ void	set_sigaction(int state);
 void	handler(int signal);
 void	free_heredoc(t_bool reset, char *eof, int fd);
 void	heredoc_handler(int signal);
+t_bool	sig_heredoc(char *line, char *eof, int count);
 
 #endif
