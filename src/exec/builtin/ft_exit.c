@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 19:24:20 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:27:47 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_exit(t_node *node)
 	exit(g_exitcode);
 }
 
-void	ft_exit(t_node *node)
+void	ft_exit(t_node *node, t_bool frompipe)
 {
 	int	code;
 
@@ -36,7 +36,8 @@ void	ft_exit(t_node *node)
 		g_exitcode = 1;
 		return ;
 	}
-	ft_printf_fd(node->outfile, "exit\n");
+	if (!frompipe)
+		ft_printf_fd(node->outfile, "exit\n");
 	if (ft_str_str_len(node->args) == 2)
 	{
 		if (ft_overflow(node->args[1]))
