@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 13:45:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/12 13:46:50 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef enum s_from_pipe
 	LEFT_PIPE,
 	RIGHT_PIPE,
 }			t_from_pipe;
-
 
 typedef enum s_priority
 {
@@ -177,10 +176,11 @@ int				ft_heredoc(char *eof);
 char			*get_access(t_lst_envp *lst_envp, char *cmd);
 int				heredoc_reopen(int fd, t_lst_envp *lst_envp);
 
-t_bool			all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp);
+t_bool			all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp \
+					*lst_envp);
 
 t_builtin		is_builtin(t_node *node);
-t_bool			ft_exec_builtin(t_node *node, t_from_pipe from_pipe, t_data_stk \
-					*stks, t_fds fds);
+t_bool			ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
+					t_data_stk *stks, t_fds fds);
 
 #endif

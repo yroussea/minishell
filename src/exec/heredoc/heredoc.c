@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 17:09:50 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/12 13:47:41 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_exit_heredoc(char *eof, int fd, char *line)
 	close(fd);
 	exit(0);
 }
+
 char	*init_pid(char *eof, int fd)
 {
 	free_heredoc(TRUE, eof, fd);

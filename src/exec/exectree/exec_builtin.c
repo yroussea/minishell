@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 16:56:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:38:27 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,19 @@ t_builtin	is_builtin(t_node *node)
 void	exec_builtin(char *cmd, t_node *node, t_bool from_pipe)
 {
 	if (!ft_strncmp(cmd, "exit", 4))
-	{
 		ft_exit(node, from_pipe);
-	}
 	if (!ft_strncmp(cmd, "pwd", 4))
-	{
 		ft_pwd(node);
-	}
 	if (!ft_strncmp(cmd, "cd", 3))
-	{
-	}
+		ft_cd(node);
 	if (!ft_strncmp(cmd, "unset", 6))
-	{
-	}
+	{}
 	if (!ft_strncmp(cmd, "export", 7))
-	{
-	}
+	{}
 	if (!ft_strncmp(cmd, "env", 4))
-	{
 		ft_env(node);
-	}
 	if (!ft_strncmp(cmd, "echo", 5))
-	{
 		ft_echo(node);
-	}
 }
 
 t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \

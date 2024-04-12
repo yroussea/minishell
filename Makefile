@@ -24,6 +24,7 @@ SRCS_FILES = 							\
 	utils/prompt/prompt_get_git.c		\
 	utils/sig/sig.c						\
 	exec/access/access.c				\
+	exec/builtin/ft_cd.c				\
 	exec/builtin/ft_echo.c				\
 	exec/builtin/ft_env.c				\
 	exec/builtin/ft_exit.c				\
@@ -38,6 +39,7 @@ SRCS_FILES = 							\
 	exec/heredoc/heredoc.c				\
 	exec/heredoc/heredoc_reopen.c		\
 	exec/lst_com_split_args.c			\
+	exec/utils/heredoc/utils_heredoc.c	\
 	exec/utils/print_lst.c				\
 	exec/utils/print_tree.c				\
 	exec/utils/lst/lst_com.c			\

@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   utils_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/12 12:47:30 by basverdi         ###   ########.fr       */
+/*   Created: 2024/04/12 13:44:41 by basverdi          #+#    #+#             */
+/*   Updated: 2024/04/12 13:44:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
-extern int	g_exitcode;
-
-void	ft_cd(t_node *node)
+void	free_heredoc(t_bool reset, char *eof, int fd)
 {
-	char	buf[10000];
+	static char		*limit = NULL;
+	static int		fd_file;
 
-	getcwd(buf, 10000);
-	// export buf to OLDPWD
-	chdir(node->args[1]);
-	getcwd(buf, 10000);
-	// export buf to PWD
-	g_exitcode = errno;
+	if (reset)
+	{
+		fd_file = fd;
+		limit = eof;
+	}
+	else
+	{
+		free(limit);
+		ft_close(1, fd_file);
+	}
 }

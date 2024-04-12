@@ -6,13 +6,34 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/11 16:27:47 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:40:40 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 extern int	g_exitcode;
+
+t_bool	check_evry_arg(char **args)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (args[i])
+	{
+		j = 0;
+		while (args[i][j])
+		{
+			if (!ft_isalpha(args[i][j]))
+				return (FALSE);
+			j++;
+		}
+		i++;
+	}
+	g_exitcode = 2;
+	return (TRUE);
+}
 
 void	free_exit(t_node *node)
 {
@@ -30,17 +51,19 @@ void	ft_exit(t_node *node, t_bool frompipe)
 	int	code;
 
 	code = 0;
+	if (!frompipe)
+		ft_printf_fd(node->outfile, "exit\n");
 	if (ft_str_str_len(node->args) > 2)
 	{
 		ft_printf_fd(node->outfile, "bash: exit: too many arguments\n");
 		g_exitcode = 1;
+		if (check_evry_arg(node->args))
+			free_exit(node);
 		return ;
 	}
-	if (!frompipe)
-		ft_printf_fd(node->outfile, "exit\n");
 	if (ft_str_str_len(node->args) == 2)
 	{
-		if (ft_overflow(node->args[1]))
+		if (ft_overflow(node->args[1]) || !check_evry_arg(node->args))
 		{
 			ft_printf_fd(node->outfile, "bash: exit: %s: numeric argument required\n", node->args[1]);
 			g_exitcode = 2;
