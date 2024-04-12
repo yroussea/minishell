@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/12 13:46:50 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:31:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_node
 	struct s_node	*right;
 	int				infile;
 	int				outfile;
+	int				errorfile;
 	t_lst_envp		**envp;
 }			t_node;
 
@@ -176,6 +177,8 @@ int				ft_heredoc(char *eof);
 char			*get_access(t_lst_envp *lst_envp, char *cmd);
 int				heredoc_reopen(int fd, t_lst_envp *lst_envp);
 
+t_bool			all_redir_builtin(t_node *node, t_lst_redir *redir, \
+					t_lst_envp *lst_envp);
 t_bool			all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp \
 					*lst_envp);
 

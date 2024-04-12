@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 16:49:20 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:31:22 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,63 +33,52 @@ t_bool	no_replace_heredoc(char *str)
 	return (TRUE);
 }
 
-t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
+int	redir_heredoc(int fds_in, t_lst_redir *redir, t_lst_envp *lst_envp)
 {
-	int	fds_error;
-	int	fds_in;
-	int	fds_out;
+	if (fds_in != STDIN_FILENO)
+		ft_close(1, fds_in);
+	fds_in = redir->heredoc_fd;
+	if (fds_in == -1)
+		return (-1);
+	if (no_replace_heredoc(redir->file) == FALSE)
+		fds_in = heredoc_reopen(fds_in, lst_envp);
+	return (fds_in);
+}
 
-	fds_in = 0;
-	fds_out = 1;
-	fds_error = 2;
-	while (redir)
-	{
-		if (redir->type == HEREDOC)
-		{
-			if (fds_in != STDIN_FILENO)
-				ft_close(1, fds_in);
-			fds_in = redir->heredoc_fd;
-			if (fds_in == -1)
-				break ;
-			if (no_replace_heredoc(redir->file) == FALSE)
-				fds_in = heredoc_reopen(fds_in, lst_envp);
-		}
-		if (redir->type == DIRE_IN)
-		{
-			if (fds_in != STDIN_FILENO)
-				ft_close(1, fds_in);
-			fds_in = open(redir->file, 0);
-			if (fds_in == -1)
-				break ;
-		}
-		if (redir->type == ADD)
-		{
-			if (fds_out != STDOUT_FILENO)
-				ft_close(1, fds_out);
-			fds_out = open(redir->file, O_CREAT | O_WRONLY | O_APPEND, 0664);
-			if (fds_out == -1)
-				break ;
-		}
-		if (redir->type == DIRE_OUT)
-		{
-			if (fds_out != STDOUT_FILENO)
-				ft_close(1, fds_out);
-			fds_out = open(redir->file, 577, 0664);
-			if (fds_out == -1)
-				break ;
-		}
-		if (redir->type == DIRE_TWO)
-		{
-			if (fds_error != STDERR_FILENO)
-				ft_close(1, fds_error);
-			fds_error = open(redir->file, 577, 0664);
-			if (fds_error == -1)
-				break ;
-		}
-		redir = redir->next;
-	}
-	if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-		return (FALSE);
+int	redir_infile(int fds_in, t_lst_redir *redir)
+{
+	if (fds_in != STDIN_FILENO)
+		ft_close(1, fds_in);
+	fds_in = open(redir->file, 0);
+	return (fds_in);
+}
+
+int	redir_add(int fds_out, t_lst_redir *redir)
+{
+	if (fds_out != STDOUT_FILENO)
+		ft_close(1, fds_out);
+	fds_out = open(redir->file, O_CREAT | O_WRONLY | O_APPEND, 0664);
+	return (fds_out);
+}
+
+int	redir_out(int fds_out, t_lst_redir *redir)
+{
+	if (fds_out != STDOUT_FILENO)
+		ft_close(1, fds_out);
+	fds_out = open(redir->file, 577, 0664);
+	return (fds_out);
+}
+
+int	redir_error(int fds_error, t_lst_redir *redir)
+{
+	if (fds_error != STDERR_FILENO)
+		ft_close(1, fds_error);
+	fds_error = open(redir->file, 577, 0664);
+	return (fds_error);
+}
+
+void	replace_fds(int fds_in, int fds_out, int fds_error, t_fds fds)
+{
 	if (fds_in != STDIN_FILENO)
 	{
 		ft_dup2(fds_in, STDIN_FILENO);
@@ -109,6 +98,65 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		ft_dup2(fds_error, STDERR_FILENO);
 		ft_close(1, fds_error);
 	}
+}
+
+t_bool all_redir_builtin(t_node *node, t_lst_redir *redir,  t_lst_envp *lst_envp)
+{
+	int	fds_error;
+	int	fds_in;
+	int	fds_out;
+
+	fds_in = 0;
+	fds_out = 1;
+	fds_error = 2;
+	while (redir)
+	{
+		if (redir->type == HEREDOC)
+			fds_in = redir_heredoc(fds_in, redir, lst_envp);
+		if (redir->type == DIRE_IN)
+			fds_in = redir_infile(fds_in, redir);
+		if (redir->type == ADD)
+			fds_out = redir_add(fds_out, redir);
+		if (redir->type == DIRE_OUT)
+			fds_out = redir_out(fds_out, redir);
+		if (redir->type == DIRE_TWO)
+			fds_error = redir_error(fds_error, redir);
+		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
+			return (FALSE);
+		redir = redir->next;
+	}
+	node->infile = fds_in;
+	node->outfile = fds_out;
+	node->errorfile = fds_error;
+	return (TRUE);
+}
+
+t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
+{
+	int	fds_error;
+	int	fds_in;
+	int	fds_out;
+
+	fds_in = 0;
+	fds_out = 1;
+	fds_error = 2;
+	while (redir)
+	{
+		if (redir->type == HEREDOC)
+			fds_in = redir_heredoc(fds_in, redir, lst_envp);
+		if (redir->type == DIRE_IN)
+			fds_in = redir_infile(fds_in, redir);
+		if (redir->type == ADD)
+			fds_out = redir_add(fds_out, redir);
+		if (redir->type == DIRE_OUT)
+			fds_out = redir_out(fds_out, redir);
+		if (redir->type == DIRE_TWO)
+			fds_error = redir_error(fds_error, redir);
+		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
+			return (FALSE);
+		redir = redir->next;
+	}
+	replace_fds(fds_in, fds_out, fds_error, fds);
 	return (TRUE);
 }
 
