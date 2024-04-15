@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/13 15:08:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/15 05:24:06 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_undolars_heredoc(char *s, t_lst_envp *lst_envp)
 	char	*res;
 	char	*variable;
 
-	res = strdup_until_sep(s, 5, 34, 36, 39, ' ', '\n'); //every non-alphanum caractere
+	res = strdup_until_funct(s, is_alphanum_underscore);
 	variable = get_envp_variable(lst_envp, res);
 	free(res);
 	return (variable);

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:59:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 13:28:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/15 05:20:00 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ char			*ft_unsimplequote(char *s, t_lst_envp *lst_envp);
 char			*ft_undolars(char *s, t_lst_envp *lst_envp);
 char			*ft_undoublequote(char *s, t_lst_envp *lst_envp);
 char			*ft_unquote(char *s, t_lst_envp *lst_envp);
+
+int				is_alphanum_underscore(char c);
+char			*strdup_until_funct(char *s, int (f(char c)));
 
 #endif
