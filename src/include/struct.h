@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:37:53 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:04:23 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # define ERROR_DUP "(A/Mult) dup fct didn't work??"
 # define ERROR_PIPE "(A/Mult) Pipe as fail"
 # define ERROR_FORK "(A/Mult) fork as fail??"
+
+# define NO_FILE "petit-coquillage: %s: No such file or directory\n" 
+# define CMD_NOT_FOUND "%s: command not found\n"
 
 /*
 	commande, |, &&, ||, <<, <, >, >>, 2>
@@ -37,6 +40,15 @@ typedef enum s_type_of_node
 	VARIABLE,
 	FLAG,
 }			t_type_of_node;
+
+typedef enum s_error
+{
+	NOT_CMD,
+	IS_DIR,
+	ISNOT_DIR,
+	NO_PERM,
+
+}			t_error;
 
 typedef struct s_lst_cmd
 {

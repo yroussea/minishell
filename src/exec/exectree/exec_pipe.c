@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:57:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 20:05:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:19:48 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern int g_exitcode;
 
 void	close_pipes(t_stack_pipe **stk_pipe)
 {
@@ -28,22 +30,30 @@ void	close_pipes(t_stack_pipe **stk_pipe)
 
 void	wait_all(t_stack_id **stk, int checkpoint)
 {
-	int	pid;
+	int		pid;
+	int		tmp_code;
+	t_bool	last_cmd;
 
+	last_cmd = TRUE;
 	while (stk && *stk)
 	{
 		pid = stk_pid_pop(stk);
 		if (pid == -1 || pid == checkpoint)
 			break ;
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &tmp_code, 0);
+		if (last_cmd)
+		{
+			g_exitcode = WEXITSTATUS(tmp_code);
+			last_cmd = FALSE;
+		}
 	}
 }
 
 t_bool	exec_pipe_under_pipe(t_node *node, t_data_stk *stks, t_fds fds)
 {
-	int			fd_pipe[2];
-	int			fd_pipe_return[2];
-	t_fds		tmp_fds;
+	int				fd_pipe[2];
+	int				fd_pipe_return[2];
+	t_fds			tmp_fds;
 
 	if (ft_pipe(fd_pipe) < 0)
 		return (FALSE);
@@ -54,12 +64,11 @@ t_bool	exec_pipe_under_pipe(t_node *node, t_data_stk *stks, t_fds fds)
 	if (ft_pipe(fd_pipe_return) < 0)
 		return (FALSE);
 	tmp_fds = (t_fds){fd_pipe[0], fd_pipe_return[1]};
-	exec_tree(node->right, RIGHT_PIPE, stks, tmp_fds);
-
-	close_pipes(stks->pipes);
-
 	ft_stk_pipe_add(stks->pipes, fd_pipe_return);
-
+	exec_tree(node->right, RIGHT_PIPE, stks, tmp_fds);
+	free(stk_pipe_pop(stks->pipes));
+	close_pipes(stks->pipes);
+	ft_stk_pipe_add(stks->pipes, fd_pipe_return);
 	return (TRUE);
 }
 
@@ -78,13 +87,35 @@ t_bool	exec_pipe_over_pipe(t_node *node, t_data_stk *stks, t_fds fds)
 	fd_pipe[0] = tmp_stk->pipe[0];
 	fd_pipe[1] = tmp_stk->pipe[1];
 	free(tmp_stk);
-
 	if (ft_pipe(fd_pipe_return) < 0)
 		return (FALSE);
 	tmp_fds = (t_fds){fd_pipe[0], fd_pipe_return[1]};
+	ft_stk_pipe_add(stks->pipes, fd_pipe_return);
 	exec_tree(node->right, RIGHT_PIPE, stks, tmp_fds);
+	free(stk_pipe_pop(stks->pipes));
 	ft_close(2, fd_pipe[0], fd_pipe[1]);
 	ft_stk_pipe_add(stks->pipes, fd_pipe_return);
+	return (TRUE);
+}
+
+t_bool	exec_pipe_top(t_node *node, t_data_stk *stks, t_fds fds)
+{
+	int				fd_pipe[2];
+	t_fds			tmp_fds;
+	t_stack_pipe	*tmp_stk;
+
+	if (node->left->left->type != PIPE)
+		exec_pipe_under_pipe(node->left, stks, fds);
+	else
+		exec_pipe_over_pipe(node->left, stks, fds);
+	tmp_stk = stk_pipe_pop(stks->pipes);
+	fd_pipe[0] = tmp_stk->pipe[0];
+	fd_pipe[1] = tmp_stk->pipe[1];
+	free(tmp_stk);
+	tmp_fds = (t_fds){fd_pipe[0], fds.out};
+	ft_stk_pipe_add(stks->pipes, fd_pipe);
+	exec_tree(node->right, RIGHT_PIPE, stks, tmp_fds);
+	close_pipes(stks->pipes);
 	return (TRUE);
 }
 
@@ -95,16 +126,13 @@ t_bool	exec_pipe(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fd
 	int			pid;
 	t_stack_id	*tmp;
 
-	//si pipe->pipe->cmd => exec_pipe_under_pipe
-	//si pipe->pipe->pipe->cmd => exec_pipe_under_pipe -> exec_pipe_under_pipe
-	////
 	tmp = *stks->pids;
 	if (tmp)
 		pid = tmp->pid;
 	else
 		pid = -1;
 	if (node->left->type == PIPE)
-		exec_pipe_over_pipe(node, stks, fds);
+		exec_pipe_top(node, stks, fds);
 	else
 	{
 		if (ft_pipe(fd_pipe) < 0)
@@ -114,8 +142,8 @@ t_bool	exec_pipe(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fd
 		exec_tree(node->left, LEFT_PIPE, stks, tmp_fds);
 		tmp_fds = (t_fds){fd_pipe[0], fds.out};
 		exec_tree(node->right, RIGHT_PIPE, stks, tmp_fds);
+		close_pipes(stks->pipes);
 	}
-	close_pipes(stks->pipes);
 	if (from_pipe == NO_PIPE) //att car: cmd <-pipe-> et->pipeline (enum dc)(si parenthese)
 		wait_all(stks->pids, pid);
 	return (TRUE);

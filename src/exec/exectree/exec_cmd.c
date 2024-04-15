@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/12 19:31:22 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:58:23 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_bool all_redir_builtin(t_node *node, t_lst_redir *redir,  t_lst_envp *lst_envp
 		if (redir->type == DIRE_TWO)
 			fds_error = redir_error(fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-			return (FALSE);
+			return (FALSE); //msg
 		redir = redir->next;
 	}
 	node->infile = fds_in;
@@ -153,7 +153,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		if (redir->type == DIRE_TWO)
 			fds_error = redir_error(fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-			return (FALSE);
+			return (FALSE);   //msg
 		redir = redir->next;
 	}
 	replace_fds(fds_in, fds_out, fds_error, fds);
@@ -188,55 +188,81 @@ void	parse_quote(t_node *node)
 	node->cmd = ft_strdup(*result);
 }
 
+void	exit_cmd(char *full_cmd, t_node *node, char **envp)
+{
+	free(full_cmd);
+	ft_magic_free("%2 %2", node->args, envp);
+	ft_get_envp(NULL, FALSE, TRUE);
+	ft_get_root(NULL, FALSE, TRUE);
+	ft_get_lsts(NULL, NULL, FALSE, TRUE);
+	ft_get_stks(NULL, FALSE, TRUE);
+	clear_history();
+	exit(1);
+}
+
+void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk *stks)
+{
+	char **envp_char;
+
+	envp_char = envp_to_char(*node->envp);
+	if (envp_char)
+	{
+		if (all_redir_cmd(node->redir, fds, *node->envp))
+		{
+			ft_close_pipe(stks->pipes);
+			close_heredoc(ft_get_root(NULL, FALSE, FALSE));
+			execve(full_cmd, node->args, envp_char);
+		}
+		else
+			ft_close_pipe(stks->pipes); //close redir faileed? //exit with good status?
+	}
+	exit_cmd(full_cmd, node, envp_char);
+}
+
+void	fake_pid(int exit_code, t_data_stk *stks)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		ft_close_pipe(stks->pipes);
+		ft_get_envp(NULL, FALSE, TRUE);
+		ft_get_root(NULL, FALSE, TRUE);
+		ft_get_lsts(NULL, NULL, FALSE, TRUE);
+		ft_get_stks(NULL, FALSE, TRUE);
+		clear_history();
+		exit(exit_code);
+	}
+	if (pid > 0)
+		ft_stk_pid_add(stks->pids, pid);
+}
+
+extern int g_exitcode;
+
 t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds)
 {
 	int			pid;
-	char		**envp_char;
 	char		*full_cmd;
 
 	parse_quote(node);
-	// difference buildin et cmd
-	if (is_builtin(node))
+	if (node->cmd && is_builtin(node))
 		return (ft_exec_builtin(node, from_pipe, stks, fds));
 	full_cmd = get_access(*(node->envp), node->cmd);
 	free(node->cmd);
 	if (full_cmd)
 	{
 		pid = ft_fork();
-		if (pid < 0)
-			return (ERROR);
 		if (pid == 0)
-		{
-			envp_char = envp_to_char(*node->envp);
-			if (envp_char)
-			{
-				if (all_redir_cmd(node->redir, fds, *node->envp))
-				{
-					ft_close_pipe(stks->pipes);
-					close_heredoc(ft_get_root(NULL, FALSE, FALSE));
-					execve(full_cmd, node->args, envp_char);
-				}
-				else
-					ft_close_pipe(stks->pipes);
-				free(full_cmd);
-			}
-			ft_magic_free("%2 %2", node->args, envp_char);
-			ft_get_envp(NULL, FALSE, TRUE);
-			ft_get_root(NULL, FALSE, TRUE);
-			ft_get_lsts(NULL, NULL, FALSE, TRUE);
-			ft_get_stks(NULL, FALSE, TRUE);
-			clear_history();
-			/// free all
-			exit(1);
-		}
-		ft_stk_pid_add(stks->pids, pid);
-		ft_magic_free("%2", node->args);
-		free(full_cmd);
+			child_exec_cmd(full_cmd, node, fds, stks);
+		if (pid > 0)
+			ft_stk_pid_add(stks->pids, pid);
+		ft_magic_free("%2 %1", node->args, full_cmd);
 		return (TRUE);
 	}
+	all_redir_builtin(node, node->redir, *node->envp);
+	close_redir_builtin(node);
 	ft_free_split(node->args);
-	// close cmd redir
-
-
+	fake_pid(g_exitcode, stks);
 	return (ERROR);
 }

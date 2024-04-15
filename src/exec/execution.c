@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 19:26:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/14 14:06:00 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 			if (tmp)
 			{
 				ft_lst_ope_add(ope, -1);
-				ft_printf_fd(2, "%s %s\n", "syntaxe error close to", "{to-fill}");
+				ft_printf_fd(2, "%s %s\n", "syntaxe error close to", "{to-fill}"); //to-fill
 				return (TRUE);
 			}
 			else
@@ -99,10 +99,6 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 	t_stack_pipe	*stk_pipe;
 	t_stack_id		*stk_pid;
 
-	/*pre parsing : "&& &&" (faire attention au ; et au () ) + operateur au
-	 * debut / fin, c la merde
-	 * pareil pour les redirection dc
-	 */
 	operator = NULL;
 	cmd = NULL;
 	root = NULL;

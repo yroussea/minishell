@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/12 19:40:30 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:49:04 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,19 @@ void	close_redir_builtin(t_node *node)
 		ft_close(1, node->errorfile);
 }
 
+void	exit_builtin(t_node *node, int exit_code)
+{
+	ft_magic_free("%1 %2", node->cmd, node->args);
+	ft_get_envp(NULL, FALSE, TRUE);
+	ft_get_root(NULL, FALSE, TRUE);
+	ft_get_lsts(NULL, NULL, FALSE, TRUE);
+	ft_get_stks(NULL, FALSE, TRUE);
+	clear_history();
+	exit(exit_code);
+}
+
+extern int g_exitcode;
+
 t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 	t_data_stk *stks, t_fds fds)
 {
@@ -71,29 +84,27 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 			return (ERROR);
 		if (pid == 0)
 		{
-			if (all_redir_cmd(node->redir, fds, *node->envp)) //?
+			node->infile = fds.in;
+			node->outfile = fds.out;
+			if (all_redir_builtin(node, node->redir, *node->envp)) //?
 			{
 				ft_close_pipe(stks->pipes);
 				close_heredoc(ft_get_root(NULL, FALSE, FALSE));
 				//exec node->cmd, node->args
 				exec_builtin(node->cmd, node, TRUE);
+				exit_builtin(node, 0);
 			}
-			ft_magic_free("%1 %2", node->cmd, node->args);
-			ft_get_envp(NULL, FALSE, TRUE);
-			ft_get_root(NULL, FALSE, TRUE);
-			ft_get_lsts(NULL, NULL, FALSE, TRUE);
-			ft_get_stks(NULL, FALSE, TRUE);
-			clear_history();
-			exit(1);
+			exit_builtin(node, 1);
 		}
 		ft_stk_pid_add(stks->pids, pid);
 		ft_magic_free("%1 %2", node->cmd, node->args);
 		return (TRUE);
 	}
-	else //redirection stp
+	else
 	{
-		all_redir_builtin(node, node->redir, *node->envp);
-		exec_builtin(node->cmd, node, FALSE);
+		g_exitcode = all_redir_builtin(node, node->redir, *node->envp);
+		if (g_exitcode)
+			exec_builtin(node->cmd, node, FALSE);
 		close_redir_builtin(node);
 	}
 	ft_magic_free("%1 %2", node->cmd, node->args);
