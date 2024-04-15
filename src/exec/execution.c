@@ -16,6 +16,11 @@
 t_bool	only_space(char **strs)
 {
 	int	j;
+  (use "git restore --staged <file>..." to unstage)
+	modified:   src/exec/lst_com_split_args.c
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
 
 	j = 0;
 	while (strs && *strs)
@@ -92,19 +97,51 @@ t_bool	verif_complete_tree(t_node *root)
 	return (TRUE);
 }
 
-void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
+t_bool	create_tree(t_node **root, t_lst_com *cmd, t_lst_ope *ope, t_lst_envp *envp)
+{
+	if (ft_add_all_branch(root, ope))
+	{
+		if (ft_add_all_leaf(root, cmd, &envp) == ERROR)
+		{
+			ft_get_lsts(NULL, NULL, FALSE, TRUE);
+			return (FALSE);
+		}
+	}
+	return (TRUE);
+}
+
+void	execution(t_lst_cmd *lst_all, t_lst_envp *envp, t_data_stk *stks)
 {
 	t_lst_ope		*operator;
 	t_lst_com		*cmd;
 	t_node			*root;
-	t_data_stk		*stks;
 	t_fds			fds;
-	t_stack_pipe	*stk_pipe;
-	t_stack_id		*stk_pid;
 
 	operator = NULL;
 	cmd = NULL;
 	root = NULL;
+	fds = (t_fds){0, 1};
+	if (!split_two_lst(lst_all, &operator, &cmd))
+		return ;
+	ft_lst_cmd_free(lst_all);
+	ft_get_lsts(operator, cmd, TRUE, FALSE);
+	if (create_tree(&root, cmd, operator, envp) == FALSE)
+		return ;
+	if (verif_complete_tree(root))
+	{
+		exec_tree(root, NO_PIPE, stks, fds);
+		wait_all(stks->pids, -1);
+	}
+	else
+		ft_printf_fd(2, "Uncomplete line\n");
+}
+
+void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
+{
+	t_data_stk		*stks;
+	t_stack_pipe	*stk_pipe;
+	t_stack_id		*stk_pid;
+
 	stks = init_stks();
 	ft_get_stks(stks, TRUE, FALSE);
 	ft_get_envp(envp, TRUE, FALSE);
@@ -114,28 +151,7 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 		stks->pipes = &stk_pipe;
 		stk_pid = NULL;
 		stks->pids = &stk_pid;
-		fds.in = 0;
-		fds.out = 1;
-		if (!split_two_lst(lst_all, &operator, &cmd))
-			return ;
-		ft_lst_cmd_free(lst_all);
-		ft_get_lsts(operator, cmd, TRUE, FALSE);
-		if (ft_add_all_branch(&root, operator))
-		{
-			if (ft_add_all_leaf(&root, cmd, &envp) == ERROR)
-			{
-				free(stks);
-				ft_get_lsts(NULL, NULL, FALSE, TRUE);
-				return ;
-			}
-		}
-		if (verif_complete_tree(root))
-		{
-			exec_tree(root, NO_PIPE, stks, fds);
-			wait_all(stks->pids, -1);
-		}
-		else
-			ft_printf_fd(2, "Uncomplete line\n");
+		execution(lst_all, envp, stks);
 		ft_get_root(NULL, FALSE, TRUE);
 		free(stks);
 	}
