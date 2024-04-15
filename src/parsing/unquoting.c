@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 17:02:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:08:48 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_undoublequote(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		tmp = ft_undolars(++s, lst_envp);
-		while (s && *s && *s != 34 && *s != 36 && *s != 39 && *s != ' ')
+		while (s && *s && *s != 34 && *s != 36 && *s != 39 && *s != ' ')  //every non-alphanum cara
 			s++;
 		tmp_str = ft_undoublequote(s, lst_envp);
 		return (join_and_free(3, "", res, tmp, tmp_str));
@@ -91,7 +91,7 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	char	*res;
 	char	*variable;
 
-	res = strdup_until_sep(s, 4, 34, 36, 39, ' ');
+	res = strdup_until_sep(s, 4, 34, 36, 39, ' ');//every non-alphanum cara
 	variable = get_envp_variable(lst_envp, res);
 	free(res);
 	return (variable);
@@ -125,7 +125,7 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		str = ft_undolars(++s, lst_envp);
-		while (s && *s && *s != 34 && *s != 36 && *s != 39 && *s != ' ')
+		while (s && *s && *s != 34 && *s != 36 && *s != 39 && *s != ' ')//every non-alphanum cara
 			s++;
 		return (join_and_free(3, "", res, str, ft_unquote(s, lst_envp)));
 	}

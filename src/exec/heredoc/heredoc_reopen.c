@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/11 17:04:13 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:08:02 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_undolars_heredoc(char *s, t_lst_envp *lst_envp)
 	char	*res;
 	char	*variable;
 
-	res = strdup_until_sep(s, 5, 34, 36, 39, ' ', '\n');
+	res = strdup_until_sep(s, 5, 34, 36, 39, ' ', '\n'); //every non-alphanum caractere
 	variable = get_envp_variable(lst_envp, res);
 	free(res);
 	return (variable);
@@ -48,7 +48,7 @@ char	*replace_dollar(char *s, t_lst_envp *lst_envp)
 	{
 		str = ft_undolars_heredoc(++s, lst_envp);
 		while (s && *s && *s != 34 && *s != 36 && \
-			*s != 39 && *s != ' ' && *s != '\n')
+			*s != 39 && *s != ' ' && *s != '\n')  //every non-alpha-num cara
 			s++;
 		tmp_str = replace_dollar(s, lst_envp);
 		tmp = ft_vjoin(3, "", result, str, tmp_str);
