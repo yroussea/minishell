@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/14 15:49:04 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:16:10 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	exec_builtin(char *cmd, t_node *node, t_bool from_pipe)
 	if (!ft_strncmp(cmd, "cd", 3))
 		ft_cd(node);
 	if (!ft_strncmp(cmd, "unset", 6))
-	{}
+		ft_unset(node, NULL);
 	if (!ft_strncmp(cmd, "export", 7))
-	{}
+		ft_export(node, NULL);
 	if (!ft_strncmp(cmd, "env", 4))
 		ft_env(node);
 	if (!ft_strncmp(cmd, "echo", 5))

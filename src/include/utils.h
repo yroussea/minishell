@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/12 13:47:05 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:57:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char			**envp_to_char(t_lst_envp *lst_envp);
 char			**get_all_path(t_lst_envp *lst_envp);
 char			*get_envp_variable(t_lst_envp *lst_envp, char *variable);
 int				get_os(t_lst_envp *lst_envp);
+void			remove_var_env(t_lst_envp **lst_envp, char *variable);
 
 /*
  * just a better prompt

@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 18:00:58 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/16 17:35:39 by basverdi         ###   ########.fr       */
+/*   Created: 2024/04/16 17:32:10 by basverdi          #+#    #+#             */
+/*   Updated: 2024/04/16 17:56:48 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../../minishell.h"
 
-void	ft_cd(t_node *node);
-void	ft_echo(t_node *node);
-void	ft_env(t_node *node);
-void	ft_exit(t_node *node, t_bool frompipe);
-void	ft_export(t_node *node, char *arg);
-void	ft_pwd(t_node *node);
-void	ft_unset(t_node *node, char *arg);
-
-void	close_redir_builtin(t_node *node);
-
-#endif
+void	ft_unset(t_node *node, char *arg)
+{
+	int		i;
+	char	*variable;
+	
+	(void)variable;
+	i = ft_str_str_len(node->args);
+	if (!i && !arg && !*arg)
+		ft_printf_fd(node->outfile, "unset: not enough arguments");
+	else if (arg != NULL)
+		remove_var_env(node->envp, arg);
+	else
+	{
+		while (i--)
+			remove_var_env(node->envp, node->args[i]);
+	}
+}
