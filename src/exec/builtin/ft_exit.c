@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/12 19:39:46 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:10:03 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,16 @@ void	free_exit(t_node *node)
 
 void	ft_exit(t_node *node, t_bool frompipe)
 {
-	int	code;
 	int	fds;
 
 	fds = 2;
-	code = 0;
 	if (!frompipe)
 		ft_printf_fd(node->errorfile, "exit\n");
 	if (!frompipe)
 		fds = node->errorfile;
 	if (ft_str_str_len(node->args) > 2)
 	{
-		ft_printf_fd(fds, "bash: exit: too many arguments\n");
-		g_exitcode = 1;
+		ft_printf_fd(fds, "bash: exit: too many arguments\n", g_exitcode = 1);
 		if (check_evry_arg(node->args))
 			free_exit(node);
 		return ;
@@ -71,12 +68,11 @@ void	ft_exit(t_node *node, t_bool frompipe)
 	{
 		if (ft_overflow(node->args[1]) || !check_evry_arg(node->args))
 		{
-			ft_printf_fd(fds, "bash: exit: %s: numeric argument required\n", node->args[1]);
-			g_exitcode = 2;
+			ft_printf_fd(fds, "bash: exit: %s: numeric argument required\n", \
+				node->args[1], g_exitcode = 2);
 			free_exit(node);
 		}
-		code = ft_atoll(node->args[1]);
-		g_exitcode = code % 256;
+		g_exitcode = ft_atoll(node->args[1]) % 256;
 	}
 	free_exit(node);
 }

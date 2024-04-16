@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/14 13:04:23 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:59:24 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef enum s_error
 	IS_DIR,
 	ISNOT_DIR,
 	NO_PERM,
-
 }			t_error;
 
 typedef struct s_lst_cmd

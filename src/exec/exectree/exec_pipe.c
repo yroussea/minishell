@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:57:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/14 15:19:48 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:24:53 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-extern int g_exitcode;
+extern int	g_exitcode;
 
 void	close_pipes(t_stack_pipe **stk_pipe)
 {
@@ -58,7 +58,6 @@ t_bool	exec_pipe_under_pipe(t_node *node, t_data_stk *stks, t_fds fds)
 	if (ft_pipe(fd_pipe) < 0)
 		return (FALSE);
 	ft_stk_pipe_add(stks->pipes, fd_pipe);
-
 	tmp_fds = (t_fds){fds.in, fd_pipe[1]};
 	exec_tree(node->left, LEFT_PIPE, stks, tmp_fds);
 	if (ft_pipe(fd_pipe_return) < 0)
@@ -119,7 +118,8 @@ t_bool	exec_pipe_top(t_node *node, t_data_stk *stks, t_fds fds)
 	return (TRUE);
 }
 
-t_bool	exec_pipe(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds)
+t_bool	exec_pipe(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
+	fds)
 {
 	int			fd_pipe[2];
 	t_fds		tmp_fds;
@@ -144,7 +144,8 @@ t_bool	exec_pipe(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fd
 		exec_tree(node->right, RIGHT_PIPE, stks, tmp_fds);
 		close_pipes(stks->pipes);
 	}
-	if (from_pipe == NO_PIPE) //att car: cmd <-pipe-> et->pipeline (enum dc)(si parenthese)
+	if (from_pipe == NO_PIPE)
+	//att car: cmd <-pipe-> et->pipeline (enum dc)(si parenthese)
 		wait_all(stks->pids, pid);
 	return (TRUE);
 }

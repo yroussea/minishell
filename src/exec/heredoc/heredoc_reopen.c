@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/15 05:24:06 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:00:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*replace_dollar(char *s, t_lst_envp *lst_envp)
 	{
 		str = ft_undolars_heredoc(++s, lst_envp);
 		while (s && *s && *s != 34 && *s != 36 && \
-			*s != 39 && *s != ' ' && *s != '\n')  //every non-alpha-num cara
+			*s != 39 && *s != ' ' && *s != '\n')
 			s++;
 		tmp_str = replace_dollar(s, lst_envp);
 		tmp = ft_vjoin(3, "", result, str, tmp_str);

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/12 12:47:30 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:11:14 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_cd(t_node *node)
 	char	buf[10000];
 
 	getcwd(buf, 10000);
-	// export buf to OLDPWD
+	ft_export(node, "OLDPWD");
 	chdir(node->args[1]);
 	getcwd(buf, 10000);
-	// export buf to PWD
+	ft_export(node, "PWD");
 	g_exitcode = errno;
 }

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:50:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 19:05:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:23:40 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <sys/select.h>
 #include <unistd.h>
 
-t_bool	exec_tree(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds)
+t_bool	exec_tree(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
+	fds)
 {
 	if (node->type == PIPE)
 		exec_pipe(node, from_pipe, stks, fds);

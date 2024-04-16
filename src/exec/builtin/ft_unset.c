@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:32:10 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/16 17:56:48 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:12:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_unset(t_node *node, char *arg)
 {
 	int		i;
 	char	*variable;
-	
+
 	(void)variable;
 	i = ft_str_str_len(node->args);
 	if (!i && !arg && !*arg)

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/14 14:06:00 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:25:51 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 t_bool	only_space(char **strs)
 {
-	int	j = 0;
+	int	j;
 
+	j = 0;
 	while (strs && *strs)
 	{
 		while ((*strs)[j])
@@ -58,7 +59,8 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 			if (tmp)
 			{
 				ft_lst_ope_add(ope, -1);
-				ft_printf_fd(2, "%s %s\n", "syntaxe error close to", "{to-fill}"); //to-fill
+				ft_printf_fd(2, "%s %s\n", "syntaxe error close to", \
+					"{to-fill}"); //to-fill
 				return (TRUE);
 			}
 			else
@@ -85,7 +87,8 @@ t_bool	verif_complete_tree(t_node *root)
 	if (!root)
 		return (FALSE);
 	if (root->type == PIPE || root->type == AND || root->type == OR)
-		return (verif_complete_tree(root->left) && verif_complete_tree(root->right));
+		return (verif_complete_tree(root->left) && \
+			verif_complete_tree(root->right));
 	return (TRUE);
 }
 
@@ -123,7 +126,7 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 			{
 				free(stks);
 				ft_get_lsts(NULL, NULL, FALSE, TRUE);
-				return;
+				return ;
 			}
 		}
 		if (verif_complete_tree(root))

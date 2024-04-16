@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/15 05:24:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:02:42 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,15 @@ t_bool	access_errors(struct stat st, int status, char *path, char *cmd)
 	else
 	{
 		if (cmd)
-		{
 			print_error_access(NOT_CMD, cmd);
+		if (cmd)
 			g_exitcode = 127;
-		}
 		return (TRUE);
 	}
 	if (S_ISDIR(st.st_mode))
-	{
 		print_error_access(IS_DIR, path);
+	if (S_ISDIR(st.st_mode))
 		return (TRUE);
-	}
 	else if (status != -1 && path && *path && access(path, X_OK))
 		print_error_access(NO_PERM, cmd);
 	else if (status == -1 && errno == ENOTDIR)
@@ -101,5 +99,5 @@ char	*get_access(t_lst_envp *lst_envp, char *cmd)
 	if (access_errors(st, status, path, cmd) == FALSE)
 		return (path);
 	free(path);
-	return(NULL);
+	return (NULL);
 }

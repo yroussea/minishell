@@ -6,20 +6,20 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:25 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/14 15:30:23 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:24:12 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-extern int g_exitcode;
+extern int	g_exitcode;
 
-t_bool	exec_or(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds)
+t_bool	exec_or(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
+	fds)
 {
 	int	pid;
 	int	tmp_err;
-	/*(si dans pipe faire la suite dans un fork puis exit) si parenthese btw*/
-
+	/*(si dans pipe faire la suite dans fork puis exit) si parenthese btw*/
 	if (fds.in != 0)
 		ft_dup2(fds.in, STDIN_FILENO);
 	if (fds.out != 1)

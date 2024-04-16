@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/16 17:16:10 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:04:44 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern int	g_exitcode;
 
 t_builtin	is_builtin(t_node *node)
 {
@@ -69,8 +71,6 @@ void	exit_builtin(t_node *node, int exit_code)
 	clear_history();
 	exit(exit_code);
 }
-
-extern int g_exitcode;
 
 t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 	t_data_stk *stks, t_fds fds)

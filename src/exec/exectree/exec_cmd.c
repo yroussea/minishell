@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/14 15:58:23 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:19:07 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern int	g_exitcode;
 
 void	ft_close_command(t_node *node)
 {
@@ -100,7 +102,8 @@ void	replace_fds(int fds_in, int fds_out, int fds_error, t_fds fds)
 	}
 }
 
-t_bool all_redir_builtin(t_node *node, t_lst_redir *redir,  t_lst_envp *lst_envp)
+t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
+	*lst_envp)
 {
 	int	fds_error;
 	int	fds_in;
@@ -153,7 +156,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		if (redir->type == DIRE_TWO)
 			fds_error = redir_error(fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-			return (FALSE);   //msg
+			return (FALSE); //msg
 		redir = redir->next;
 	}
 	replace_fds(fds_in, fds_out, fds_error, fds);
@@ -200,9 +203,10 @@ void	exit_cmd(char *full_cmd, t_node *node, char **envp)
 	exit(1);
 }
 
-void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk *stks)
+void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
+	*stks)
 {
-	char **envp_char;
+	char	**envp_char;
 
 	envp_char = envp_to_char(*node->envp);
 	if (envp_char)
@@ -214,7 +218,8 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk *stks)
 			execve(full_cmd, node->args, envp_char);
 		}
 		else
-			ft_close_pipe(stks->pipes); //close redir faileed? //exit with good status?
+			ft_close_pipe(stks->pipes); //close redir faileed?
+		//exit with good status?
 	}
 	exit_cmd(full_cmd, node, envp_char);
 }
@@ -238,9 +243,8 @@ void	fake_pid(int exit_code, t_data_stk *stks)
 		ft_stk_pid_add(stks->pids, pid);
 }
 
-extern int g_exitcode;
-
-t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds fds)
+t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
+	fds)
 {
 	int			pid;
 	char		*full_cmd;
