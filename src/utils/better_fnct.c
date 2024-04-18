@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 12:50:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:15:46 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,48 @@ int	ft_fork(void)
 	return (pid);
 }
 
+t_lst_envp	*index_removed_var(t_lst_envp *lst_envp, char *key)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(key);
+	while (ft_strncmp(lst_envp->key, key, len))
+	{
+		lst_envp = lst_envp->next;
+		i += 1;
+	}
+	if (ft_strncmp(lst_envp->key, key, len) != 0)
+		return (NULL);
+	return (lst_envp);
+}
+
 void	remove_var_env(t_lst_envp **lst_envp, char *variable)
 {
 	char		**splited;
 	t_lst_envp	*tmp;
-	int			len;
+	t_lst_envp	*checkpoint;
 
 	splited = ft_split_first_sep(variable, '=');
-	len = ft_strlen(*splited);
-	//faut proteger
-	while (ft_strncmp((*lst_envp)->next->key, splited[0], len))
+	if (ft_strncmp((*lst_envp)->key, *splited, ft_strlen(*splited)))
+	{
+		tmp = *lst_envp;
 		*lst_envp = (*lst_envp)->next;
-	tmp = (*lst_envp)->next;
-	if (ft_strncmp((*lst_envp)->next->key, splited[0], len) == 0)
-		(*lst_envp)->next = (*lst_envp)->next->next;
-	ft_free_split(splited);
-	ft_magic_free("%1 %1 %1", tmp->key, tmp->value, tmp);
+		ft_free_split(splited);
+		ft_magic_free("%1 %1 %1", tmp->key, tmp->value, tmp);
+		return ;
+	}
+	checkpoint = index_removed_var(*lst_envp, *splited);
+	if (checkpoint == NULL)
+	{
+		ft_free_split(splited);
+		return ;
+	}
+	tmp = *lst_envp;
+	while (tmp != checkpoint->next)
+		tmp = tmp->next;
+	tmp = checkpoint;
+	tmp->next = tmp->next->next;
+	ft_magic_free("%1 %1 %1", checkpoint->key, checkpoint->value, checkpoint);
 }
