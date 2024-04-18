@@ -6,7 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/04/16 18:04:44 by basverdi         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/15 08:32:51 by yroussea         ###   ########.fr       */
+>>>>>>> 5dff9db (fix bug with 0)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +94,6 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 			{
 				ft_close_pipe(stks->pipes);
 				close_heredoc(ft_get_root(NULL, FALSE, FALSE));
-				//exec node->cmd, node->args
 				exec_builtin(node->cmd, node, TRUE);
 				exit_builtin(node, 0);
 			}
@@ -102,8 +105,8 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 	}
 	else
 	{
-		g_exitcode = all_redir_builtin(node, node->redir, *node->envp);
-		if (g_exitcode)
+		g_exitcode = 1 - all_redir_builtin(node, node->redir, *node->envp);
+		if (!g_exitcode)
 			exec_builtin(node->cmd, node, FALSE);
 		close_redir_builtin(node);
 	}

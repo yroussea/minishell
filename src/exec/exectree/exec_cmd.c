@@ -6,7 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/04/16 18:19:07 by basverdi         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/15 08:38:44 by yroussea         ###   ########.fr       */
+>>>>>>> 5dff9db (fix bug with 0)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +120,7 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 	{
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
+		//unquote redir->type, att ambigouous redirect
 		if (redir->type == DIRE_IN)
 			fds_in = redir_infile(fds_in, redir);
 		if (redir->type == ADD)
@@ -147,6 +152,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 	{
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
+		//unquote redir->type, att ambigouous redirect
 		if (redir->type == DIRE_IN)
 			fds_in = redir_infile(fds_in, redir);
 		if (redir->type == ADD)
