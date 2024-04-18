@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/16 17:59:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:50:01 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,18 @@ int	ft_fork(void)
 
 void	remove_var_env(t_lst_envp **lst_envp, char *variable)
 {
-	char	**splited;
+	char		**splited;
+	t_lst_envp	*tmp;
+	int			len;
 
 	splited = ft_split_first_sep(variable, '=');
-	while (ft_strncmp((*lst_envp)->next->key, splited[0], \
-		ft_strlen(splited[0])))
+	len = ft_strlen(*splited);
+	//faut proteger
+	while (ft_strncmp((*lst_envp)->next->key, splited[0], len))
 		*lst_envp = (*lst_envp)->next;
-	if (ft_strncmp((*lst_envp)->next->key, splited[0], ft_strlen(splited[0])))
+	tmp = (*lst_envp)->next;
+	if (ft_strncmp((*lst_envp)->next->key, splited[0], len) == 0)
 		(*lst_envp)->next = (*lst_envp)->next->next;
+	ft_free_split(splited);
+	ft_magic_free("%1 %1 %1", tmp->key, tmp->value, tmp);
 }

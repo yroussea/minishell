@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/16 18:25:51 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:14:48 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_bool	verif_complete_tree(t_node *root)
 	return (TRUE);
 }
 
-void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
+t_lst_envp	*exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 {
 	t_lst_ope		*operator;
 	t_lst_com		*cmd;

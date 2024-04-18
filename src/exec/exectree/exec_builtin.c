@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/16 18:04:44 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:14:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 		g_exitcode = all_redir_builtin(node, node->redir, *node->envp);
 		if (g_exitcode)
 			exec_builtin(node->cmd, node, FALSE);
+		g_exitcode = !g_exitcode;
 		close_redir_builtin(node);
 	}
 	ft_magic_free("%1 %2", node->cmd, node->args);

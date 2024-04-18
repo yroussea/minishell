@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/16 18:19:07 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:09:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	redir_infile(int fds_in, t_lst_redir *redir)
 {
 	if (fds_in != STDIN_FILENO)
 		ft_close(1, fds_in);
-	fds_in = open(redir->file, 0);
+	fds_in = open(redir->file, 0); //cas d'erreur
 	return (fds_in);
 }
 
@@ -60,6 +60,7 @@ int	redir_add(int fds_out, t_lst_redir *redir)
 	if (fds_out != STDOUT_FILENO)
 		ft_close(1, fds_out);
 	fds_out = open(redir->file, O_CREAT | O_WRONLY | O_APPEND, 0664);
+//cas d'erreur
 	return (fds_out);
 }
 
@@ -67,7 +68,7 @@ int	redir_out(int fds_out, t_lst_redir *redir)
 {
 	if (fds_out != STDOUT_FILENO)
 		ft_close(1, fds_out);
-	fds_out = open(redir->file, 577, 0664);
+	fds_out = open(redir->file, 577, 0664);//cas d'erreur
 	return (fds_out);
 }
 
@@ -75,7 +76,7 @@ int	redir_error(int fds_error, t_lst_redir *redir)
 {
 	if (fds_error != STDERR_FILENO)
 		ft_close(1, fds_error);
-	fds_error = open(redir->file, 577, 0664);
+	fds_error = open(redir->file, 577, 0664);//cas d'erreur
 	return (fds_error);
 }
 
@@ -147,6 +148,11 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 	{
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
+		/*
+		 * remplacement var env, et unquoting,
+		 * si var env, ->accepte pas les espaces,
+		 * sinon -> espace doit etre dans le nom
+		*/
 		if (redir->type == DIRE_IN)
 			fds_in = redir_infile(fds_in, redir);
 		if (redir->type == ADD)

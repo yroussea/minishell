@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:44:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/14 13:53:17 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:56:17 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@ t_lst_envp	*init_node_envp(char *key, char *value)
 	if (!new)
 		return (NULL);
 	new->key = key;
-	if (ft_strncmp(key, "SHLVL", 6) == 0)
-	{
-		new->value = ft_itoa(ft_atoi(value) + 1);
-		free(value);
-	}
-	else
-		new->value = value;
+	new->value = value;
 	new->next = NULL;
 	return (new);
 }
@@ -85,6 +79,7 @@ t_lst_envp	*init_lst_envp(char **envp)
 {
 	t_lst_envp	*lst_envp;
 	char		*tmp;
+	char		*lvl;
 
 	lst_envp = NULL;
 	while (*envp)
@@ -96,10 +91,17 @@ t_lst_envp	*init_lst_envp(char **envp)
 	tmp = get_envp_variable(lst_envp, "SHLVL");
 	if (!tmp)
 	{
-		if (lst_envp_add(&lst_envp, ft_strdup("SHLVL=0")) == ERROR)
+		if (lst_envp_add(&lst_envp, ft_strdup("SHLVL=1")) == ERROR)
 			return (NULL);
 	}
 	else
+	{
+		remove_var_env(&lst_envp, "SHLVL=X");
+		lvl = ft_itoa(ft_atoi(tmp) + 1);
+		if (lst_envp_add(&lst_envp, ft_vjoin(2, "=", "SHLVL", lvl)) == ERROR)
+			return (NULL);
 		free(tmp);
+		free(lvl);
+	}
 	return (lst_envp);
 }
