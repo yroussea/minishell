@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 13:14:48 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:32:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ t_bool	verif_complete_tree(t_node *root)
 	return (TRUE);
 }
 
-t_bool	create_tree(t_node **root, t_lst_com *cmd, t_lst_ope *ope, t_lst_envp *envp)
+t_bool	create_tree(t_node **root, t_lst_com *cmd, t_lst_ope *ope, t_lst_envp **envp)
 {
 	if (ft_add_all_branch(root, ope))
 	{
-		if (ft_add_all_leaf(root, cmd, &envp) == ERROR)
+		if (ft_add_all_leaf(root, cmd, envp) == ERROR)
 		{
 			ft_get_lsts(NULL, NULL, FALSE, TRUE);
 			return (FALSE);
@@ -105,7 +105,7 @@ t_bool	create_tree(t_node **root, t_lst_com *cmd, t_lst_ope *ope, t_lst_envp *en
 	return (TRUE);
 }
 
-void	execution(t_lst_cmd *lst_all, t_lst_envp *envp, t_data_stk *stks)
+void	execution(t_lst_cmd *lst_all, t_lst_envp **envp, t_data_stk *stks)
 {
 	t_lst_ope		*operator;
 	t_lst_com		*cmd;
@@ -131,7 +131,7 @@ void	execution(t_lst_cmd *lst_all, t_lst_envp *envp, t_data_stk *stks)
 		ft_printf_fd(2, "Uncomplete line\n");
 }
 
-void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
+void	exec(t_lst_cmd *lst_all, t_lst_envp **envp)
 {
 	t_data_stk		*stks;
 	t_stack_pipe	*stk_pipe;
@@ -139,7 +139,7 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp *envp)
 
 	stks = init_stks();
 	ft_get_stks(stks, TRUE, FALSE);
-	ft_get_envp(envp, TRUE, FALSE);
+	ft_get_envp(*envp, TRUE, FALSE);
 	if (stks)
 	{
 		stk_pipe = NULL;

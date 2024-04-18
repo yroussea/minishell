@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 13:14:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:30:05 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void			ft_print_lst(int fd, t_lst_cmd *lst);
 void			ft_print_tree(t_node *root);
 void			ft_print_node(t_node *node);
 
-t_lst_envp		*exec(t_lst_cmd *lst_cmd, t_lst_envp *envp);
+void			exec(t_lst_cmd *lst_cmd, t_lst_envp **envp);
 
 t_lst_com		*init_node_com(char **s);
 void			ft_lst_com_free(t_lst_com *lst);

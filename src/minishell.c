@@ -6,11 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/18 13:13:15 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:30:15 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "include/utils.h"
 
 int	g_exitcode;
 
@@ -75,7 +76,7 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 		if (*line)
 			add_history(line);
 		lst_line = parsing(line);
-		lst_line = exec(lst_line, lst_envp);
+		exec(lst_line, &lst_envp);
 	}
 	return (TRUE);
 }

@@ -6,11 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/04/16 18:00:21 by basverdi         ###   ########.fr       */
-=======
-/*   Updated: 2024/04/15 08:30:33 by yroussea         ###   ########.fr       */
->>>>>>> 5dff9db (fix bug with 0)
+/*   Updated: 2024/04/18 13:39:40 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +50,6 @@ char	*replace_dollar(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		str = ft_undolars_heredoc(++s, lst_envp);
-<<<<<<< HEAD
-		while (s && *s && *s != 34 && *s != 36 && \
-			*s != 39 && *s != ' ' && *s != '\n')
-			s++;
-=======
 		if (*s == '?')
 			s += 1;
 		else
@@ -66,7 +57,6 @@ char	*replace_dollar(char *s, t_lst_envp *lst_envp)
 			while (s && *s && is_alphanum_underscore(*s))
 				s += 1;
 		}
->>>>>>> 5dff9db (fix bug with 0)
 		tmp_str = replace_dollar(s, lst_envp);
 		tmp = ft_vjoin(3, "", result, str, tmp_str);
 		ft_magic_free("%1 %1 %1", result, str, tmp_str);
