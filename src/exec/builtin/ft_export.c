@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/18 13:00:22 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:56:32 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	display_env(t_node *node)
 {
-	ft_env(node);
+	ft_env(node, "declare -x ");
 }
 
 void	create_env(t_node *node, char *arg)
@@ -51,7 +51,6 @@ void	ft_export(t_node *node, char *arg)
 	while (n < i)
 	{
 		create_env(node, node->args[n]);
-		display_env(node);
 		n += 1;
 	}
 }

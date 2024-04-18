@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 13:40:58 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:57:13 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exec_builtin(char *cmd, t_node *node, t_bool from_pipe)
 	if (!ft_strncmp(cmd, "export", 7))
 		ft_export(node, NULL);
 	if (!ft_strncmp(cmd, "env", 4))
-		ft_env(node);
+		ft_env(node, NULL);
 	if (!ft_strncmp(cmd, "echo", 5))
 		ft_echo(node);
 }
