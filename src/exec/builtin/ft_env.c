@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:00:07 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/18 16:07:10 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:24:26 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	ft_env(t_node *node, char *str)
 	char		*vars;
 
 	envp = *(node->envp);
+	if (ft_str_str_len(node->args) > 1)
+	{
+		ft_printf_fd(node->outfile, "env: %s: No such file or directory\n", node->args[1]);
+		return ;
+	}
 	while (envp)
 	{
 		if (str)

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:25 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 13:06:25 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:52:45 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ t_bool	exec_or(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	{
 		ft_close_pipe((stks)->pipes);
 		waitpid(pid, &tmp_err, 0);
-		g_exitcode = WEXITSTATUS(tmp_err);
+		if (tmp_err == 2)
+			g_exitcode = 130;
+		else
+			g_exitcode = WEXITSTATUS(tmp_err);
 	}
 	if (g_exitcode != 0)
 		exec_tree(node->right, from_pipe, stks, fds);

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 12:09:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:56:19 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	parse_quote(t_node *node)
 	node->cmd = ft_strdup(*result);
 }
 
-void	exit_cmd(char *full_cmd, t_node *node, char **envp)
+void	exit_cmd(char *full_cmd, t_node *node, char **envp, int exitcode)
 {
 	free(full_cmd);
 	ft_magic_free("%2 %2", node->args, envp);
@@ -207,7 +207,7 @@ void	exit_cmd(char *full_cmd, t_node *node, char **envp)
 	ft_get_lsts(NULL, NULL, FALSE, TRUE);
 	ft_get_stks(NULL, FALSE, TRUE);
 	clear_history();
-	exit(1);
+	exit(exitcode);
 }
 
 void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
@@ -216,6 +216,7 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
 	char	**envp_char;
 
 	envp_char = envp_to_char(*node->envp);
+	signal(SIGINT, handler_fail);
 	if (envp_char)
 	{
 		if (all_redir_cmd(node->redir, fds, *node->envp))
@@ -228,7 +229,7 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
 			ft_close_pipe(stks->pipes); //close redir faileed?
 		//exit with good status?
 	}
-	exit_cmd(full_cmd, node, envp_char);
+	exit_cmd(full_cmd, node, envp_char, g_exitcode);
 }
 
 void	fake_pid(int exit_code, t_data_stk *stks)
@@ -255,6 +256,7 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 {
 	int			pid;
 	char		*full_cmd;
+	// int			status;
 
 	parse_quote(node);
 	if (node->cmd && is_builtin(node))
@@ -263,6 +265,7 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	free(node->cmd);
 	if (full_cmd)
 	{
+		signal(SIGINT, SIG_IGN);
 		pid = ft_fork();
 		if (pid == 0)
 			child_exec_cmd(full_cmd, node, fds, stks);

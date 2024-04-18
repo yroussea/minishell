@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:57:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/16 18:24:53 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:51:25 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	wait_all(t_stack_id **stk, int checkpoint)
 		waitpid(pid, &tmp_code, 0);
 		if (last_cmd)
 		{
-			g_exitcode = WEXITSTATUS(tmp_code);
+			if (tmp_code == 2)
+				g_exitcode = 130;
+			else
+				g_exitcode = WEXITSTATUS(tmp_code);
 			last_cmd = FALSE;
 		}
 	}
