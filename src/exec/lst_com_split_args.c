@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/01 10:55:05 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/15 09:05:32 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,22 @@ static t_bool	is_redir(char *s)
 	return (FALSE);
 }
 
-static char	**ft_duptab(char **s)
+static t_bool	init_skip(int *j, t_bool skip)
+{
+	*j += 1;
+	return (skip);
+}
+static t_type_of_node	init_chose(int *j, t_type_of_node chose)
+{
+	*j += 1;
+	return (chose);
+}
+
+static char	**ft_duptab(char **s, int i, int j)
 {
 	char	**result;
-	int		i;
-	int		j;
 	t_bool	skip;
 
-	i = 0;
-	j = 0;
 	skip = FALSE;
 	result = ft_calloc(ft_str_str_len(s), sizeof(char *));
 	while (result && s && *(s + i + j))
@@ -35,38 +42,27 @@ static char	**ft_duptab(char **s)
 		if (ft_strncmp(*(s + i + j), " ", 2) == 0)
 			j += 1;
 		else if (skip)
-		{
-			j += 1;
-			skip = FALSE;
-		}
+			skip = init_skip(&j, FALSE);
 		else if (is_redir(*(s + i + j)))
-		{
-			j += 1;
-			skip = TRUE;
-		}
+			skip = init_skip(&j, TRUE);
 		else
 		{
 			result[i] = ft_strdup(s[i + j]);
-			if (!result[i])
+			if (!result[i++])
 			{
 				ft_magic_free("%2", result);
 				return (NULL);
 			}
-			i += 1;
 		}
 	}
 	return (result);
 }
 
-static t_lst_redir	*get_redir(char **s)
+static t_lst_redir	*get_redir(char **s, int i, int j)
 {
 	t_lst_redir		*lst;
-	int				i;
-	int				j;
 	t_type_of_node	chose;
 
-	i = 0;
-	j = 0;
 	chose = 0;
 	lst = NULL;
 	while (s && *(s + i + j))
@@ -77,14 +73,10 @@ static t_lst_redir	*get_redir(char **s)
 		{
 			if (!ft_lst_redir_add(&lst, chose, ft_strdup(*(s + i + j))))
 				lst = NULL;
-			j += 1;
-			chose = 0;
+			init_chose(&j, 0);
 		}
 		else if (is_redir(*(s + i + j)))
-		{
-			chose = get_type(*(s + i + j));
-			j += 1;
-		}
+			init_chose(&j, get_type(*(s + i + j)));
 		else
 			i += 1;
 	}
@@ -98,8 +90,8 @@ t_bool	split_args(char **s, t_lst_com *lst)
 	lst->redir = NULL;
 	if (!s)
 		return (FALSE);
-	lst->args = ft_duptab(s);
-	lst->redir = get_redir(s);
+	lst->args = ft_duptab(s, 0, 0);
+	lst->redir = get_redir(s, 0, 0);
 	if ((!lst->args || !*lst->args) && (!lst->redir))
 	{
 		ft_magic_free("%2", lst->args);

@@ -117,6 +117,7 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 	{
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
+		//unquote redir->type, att ambigouous redirect
 		if (redir->type == DIRE_IN)
 			fds_in = redir_infile(fds_in, redir);
 		if (redir->type == ADD)

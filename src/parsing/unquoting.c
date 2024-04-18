@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/15 05:18:19 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/15 08:39:09 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,13 @@ char	*ft_undoublequote(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		tmp = ft_undolars(++s, lst_envp);
-		while (s && *s && (ft_isalnum(*s) || *s == '_'))
-			s++;
+		if (s && *s == '?')
+			s += 1;
+		else
+		{
+			while (s && *s && (ft_isalnum(*s) || *s == '_'))
+				s++;
+		}
 		tmp_str = ft_undoublequote(s, lst_envp);
 		return (join_and_free(3, "", res, tmp, tmp_str));
 	}
@@ -109,7 +114,10 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	char	*res;
 	char	*variable;
 
-	res = strdup_until_funct(s, is_alphanum_underscore);
+	if (*s == '?')
+		res = ft_strdup("?");
+	else
+		res = strdup_until_funct(s, is_alphanum_underscore);
 	variable = get_envp_variable(lst_envp, res);
 	free(res);
 	return (variable);
@@ -143,8 +151,13 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		str = ft_undolars(++s, lst_envp);
-		while (s && *s && (ft_isalnum(*s) || *s == '_'))
-			s++;
+		if (s && *s == '?')
+			s += 1;
+		else
+		{
+			while (s && *s && (ft_isalnum(*s) || *s == '_'))
+				s++;
+		}
 		return (join_and_free(3, "", res, str, ft_unquote(s, lst_envp)));
 	}
 	if (s && *s == 39)

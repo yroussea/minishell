@@ -90,7 +90,6 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 			{
 				ft_close_pipe(stks->pipes);
 				close_heredoc(ft_get_root(NULL, FALSE, FALSE));
-				//exec node->cmd, node->args
 				exec_builtin(node->cmd, node, TRUE);
 				exit_builtin(node, 0);
 			}
@@ -102,8 +101,8 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 	}
 	else
 	{
-		g_exitcode = all_redir_builtin(node, node->redir, *node->envp);
-		if (g_exitcode)
+		g_exitcode = 1 - all_redir_builtin(node, node->redir, *node->envp);
+		if (!g_exitcode)
 			exec_builtin(node->cmd, node, FALSE);
 		g_exitcode = !g_exitcode;
 		close_redir_builtin(node);
