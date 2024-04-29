@@ -6,11 +6,32 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/18 15:56:32 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:59:23 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+extern int	g_exitcode;
+
+t_bool	is_forbidden(t_node *node, char *var)
+{
+	int	i;
+	
+	i = 0;
+	while (var[i])
+	{
+		if (!ft_isalnum(var[i]))
+		{
+			ft_printf_fd(node->outfile, \
+				"bash: export: `%s': not a valid identifier\n", var);
+			g_exitcode = 1;
+			return (TRUE);
+		}
+		i++;
+	}
+	return (FALSE);
+}
 
 void	display_env(t_node *node)
 {
@@ -44,13 +65,15 @@ void	ft_export(t_node *node, char *arg)
 	}
 	if (arg)
 	{
-		create_env(node, arg);
+		if (!is_forbidden(node, arg))
+			create_env(node, arg);
 		return ;
 	}
 	n = 1;
 	while (n < i)
 	{
-		create_env(node, node->args[n]);
+		if (!is_forbidden(node, node->args[n]))
+			create_env(node, node->args[n]);
 		n += 1;
 	}
 }

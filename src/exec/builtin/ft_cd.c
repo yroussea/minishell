@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/25 13:01:11 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:26:22 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,7 @@ void	ft_cd(t_node *node)
 	ft_export(node, var);
 	free(var);
 	g_exitcode = errno;
+	if (g_exitcode != 0)
+		ft_printf_fd(node->outfile, \
+			"bash: cd: %s: No such file or directory\n", node->args[1]);
 }

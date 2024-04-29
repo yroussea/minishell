@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/25 13:28:25 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:31:18 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 	home = get_envp_variable(lst_envp, "HOME");
 	new_pwd = replace(pwd, home, "~/");
 	if (!branch)
-		prompt = ft_vjoin(12, "", DEFAULT, logo, DEFAULT, " | ", GREEN, FOLDER, \
-			" ", new_pwd, " ", END, "\u034F", DEFAULT);
+		prompt = ft_vjoin(11, "", DEFAULT, logo, DEFAULT, " | ", GREEN, FOLDER, \
+			" ", new_pwd, " ", END, DEFAULT);
 	else
 		prompt = ft_vjoin(14, "", DEFAULT, logo, DEFAULT, " | ", GREEN, FOLDER, \
 			" ", new_pwd, " ", DEFAULT, branch, CYAN, ") ", DEFAULT);

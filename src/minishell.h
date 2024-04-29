@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/25 13:26:58 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:30:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@
 # define FOLDER "\001\uF07C\002"
 # define NO_OS "\001\uF015\002"
 # define BRANCH "\uF126"
-# define END "\001\u034F\002"
+# define END "\u034F"
 
 #endif
