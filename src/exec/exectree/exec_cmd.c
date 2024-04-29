@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 17:56:19 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:06:03 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,6 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	int			pid;
 	char		*full_cmd;
 	// int			status;
-
 	parse_quote(node);
 	if (node->cmd && is_builtin(node))
 		return (ft_exec_builtin(node, from_pipe, stks, fds));

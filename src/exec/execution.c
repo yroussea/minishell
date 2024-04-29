@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/19 23:00:20 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:05:39 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ t_bool	verif_complete_tree(t_node *root)
 	return (TRUE);
 }
 
-t_bool	create_tree(t_node **root, t_lst_com *cmd, t_lst_ope *ope, t_lst_envp **envp)
+t_bool	create_tree(t_node **root, t_lst_com *cmd, t_lst_ope *ope, \
+t_lst_envp **envp)
 {
 	if (ft_add_all_branch(root, ope))
 	{

@@ -15,6 +15,7 @@ SRCS_FILES = 							\
 	parsing/tokeniser/tokeniser.c		\
 	parsing/unquoting.c					\
 	utils/better_fnct.c					\
+	utils/better_fnct_2.c				\
 	utils/get_malloc.c					\
 	utils/lst/lst_cmd.c					\
 	utils/lst/lst_envp.c				\

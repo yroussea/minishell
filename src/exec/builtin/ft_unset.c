@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:32:10 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/29 15:27:58 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:02:50 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_unset(t_node *node, char *arg)
 	{
 		i--;
 		while (i > 0)
-		{	
+		{
 			remove_var_env(node->envp, node->args[i]);
 			i--;
 		}

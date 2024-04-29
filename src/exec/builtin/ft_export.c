@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/29 15:59:23 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:02:57 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern int	g_exitcode;
 t_bool	is_forbidden(t_node *node, char *var)
 {
 	int	i;
-	
+
 	i = 0;
 	while (var[i])
 	{

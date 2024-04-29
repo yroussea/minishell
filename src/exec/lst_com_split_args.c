@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/19 23:00:18 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:05:23 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_bool	init_skip(int *j, t_bool skip)
 	*j += 1;
 	return (skip);
 }
+
 static t_type_of_node	init_chose(int *j, t_type_of_node chose)
 {
 	*j += 1;
