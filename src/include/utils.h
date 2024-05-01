@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 16:32:27 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:36:28 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_lst_cmd		*init_node_cmd(char **s, t_type_of_node type);
 void			ft_lst_cmd_free(t_lst_cmd *lst);
 t_bool			ft_lst_cmd_add(t_lst_cmd **lst, char **s, t_type_of_node type);
 void			lst_cmd_add_back(t_lst_cmd **lst, t_lst_cmd *new);
+t_bool			init_skip(int *j, t_bool skip);
+t_bool			is_redir(char *s);
 
 /*
  * lst_envp

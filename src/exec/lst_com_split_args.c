@@ -6,20 +6,20 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 16:32:06 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:36:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static t_bool	is_redir(char *s)
+t_bool	is_redir(char *s)
 {
 	if (get_type(s) >= 4 && get_type(s) <= 8)
 		return (TRUE);
 	return (FALSE);
 }
 
-static t_bool	init_skip(int *j, t_bool skip)
+t_bool	init_skip(int *j, t_bool skip)
 {
 	*j += 1;
 	return (skip);

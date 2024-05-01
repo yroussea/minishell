@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:44:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/29 16:12:47 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:33:53 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,8 @@ t_lst_envp	*init_lst_envp(char **envp)
 		envp++;
 	}
 	tmp = get_envp_variable(lst_envp, "SHLVL");
-	if (!tmp)
-	{
-		if (lst_envp_add(&lst_envp, ft_strdup("SHLVL=1")) == ERROR)
-			return (NULL);
-	}
+	if (!tmp && lst_envp_add(&lst_envp, ft_strdup("SHLVL=1")) == ERROR)
+		return (NULL);
 	else
 	{
 		remove_var_env(&lst_envp, "SHLVL=X");
