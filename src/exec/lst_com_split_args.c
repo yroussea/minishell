@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/29 16:05:23 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:32:06 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,6 @@ static t_type_of_node	init_chose(int *j, t_type_of_node chose)
 {
 	*j += 1;
 	return (chose);
-}
-
-static char	**ft_duptab(char **s, int i, int j)
-{
-	char	**result;
-	t_bool	skip;
-
-	skip = FALSE;
-	result = ft_calloc(ft_str_str_len(s), sizeof(char *));
-	while (result && s && *(s + i + j))
-	{
-		if (ft_strncmp(*(s + i + j), " ", 2) == 0)
-			j += 1;
-		else if (skip)
-			skip = init_skip(&j, FALSE);
-		else if (is_redir(*(s + i + j)))
-			skip = init_skip(&j, TRUE);
-		else
-		{
-			result[i] = ft_strdup(s[i + j]);
-			if (!result[i++])
-			{
-				ft_magic_free("%2", result);
-				return (NULL);
-			}
-		}
-	}
-	return (result);
 }
 
 static t_lst_redir	*get_redir(char **s, int i, int j)

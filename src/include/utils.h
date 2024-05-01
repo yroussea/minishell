@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 16:04:41 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:32:27 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_bool			ft_dup2(int first_fd, int second_fd);
 t_bool			ft_pipe(int fd_pipe[2]);
 int				ft_fork(void);
 char			ft_random(void);
+char			**ft_duptab(char **s, int i, int j);
 
 /*
  * lst_cmd
@@ -52,7 +53,7 @@ void			remove_var_env(t_lst_envp **lst_envp, char *variable);
 char			*get_prompt(t_lst_envp	*lst_envp, char *prompt);
 t_bool			is_git_file(char *pwd, char **branch);
 char			*get_user(t_lst_envp *lst_envp);
-t_lst_envp	*index_removed_var(t_lst_envp *lst_envp, char *key);
+t_lst_envp		*index_removed_var(t_lst_envp *lst_envp, char *key);
 
 /*
  * utils parsing
