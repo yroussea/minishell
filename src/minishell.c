@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/01 16:20:46 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:15:16 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	ft_stop(int ac, char **av)
 		}
 		else if (ft_strncmp(av[1], "--goat", 6) == 0)
 			ft_print_exit("\u26A1 Made by Yroussea and Basverdi \u26A1\n");
+		else if (ft_strncmp(av[1], "--42sh", 6) == 0)
+			ft_print_exit("\e[0;30mFaut aller se faire foutre aussi ...\e[0m\n");
 		else if (!ft_strncmp("--no-clear", av[1], 10))
 			ft_printf("%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
 	}

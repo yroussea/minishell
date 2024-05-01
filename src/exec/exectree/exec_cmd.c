@@ -6,23 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 17:51:41 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:09:21 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 extern int	g_exitcode;
-
-void	ft_close_command(t_node *node)
-{
-	if (!node)
-		return ;
-	if (node->infile > 2)
-		close(node->infile);
-	if (node->outfile > 2)
-		close(node->outfile);
-}
 
 t_bool	no_replace_heredoc(char *str)
 {
@@ -181,7 +171,8 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		 * si var env, ->accepte pas les espaces,
 		 * sinon -> espace doit etre dans le nom
 		*/
-		t_bool test = unqote_redir(&redir->file, lst_envp);
+		t_bool	test;
+		test = unqote_redir(&redir->file, lst_envp);
 		(void)test;
 		if (redir->type == DIRE_IN)
 			fds_in = redir_infile(fds_in, redir);
