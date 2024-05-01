@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 15:51:42 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:26:12 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 		{
 			node->infile = fds.in;
 			node->outfile = fds.out;
+			node->errorfile = 2;
 			if (all_redir_builtin(node, node->redir, *node->envp)) //?
 			{
 				close_heredoc(ft_get_root(NULL, FALSE, FALSE));

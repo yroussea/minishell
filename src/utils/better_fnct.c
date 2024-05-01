@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 14:44:08 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:23:52 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_bool	ft_close(int nb, ...)
 	while (nb--)
 	{
 		fd = va_arg(args, int);
+		ft_printf_fd(2, "<_%d_>\n", fd);
 		if (fd < 0)
 			error += ERROR;
 		else

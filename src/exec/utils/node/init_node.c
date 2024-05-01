@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:39:34 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/27 20:11:49 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:27:08 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_node	*init_node(t_type_of_node type)
 	node->redir = NULL;
 	node->infile = 0;
 	node->outfile = 1;
+	node->errorfile = 2;
 	node->type = type;
 	return (node);
 }
