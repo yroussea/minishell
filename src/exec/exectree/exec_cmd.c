@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/29 16:06:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:01:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 	int	fds_in;
 	int	fds_out;
 
-	fds_in = 0;
-	fds_out = 1;
-	fds_error = 2;
+	fds_in = node->infile;
+	fds_out = node->outfile;
+	fds_error = node->errorfile;
 	while (redir)
 	{
 		if (redir->type == HEREDOC)
@@ -136,6 +136,15 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 	return (TRUE);
 }
 
+char	*unqote_redir(char *str, t_lst_envp *envp)
+{
+	char	*tmp;
+
+	tmp = ft_unquote(str, envp);
+	free(str);
+	return (tmp);
+}
+
 t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 {
 	int	fds_error;
@@ -154,6 +163,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		 * si var env, ->accepte pas les espaces,
 		 * sinon -> espace doit etre dans le nom
 		*/
+		redir->file = unqote_redir(redir->file, lst_envp);
 		if (redir->type == DIRE_IN)
 			fds_in = redir_infile(fds_in, redir);
 		if (redir->type == ADD)

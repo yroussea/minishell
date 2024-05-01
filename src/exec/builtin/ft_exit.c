@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/16 18:10:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:01:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	free_exit(t_node *node)
 	close_redir_builtin(node);
 	ft_magic_free("%1 %2", node->cmd, node->args);
 	ft_get_lsts(NULL, NULL, FALSE, TRUE);
+	ft_close_pipe(ft_get_stks(NULL, FALSE, FALSE)->pipes);
 	ft_get_stks(NULL, FALSE, TRUE);
 	ft_get_root(NULL, FALSE, TRUE);
 	ft_get_envp(NULL, FALSE, TRUE);

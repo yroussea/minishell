@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 19:50:41 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:03:14 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:01:06 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_bool	ft_get_lsts(t_lst_ope *ope, t_lst_com *com, t_bool reset, \
 	return (TRUE);
 }
 
-t_bool	ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks)
+t_data_stk	*ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks)
 {
 	static t_data_stk	*data_stks = NULL;
 
@@ -77,7 +77,7 @@ t_bool	ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks)
 		free(data_stks);
 		data_stks = NULL;
 	}
-	return (TRUE);
+	return (data_stks);
 }
 
 t_bool	ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool free_envp)
