@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 17:32:10 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/01 16:01:30 by basverdi         ###   ########.fr       */
+/*   Created: 2024/05/01 15:55:27 by basverdi          #+#    #+#             */
+/*   Updated: 2024/05/01 15:56:29 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
-void	ft_unset(t_node *node, char *arg)
+void	display_env(t_node *node)
 {
-	int		i;
-	char	*tmp;
+	ft_env(node, "declare -x ");
+}
 
-	i = ft_str_str_len(node->args);
-	if (arg)
+char	*is_envp_variable(t_lst_envp *lst_envp, char *variable)
+{
+	while (lst_envp)
 	{
-		tmp = is_envp_variable(*node->envp, arg);
-		if (tmp)
-			remove_var_env(node->envp, arg);
-		free(tmp);
+		if (ft_strncmp(lst_envp->key, variable, ft_strlen(variable) + 1) == 0)
+			return (ft_strdup(lst_envp->key));
+		lst_envp = lst_envp->next;
 	}
-	else
-	{
-		i--;
-		while (i > 0)
-		{
-			remove_var_env(node->envp, node->args[i]);
-			i--;
-		}
-	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 16:01:54 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:04:41 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,11 @@ t_data_stk		*ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks);
 t_bool			ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool \
 					free_envp);
 void			close_heredoc(t_node *node);
+
+/*
+ * utils builtins
+ */
+void			display_env(t_node *node);
+char			*is_envp_variable(t_lst_envp *lst_envp, char *variable);
 
 #endif

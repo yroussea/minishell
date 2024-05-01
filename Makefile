@@ -32,6 +32,7 @@ SRCS_FILES = 							\
 	exec/builtin/ft_export.c			\
 	exec/builtin/ft_pwd.c				\
 	exec/builtin/ft_unset.c				\
+	exec/builtin/utils/utils_builtin.c	\
 	exec/execution.c					\
 	exec/exectree/exec_builtin.c		\
 	exec/exectree/exec_tree.c			\
