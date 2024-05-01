@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/03/28 17:38:19 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:49:31 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_lst_cmd	*parsing(char *line)
 	t_lst_cmd		*lst_cmd;
 
 	lst_cmd = NULL;
-	args = va_tokeniser(line, 3, "||", "&&", "|"); //parenthese et ;
+	args = va_tokeniser(line, 3, "||", "&&", "|");
 	test(args, &lst_cmd);
 	ft_magic_free("%1 %2", line, args);
 	return (lst_cmd);

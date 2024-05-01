@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 17:25:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:51:41 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		 * sinon -> espace doit etre dans le nom
 		*/
 		t_bool test = unqote_redir(&redir->file, lst_envp);
+		(void)test;
 		if (redir->type == DIRE_IN)
 			fds_in = redir_infile(fds_in, redir);
 		if (redir->type == ADD)
@@ -284,7 +285,7 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 {
 	int			pid;
 	char		*full_cmd;
-	// int			status;
+
 	parse_quote(node);
 	if (node->cmd && is_builtin(node))
 		return (ft_exec_builtin(node, from_pipe, stks, fds));

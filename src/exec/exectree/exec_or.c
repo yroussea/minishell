@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:25 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 17:52:45 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:50:33 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool	exec_or(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 {
 	int	pid;
 	int	tmp_err;
-	/*(si dans pipe faire la suite dans fork puis exit) si parenthese btw*/
+
 	if (fds.in != 0)
 		ft_dup2(fds.in, STDIN_FILENO);
 	if (fds.out != 1)

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 14:30:05 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:56:18 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ t_bool			split_args(char **s, t_lst_com *lst);
 
 void			ft_close_pipe(t_stack_pipe **pipe);
 void			wait_all(t_stack_id **stk, int checkpoint);
+void			close_pipes(t_stack_pipe **stk_pipe);
 /*
  *
  */

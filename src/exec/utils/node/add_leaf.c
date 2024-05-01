@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 13:55:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:47:30 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,29 @@ t_bool	add_single_leaf(t_node *root, t_node *leaf)
 	return (FALSE);
 }
 
+void	init_root(t_node **root, t_lst_com *cmd)
+{
+	*root = init_node(CMD);
+	ft_get_root(*root, TRUE, FALSE);
+	fill_node(*root, cmd);
+}
+
+t_bool	tree_add_leaf_on_tree(t_node **root, t_node *new_node, t_lst_com *cmd)
+{
+	if (!fill_node(new_node, cmd) || !add_single_leaf(*root, new_node))
+	{
+		ft_free_tree(new_node);
+		ft_get_root(NULL, FALSE, TRUE);
+		return (TRUE);
+	}
+	if (!ft_open_redir(new_node, cmd))
+	{
+		ft_get_root(NULL, FALSE, TRUE);
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 {
 	t_node	*new_node;
@@ -61,9 +84,7 @@ t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 		return (ERROR);
 	if (!*root)
 	{
-		*root = init_node(CMD);
-		ft_get_root(*root, TRUE, FALSE);
-		fill_node(*root, cmd);
+		init_root(root, cmd);
 		if (!ft_open_redir(*root, cmd))
 		{
 			ft_get_root(NULL, FALSE, TRUE);
@@ -75,17 +96,8 @@ t_bool	ft_add_all_leaf(t_node **root, t_lst_com *cmd, t_lst_envp **envp)
 	while (cmd)
 	{
 		new_node = init_node(CMD);
-		if (!fill_node(new_node, cmd) || !add_single_leaf(*root, new_node))
-		{
-			ft_free_tree(new_node);
-			ft_get_root(NULL, FALSE, TRUE);
+		if (tree_add_leaf_on_tree(root, new_node, cmd))
 			return (ERROR);
-		}
-		if (!ft_open_redir(new_node, cmd))
-		{
-			ft_get_root(NULL, FALSE, TRUE);
-			return (ERROR);
-		}
 		new_node->envp = envp;
 		cmd = cmd->next;
 	}
