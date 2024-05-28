@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 14:37:24 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:42:45 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,12 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	else
 		res = strdup_until_funct(s, is_alphanum_underscore);
 	variable = get_envp_variable(lst_envp, res);
-	if (!variable)
-		return (join_and_free(2, "", ft_strdup("$"), res));
+	if (!variable) //attention, si cle existe pas => NULL, si valeur existe pas $
+		// return (join_and_free(2, "", ft_strdup("$"), res));
+	{
+		free(res);
+		return (ft_strdup(""));
+	}
 	free(res);
 	return (variable);
 }
@@ -159,6 +163,11 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 		{
 			while (s && *s && (ft_isalnum(*s) || *s == '_'))
 				s++;
+		}
+		if (str && !*str)
+		{
+			free(str);
+			str = NULL;
 		}
 		return (join_and_free(3, "", res, str, ft_unquote(s, lst_envp)));
 	}
