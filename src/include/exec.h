@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 17:26:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:29 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,11 @@ void			ft_close_pipe(t_stack_pipe **pipe);
 void			wait_all(t_stack_id **stk, int checkpoint);
 void			close_pipes(t_stack_pipe **stk_pipe);
 void			ft_close_command(t_node *node);
+t_bool			no_replace_heredoc(char *str);
+void			replace_fds(int fds_in, int fds_out, int fds_error, t_fds fds);
+t_bool			only_space(char **strs);
+t_data_stk		*init_stks(void);
+t_bool			invalide_redir_sep(t_lst_redir *redir, char **error);
 
 /*
  *
@@ -189,5 +194,11 @@ t_bool			all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp \
 t_builtin		is_builtin(t_node *node);
 t_bool			ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 					t_data_stk *stks, t_fds fds);
+int				redir_heredoc(int fds_in, t_lst_redir *redir, t_lst_envp \
+					*lst_envp);
+int				redir_infile(int fds_in, t_lst_redir *redir);
+int				redir_add(int fds_out, t_lst_redir *redir);
+int				redir_out(int fds_out, t_lst_redir *redir);
+int				redir_error(int fds_error, t_lst_redir *redir);
 
 #endif

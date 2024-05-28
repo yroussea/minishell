@@ -40,12 +40,15 @@ SRCS_FILES = 							\
 	exec/exectree/exec_or.c				\
 	exec/exectree/exec_and.c			\
 	exec/exectree/exec_pipe.c			\
+	exec/exectree/redir.c				\
+	exec/exectree/redir_cmd.c			\
 	exec/heredoc/heredoc.c				\
 	exec/heredoc/heredoc_reopen.c		\
 	exec/lst_com_split_args.c			\
 	exec/utils/heredoc/utils_heredoc.c	\
 	exec/utils/print_lst.c				\
 	exec/utils/print_tree.c				\
+	exec/utils/utils_cmd.c				\
 	exec/utils/lst/lst_com.c			\
 	exec/utils/lst/stkpid.c				\
 	exec/utils/lst/stkpipe.c			\

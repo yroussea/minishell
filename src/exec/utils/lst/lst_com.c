@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:15:55 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 17:26:29 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:17:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ void	lst_com_pop(t_lst_com **lst)
 		return ;
 	if (!(*lst)->next)
 	{
-		free(*lst);
+		ft_lst_com_free(*lst);
 		*lst = NULL;
 		return ;
 	}
 	lst_com_pop(&(*lst)->next);
-
 }
 
 void	lst_com_add_back(t_lst_com **lst, t_lst_com *new)

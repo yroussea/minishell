@@ -6,189 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 16:32:45 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:36:30 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 extern int	g_exitcode;
-
-t_bool	no_replace_heredoc(char *str)
-{
-	while (str && *str)
-	{
-		if (*str == 34 && *str == 39)
-			return (FALSE);
-		str += 1;
-	}
-	return (TRUE);
-}
-
-int	redir_heredoc(int fds_in, t_lst_redir *redir, t_lst_envp *lst_envp)
-{
-	if (fds_in != STDIN_FILENO)
-		ft_close(1, fds_in);
-	fds_in = redir->heredoc_fd;
-	if (fds_in == -1)
-		return (-1);
-	if (no_replace_heredoc(redir->file) == FALSE)
-		fds_in = heredoc_reopen(fds_in, lst_envp);
-	return (fds_in);
-}
-
-int	redir_infile(int fds_in, t_lst_redir *redir)
-{
-	if (fds_in != STDIN_FILENO)
-		ft_close(1, fds_in);
-	fds_in = open(redir->file, 0); //cas d'erreur
-	return (fds_in);
-}
-
-int	redir_add(int fds_out, t_lst_redir *redir)
-{
-	if (fds_out != STDOUT_FILENO)
-		ft_close(1, fds_out);
-	fds_out = open(redir->file, O_CREAT | O_WRONLY | O_APPEND, 0664);
-//cas d'erreur
-	return (fds_out);
-}
-
-int	redir_out(int fds_out, t_lst_redir *redir)
-{
-	if (fds_out != STDOUT_FILENO)
-		ft_close(1, fds_out);
-	fds_out = open(redir->file, 577, 0664);//cas d'erreur
-	return (fds_out);
-}
-
-int	redir_error(int fds_error, t_lst_redir *redir)
-{
-	if (fds_error != STDERR_FILENO)
-		ft_close(1, fds_error);
-	fds_error = open(redir->file, 577, 0664);//cas d'erreur
-	return (fds_error);
-}
-
-void	replace_fds(int fds_in, int fds_out, int fds_error, t_fds fds)
-{
-	if (fds_in != STDIN_FILENO)
-	{
-		ft_dup2(fds_in, STDIN_FILENO);
-		ft_close(1, fds_in);
-	}
-	else if (fds.in != STDIN_FILENO)
-		ft_dup2(fds.in, STDIN_FILENO);
-	if (fds_out != STDOUT_FILENO)
-	{
-		ft_dup2(fds_out, STDOUT_FILENO);
-		ft_close(1, fds_out);
-	}
-	else if (fds.out != STDOUT_FILENO)
-		ft_dup2(fds.out, STDOUT_FILENO);
-	if (fds_error != STDERR_FILENO)
-	{
-		ft_dup2(fds_error, STDERR_FILENO);
-		ft_close(1, fds_error);
-	}
-}
-
-t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
-	*lst_envp)
-{
-	int	fds_error;
-	int	fds_in;
-	int	fds_out;
-
-	fds_in = node->infile;
-	fds_out = node->outfile;
-	fds_error = node->errorfile;
-	while (redir)
-	{
-		if (redir->type == HEREDOC)
-			fds_in = redir_heredoc(fds_in, redir, lst_envp);
-		//unquote redir->type, att ambigouous redirect
-		if (redir->type == DIRE_IN)
-			fds_in = redir_infile(fds_in, redir);
-		if (redir->type == ADD)
-			fds_out = redir_add(fds_out, redir);
-		if (redir->type == DIRE_OUT)
-			fds_out = redir_out(fds_out, redir);
-		if (redir->type == DIRE_TWO)
-			fds_error = redir_error(fds_error, redir);
-		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-			return (FALSE); //msg
-		redir = redir->next;
-	}
-	node->infile = fds_in;
-	node->outfile = fds_out;
-	node->errorfile = fds_error;
-	return (TRUE);
-}
-
-t_bool	unqote_redir(char **str, t_lst_envp *envp)
-{
-	char	*tmp;
-	char	*trimed;
-	char	*s;
-	int		is_dollard;
-
-	is_dollard = 0;
-	s = *str;
-	if (!s)
-		return (FALSE);
-	while (*s)
-	{
-		if (*s == '$')
-		{
-			is_dollard = 1;
-			break ;
-		}
-		s += 1;
-	}
-	tmp = ft_unquote(*str, envp);
-	trimed = ft_strtrim(tmp, " ");
-	free(tmp);
-	*str = trimed;
-	return (is_dollard);
-}
-
-t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
-{
-	int	fds_error;
-	int	fds_in;
-	int	fds_out;
-
-	fds_in = 0;
-	fds_out = 1;
-	fds_error = 2;
-	while (redir)
-	{
-		if (redir->type == HEREDOC)
-			fds_in = redir_heredoc(fds_in, redir, lst_envp);
-		/*
-		 * remplacement var env, et unquoting,
-		 * si var env, ->accepte pas les espaces,
-		 * sinon -> espace doit etre dans le nom
-		*/
-		t_bool	test;
-		test = unqote_redir(&redir->file, lst_envp);
-		(void)test;
-		if (redir->type == DIRE_IN)
-			fds_in = redir_infile(fds_in, redir);
-		if (redir->type == ADD)
-			fds_out = redir_add(fds_out, redir);
-		if (redir->type == DIRE_OUT)
-			fds_out = redir_out(fds_out, redir);
-		if (redir->type == DIRE_TWO)
-			fds_error = redir_error(fds_error, redir);
-		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-			return (FALSE); //msg , si test == 1 => ambigouis redire (si un espace)
-		redir = redir->next;
-	}
-	replace_fds(fds_in, fds_out, fds_error, fds);
-	return (TRUE);
-}
 
 void	parse_quote(t_node *node)
 {
@@ -246,8 +70,8 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
 			execve(full_cmd, node->args, envp_char);
 		}
 		else
-			ft_close_pipe(stks->pipes); //close redir faileed?
-		//exit with good status?
+			ft_close_pipe(stks->pipes);
+		g_exitcode = 1;
 	}
 	exit_cmd(full_cmd, node, envp_char, g_exitcode);
 }

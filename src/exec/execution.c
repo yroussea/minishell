@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 17:28:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:15 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,11 @@
 #include <stdio.h>
 #include <string.h>
 
-t_bool	only_space(char **strs)
-{
-	int	j;
-
-	j = 0;
-	while (strs && *strs)
-	{
-		while ((*strs)[j])
-		{
-			if ((*strs)[j] != ' ')
-				return (FALSE);
-			j += 1;
-		}
-		strs += 1;
-	}
-	return (TRUE);
-}
-
-t_bool	invalide_redir_sep(t_lst_redir *redir, char **error)
-{
-	static char	*invalide_sep[4] = {"<<", "<", ">>", ">"};
-	int			i = 0;
-
-	while (redir)
-	{
-		while (i < 4)
-		{
-			if (strncmp(invalide_sep[i], redir->file, 3) == 0)
-			{
-				*error = ft_strdup(invalide_sep[i]);
-				return (TRUE);
-			}
-			i += 1;
-		}
-		redir = redir->next;
-	}
-	return (FALSE);
-}
-
 t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 {
 	t_type_of_node	type;
 	t_bool			tmp;
-	static char 	*type_of_node[9] = {"", "|", "&&", "||", "heredoc", "add", \
+	static char		*type_of_node[9] = {"", "|", "&&", "||", "heredoc", "add", \
 		"dire in", "DIRE_OUT", "DIRE_TWO"};
 	char			*error;
 
@@ -105,16 +66,6 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 		lst_all = lst_all->next;
 	}
 	return (TRUE);
-}
-
-t_data_stk	*init_stks(void)
-{
-	t_data_stk	*new;
-
-	new = malloc(sizeof(t_data_stk));
-	if (!new)
-		return (NULL);
-	return (new);
 }
 
 t_bool	verif_complete_tree(t_node *root)

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 17:07:49 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:11:33 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,7 @@ char	*ft_undoublequote(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		tmp = ft_undolars(++s, lst_envp);
-		if (s && *s == '?')
-			s += 1;
-		else
-		{
-			while (s && *s && (ft_isalnum(*s) || *s == '_'))
-				s++;
-		}
+		s += skip_underscore(s);
 		tmp_str = ft_undoublequote(s, lst_envp);
 		return (join_and_free(3, "", res, tmp, tmp_str));
 	}
