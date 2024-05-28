@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:15:27 by yroussea          #+#    #+#             */
-/*   Updated: 2023/10/30 13:33:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:52:54 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,11 @@ int	ft_isalnum(int c)
 	if (c >= '0' && c <= '9')
 		return (1);
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
+
+int	is_alphanum_underscore(char c)
+{
+	if (ft_isalnum(c))
+		return (1);
+	return (c == '_');
 }

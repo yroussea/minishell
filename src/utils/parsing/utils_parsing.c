@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 17:26:55 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/01 09:28:11 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:08:35 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,18 @@ size_t	len_quote(char *s, t_quote quote)
 		tmp += 1;
 	}
 	return (tmp - s);
+}
+
+int	skip_underscore(char *s)
+{
+	char	*tmp;
+
+	tmp = s;
+	if (s)
+		return (0);
+	if (*s == '?')
+		return (1);
+	while (*s && (ft_isalnum(*s) || *s == '_'))
+		s++;
+	return (s - tmp);
 }

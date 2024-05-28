@@ -6,62 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/18 17:42:45 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:07:49 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <stdarg.h>
-
-char	*strdup_until_sep(char *s, int nb_sep, ...)
-{
-	char	*res;
-	va_list	seps;
-	int		min;
-	char	*tmp;
-
-	if (!s)
-		return (NULL);
-	min = ft_strlen(s);
-	tmp = NULL;
-	va_start(seps, nb_sep);
-	while (nb_sep--)
-	{
-		tmp = ft_strchr(s, va_arg(seps, int));
-		if (tmp)
-			min = ft_vmin(2, min, tmp - s);
-	}
-	va_end(seps);
-	res = ft_calloc(sizeof(char), (min + 1));
-	if (!res)
-		return (NULL);
-	ft_strlcpy(res, s, min + 1);
-	return (res);
-}
-
-int	is_alphanum_underscore(char c)
-{
-	if (ft_isalnum(c))
-		return (1);
-	return (c == '_');
-}
-
-char	*strdup_until_funct(char *s, int (f(char c)))
-{
-	char	*res;
-	int		i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (f(s[i]))
-		i += 1;
-	res = ft_calloc(sizeof(char), (i + 1));
-	if (!res)
-		return (NULL);
-	ft_strlcpy(res, s, i + 1);
-	return (res);
-}
 
 char	*join_and_free(size_t nb_str, char *sep, ...)
 {
@@ -119,8 +69,7 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	else
 		res = strdup_until_funct(s, is_alphanum_underscore);
 	variable = get_envp_variable(lst_envp, res);
-	if (!variable) //attention, si cle existe pas => NULL, si valeur existe pas $
-		// return (join_and_free(2, "", ft_strdup("$"), res));
+	if (!variable)
 	{
 		free(res);
 		return (ft_strdup(""));
@@ -150,31 +99,19 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 	while (s && *s && *s != 34 && *s != 36 && *s != 39)
 		s++;
 	if (s && *s == 34)
-	{
-		str = ft_undoublequote(s + 1, lst_envp);
-		return (join_and_free(2, "", res, str));
-	}
+		return (join_and_free(2, "", res, ft_undoublequote(s + 1, lst_envp)));
+	if (s && *s == 39)
+		return (join_and_free(2, "", res, ft_unsimplequote(s + 1, lst_envp)));
 	if (s && *s == 36)
 	{
 		str = ft_undolars(++s, lst_envp);
-		if (s && *s == '?')
-			s += 1;
-		else
-		{
-			while (s && *s && (ft_isalnum(*s) || *s == '_'))
-				s++;
-		}
 		if (str && !*str)
 		{
 			free(str);
 			str = NULL;
 		}
+		s += skip_underscore(s);
 		return (join_and_free(3, "", res, str, ft_unquote(s, lst_envp)));
-	}
-	if (s && *s == 39)
-	{
-		str = ft_unsimplequote(s + 1, lst_envp);
-		return (join_and_free(2, "", res, str));
 	}
 	return (res);
 }

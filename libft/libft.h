@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:31:20 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/10 17:46:26 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:55:16 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char		*ft_itoa(int n);
 t_bool		ft_overflow(char *s);
 
 int			ft_isalnum(int c);
+int			is_alphanum_underscore(char c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);
 int			ft_isdigit(int c);
@@ -76,6 +77,8 @@ char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strrchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strdup(const char *s);
+char		*strdup_until_funct(char *s, int (f(char c)));
+char		*strdup_until_sep(char *s, int nb_sep, ...);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		**ft_str_realloc(char **str);
