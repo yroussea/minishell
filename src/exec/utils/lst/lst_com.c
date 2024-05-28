@@ -6,11 +6,25 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:15:55 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/01 09:28:41 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:26:29 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
+
+void	lst_com_pop(t_lst_com **lst)
+{
+	if (!*lst)
+		return ;
+	if (!(*lst)->next)
+	{
+		free(*lst);
+		*lst = NULL;
+		return ;
+	}
+	lst_com_pop(&(*lst)->next);
+
+}
 
 void	lst_com_add_back(t_lst_com **lst, t_lst_com *new)
 {

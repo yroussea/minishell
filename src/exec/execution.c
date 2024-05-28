@@ -6,12 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 15:53:23 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:28:28 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <stdio.h>
+#include <string.h>
 
 t_bool	only_space(char **strs)
 {
@@ -31,20 +32,52 @@ t_bool	only_space(char **strs)
 	return (TRUE);
 }
 
+t_bool	invalide_redir_sep(t_lst_redir *redir, char **error)
+{
+	static char	*invalide_sep[4] = {"<<", "<", ">>", ">"};
+	int			i = 0;
+
+	while (redir)
+	{
+		while (i < 4)
+		{
+			if (strncmp(invalide_sep[i], redir->file, 3) == 0)
+			{
+				*error = ft_strdup(invalide_sep[i]);
+				return (TRUE);
+			}
+			i += 1;
+		}
+		redir = redir->next;
+	}
+	return (FALSE);
+}
+
 t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 {
 	t_type_of_node	type;
 	t_bool			tmp;
 	static char 	*type_of_node[9] = {"", "|", "&&", "||", "heredoc", "add", \
 		"dire in", "DIRE_OUT", "DIRE_TWO"};
+	char			*error;
 
 	*ope = NULL;
 	*cmd = NULL;
+	error = NULL;
 	tmp = 0;
 	if (!lst_all)
 		return (FALSE);
-	while (lst_all)
+	while (lst_all || tmp == -1)
 	{
+		if (tmp == -1)
+		{
+			ft_lst_ope_add(ope, -1);
+			if (!error)
+				error = NULL;
+			ft_printf_fd(2, "%s %s\n", "syntaxe error close to", error);
+			free(error);
+			return (TRUE);
+		}
 		if (lst_all->type == CMD && only_space(lst_all->cmd))
 		{
 			lst_all = lst_all->next;
@@ -54,20 +87,20 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 		if (type < PIPE || type > OR)
 		{
 			ft_lst_com_add(cmd, lst_all->cmd);
-			tmp = 0;
+			tmp = -1 * invalide_redir_sep((*cmd)->redir, &error);
+			if (tmp == -1)
+			{
+				lst_com_pop(cmd);
+			}
+				//supr noeud com
 		}
 		else
 		{
-			if (tmp)
-			{
-				ft_lst_ope_add(ope, -1);
-				ft_printf_fd(2, "%s %s\n", "syntaxe error close to", \
-					type_of_node[lst_all->type]);
-				return (TRUE);
-			}
+			tmp = -2 * tmp + 1;
+			if (tmp == -1)
+				error = ft_strdup(type_of_node[lst_all->type]);
 			else
 				ft_lst_ope_add(ope, type);
-			tmp = 1;
 		}
 		lst_all = lst_all->next;
 	}
