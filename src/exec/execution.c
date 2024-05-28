@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 18:03:51 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:53:23 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 {
 	t_type_of_node	type;
 	t_bool			tmp;
+	static char 	*type_of_node[9] = {"", "|", "&&", "||", "heredoc", "add", \
+		"dire in", "DIRE_OUT", "DIRE_TWO"};
 
 	*ope = NULL;
 	*cmd = NULL;
@@ -60,7 +62,7 @@ t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
 			{
 				ft_lst_ope_add(ope, -1);
 				ft_printf_fd(2, "%s %s\n", "syntaxe error close to", \
-					"{to-fill}"); //to-fill
+					type_of_node[lst_all->type]);
 				return (TRUE);
 			}
 			else
