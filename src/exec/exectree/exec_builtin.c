@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 17:55:50 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:16:00 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ void	exec_builtin(char *cmd, t_node *node, t_bool from_pipe)
 		ft_echo(node);
 }
 
-void	close_redir_builtin(t_node *node)
-{
-	if (node->infile != 0)
-		ft_close(1, node->infile);
-	if (node->outfile != 1)
-		ft_close(1, node->outfile);
-	if (node->errorfile != 2)
-		ft_close(1, node->errorfile);
-}
-
 void	exit_builtin(t_node *node, int exit_code)
 {
 	ft_magic_free("%1 %2", node->cmd, node->args);
@@ -70,6 +60,21 @@ void	exit_builtin(t_node *node, int exit_code)
 	ft_get_stks(NULL, FALSE, TRUE);
 	clear_history();
 	exit(exit_code);
+}
+
+void	child_builtin(t_node *node, t_data_stk *stks, t_fds fds)
+{
+	node->infile = fds.in;
+	node->outfile = fds.out;
+	node->errorfile = 2;
+	if (all_redir_builtin(node, node->redir, *node->envp))
+	{
+		close_heredoc(ft_get_root(NULL, FALSE, FALSE));
+		exec_builtin(node->cmd, node, TRUE);
+		ft_close_pipe(stks->pipes);
+		exit_builtin(node, 0);
+	}
+	exit_builtin(node, 1);
 }
 
 t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
@@ -83,19 +88,7 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 		if (pid < 0)
 			return (ERROR);
 		if (pid == 0)
-		{
-			node->infile = fds.in;
-			node->outfile = fds.out;
-			node->errorfile = 2;
-			if (all_redir_builtin(node, node->redir, *node->envp)) //?
-			{
-				close_heredoc(ft_get_root(NULL, FALSE, FALSE));
-				exec_builtin(node->cmd, node, TRUE);
-				ft_close_pipe(stks->pipes);
-				exit_builtin(node, 0);
-			}
-			exit_builtin(node, 1);
-		}
+			child_builtin(node, stks, fds);
 		ft_stk_pid_add(stks->pids, pid);
 		ft_magic_free("%1 %2", node->cmd, node->args);
 		return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/16 18:02:42 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:45:22 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,24 @@
 
 extern int	g_exitcode;
 
-void	print_error_access(t_error error_type, char *cmd)
+t_bool	print_error_access(t_error error_type, char *cmd)
 {
 	if (error_type == NOT_CMD && cmd && *cmd == '/')
 		ft_printf_fd(2, NO_FILE, cmd);
 	else if (error_type == NOT_CMD)
+	{
+		g_exitcode = 127;
 		ft_printf_fd(2, CMD_NOT_FOUND, cmd);
-	//il va en falloir bc
+	}
+	else if (error_type == IS_DIR)
+		ft_printf_fd(2, IS_A_DIR, cmd);
+	else if (error_type == NO_PERM)
+		ft_printf_fd(2, HAVE_NO_PERM, cmd);
+	else if (error_type == ISNOT_DIR)
+		ft_printf_fd(2, IS_NOT_DIR, cmd);
+	else if (error_type == AMBIGUOUS)
+		ft_printf_fd(2, AMBIGUOUS_ARG, cmd);
+	return (TRUE);
 }
 
 t_bool	access_errors(struct stat st, int status, char *path, char *cmd)
@@ -31,25 +42,17 @@ t_bool	access_errors(struct stat st, int status, char *path, char *cmd)
 	else
 	{
 		if (cmd)
-			print_error_access(NOT_CMD, cmd);
-		if (cmd)
-			g_exitcode = 127;
+			return (print_error_access(NOT_CMD, cmd));
 		return (TRUE);
 	}
 	if (S_ISDIR(st.st_mode))
-		print_error_access(IS_DIR, path);
-	if (S_ISDIR(st.st_mode))
-		return (TRUE);
+		return (print_error_access(IS_DIR, path));
 	else if (status != -1 && path && *path && access(path, X_OK))
 		print_error_access(NO_PERM, cmd);
 	else if (status == -1 && errno == ENOTDIR)
 		print_error_access(ISNOT_DIR, cmd);
 	else if (status == -1 && errno == ENOENT)
-	{
-		print_error_access(NOT_CMD, cmd);
-		g_exitcode = 127;
-		return (TRUE);
-	}
+		return (print_error_access(NOT_CMD, cmd));
 	else if (S_ISFIFO(st.st_mode))
 		print_error_access(NO_PERM, cmd);
 	else

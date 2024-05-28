@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:18:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 18:06:36 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:16:09 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,14 @@ void	ft_close_command(t_node *node)
 		close(node->infile);
 	if (node->outfile > 2)
 		close(node->outfile);
+}
+
+void	close_redir_builtin(t_node *node)
+{
+	if (node->infile != 0)
+		ft_close(1, node->infile);
+	if (node->outfile != 1)
+		ft_close(1, node->outfile);
+	if (node->errorfile != 2)
+		ft_close(1, node->errorfile);
 }

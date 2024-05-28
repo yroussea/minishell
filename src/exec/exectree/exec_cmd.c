@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 18:09:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:32:45 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ t_bool	unqote_redir(char **str, t_lst_envp *envp)
 		return (FALSE);
 	while (*s)
 	{
-		if (*s == '?')
+		if (*s == '$')
 		{
 			is_dollard = 1;
 			break ;
@@ -183,7 +183,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		if (redir->type == DIRE_TWO)
 			fds_error = redir_error(fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-			return (FALSE); //msg , si test == 1 => ambigouis redire
+			return (FALSE); //msg , si test == 1 => ambigouis redire (si un espace)
 		redir = redir->next;
 	}
 	replace_fds(fds_in, fds_out, fds_error, fds);
