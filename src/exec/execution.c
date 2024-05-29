@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 18:08:15 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:43:25 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,48 @@
 #include <stdio.h>
 #include <string.h>
 
-t_bool	split_two_lst(t_lst_cmd *lst_all, t_lst_ope **ope, t_lst_com **cmd)
+void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 {
-	t_type_of_node	type;
-	t_bool			tmp;
-	static char		*type_of_node[9] = {"", "|", "&&", "||", "heredoc", "add", \
-		"dire in", "DIRE_OUT", "DIRE_TWO"};
+	static char		*type_of_node[4] = {"42", "|", "&&", "||"};
+
+	ft_lst_ope_add(ope, -1);
+	if (!*error && lst)
+		*error = ft_strdup(type_of_node[lst->type]);
+	else if (!error)
+		*error = ft_strdup("newline");
+	ft_printf_fd(2, "%s `%s`\n", "syntax error close to", error);
+	free(*error);
+}
+
+t_bool	split_two_lst(
+	t_lst_cmd *lst,
+	t_lst_ope **ope,
+	t_lst_com **cmd,
+	t_bool tmp)
+{
+	static char		*type_of_node[4] = {"42", "|", "&&", "||"};
 	char			*error;
 
-	*ope = NULL;
-	*cmd = NULL;
 	error = NULL;
-	tmp = 0;
-	if (!lst_all)
-		return (FALSE);
-	while (lst_all || tmp == -1)
+	while (lst || tmp == -1)
 	{
 		if (tmp == -1)
-		{
-			ft_lst_ope_add(ope, -1);
-			if (!error)
-				error = NULL;
-			ft_printf_fd(2, "%s %s\n", "syntaxe error close to", error);
-			free(error);
+			manage_error_on_split(&error, lst, ope);
+		if (tmp == -1)
 			return (TRUE);
-		}
-		if (lst_all->type == CMD && only_space(lst_all->cmd))
-		{
-			lst_all = lst_all->next;
-			continue ;
-		}
-		type = lst_all->type;
-		if (type < PIPE || type > OR)
-		{
-			ft_lst_com_add(cmd, lst_all->cmd);
+		if ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR)
+			ft_lst_com_add(cmd, lst->cmd);
+		if ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR)
 			tmp = -1 * invalide_redir_sep((*cmd)->redir, &error);
-			if (tmp == -1)
-			{
-				lst_com_pop(cmd);
-			}
-				//supr noeud com
-		}
-		else
+		else if (lst->type != CMD)
 		{
-			tmp = -2 * tmp + 1;
+			tmp = (tmp || !*cmd)* -2 + 1;
 			if (tmp == -1)
-				error = ft_strdup(type_of_node[lst_all->type]);
+				error = ft_strdup(type_of_node[lst->type]);
 			else
-				ft_lst_ope_add(ope, type);
+				ft_lst_ope_add(ope, lst->type);
 		}
-		lst_all = lst_all->next;
+		lst = lst->next;
 	}
 	return (TRUE);
 }
@@ -92,7 +84,7 @@ t_lst_envp **envp)
 	return (TRUE);
 }
 
-void	execution(t_lst_cmd *lst_all, t_lst_envp **envp, t_data_stk *stks)
+void	execution(t_lst_cmd *lst, t_lst_envp **envp, t_data_stk *stks)
 {
 	t_lst_ope		*operator;
 	t_lst_com		*cmd;
@@ -103,9 +95,9 @@ void	execution(t_lst_cmd *lst_all, t_lst_envp **envp, t_data_stk *stks)
 	cmd = NULL;
 	root = NULL;
 	fds = (t_fds){0, 1};
-	if (!split_two_lst(lst_all, &operator, &cmd))
+	if (!lst || !split_two_lst(lst, &operator, &cmd, 0))
 		return ;
-	ft_lst_cmd_free(lst_all);
+	ft_lst_cmd_free(lst);
 	ft_get_lsts(operator, cmd, TRUE, FALSE);
 	if (create_tree(&root, cmd, operator, envp) == FALSE)
 		return ;
@@ -115,10 +107,10 @@ void	execution(t_lst_cmd *lst_all, t_lst_envp **envp, t_data_stk *stks)
 		wait_all(stks->pids, -1);
 	}
 	else
-		ft_printf_fd(2, "Uncomplete line\n");
+		ft_printf_fd(2, "syntax error: Uncomplete line\n");
 }
 
-void	exec(t_lst_cmd *lst_all, t_lst_envp **envp)
+void	exec(t_lst_cmd *lst, t_lst_envp **envp)
 {
 	t_data_stk		*stks;
 	t_stack_pipe	*stk_pipe;
@@ -133,11 +125,11 @@ void	exec(t_lst_cmd *lst_all, t_lst_envp **envp)
 		stks->pipes = &stk_pipe;
 		stk_pid = NULL;
 		stks->pids = &stk_pid;
-		execution(lst_all, envp, stks);
+		execution(lst, envp, stks);
 		ft_get_root(NULL, FALSE, TRUE);
 		free(stks);
 	}
 	else
-		ft_lst_cmd_free(lst_all);
+		ft_lst_cmd_free(lst);
 	ft_get_lsts(NULL, NULL, FALSE, TRUE);
 }

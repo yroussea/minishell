@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:01 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/28 18:08:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:49:41 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,38 @@ t_data_stk	*init_stks(void)
 	return (new);
 }
 
+t_bool	invalide_single_redir(t_lst_redir *redir)
+{
+
+	static char	*invalide_sep[4] = {"<<", "<", ">>", ">"};
+	int			i;
+
+	i = 0;
+	if (!redir->file)
+		return (TRUE);
+	while (i < 4)
+	{
+		if (strncmp(invalide_sep[i], redir->file, 3) == 0)
+			return (TRUE);
+		i += 1;
+	}
+	return (FALSE);
+}
+
+
 t_bool	invalide_redir_sep(t_lst_redir *redir, char **error)
 {
 	static char	*invalide_sep[4] = {"<<", "<", ">>", ">"};
 	int			i;
 
-	i = 0;
 	while (redir)
 	{
+		if (!redir->file)
+		{
+			*error = NULL;
+			return (TRUE);
+		}
+		i = 0;
 		while (i < 4)
 		{
 			if (strncmp(invalide_sep[i], redir->file, 3) == 0)

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 18:08:29 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:38:19 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ t_bool			no_replace_heredoc(char *str);
 void			replace_fds(int fds_in, int fds_out, int fds_error, t_fds fds);
 t_bool			only_space(char **strs);
 t_data_stk		*init_stks(void);
+t_bool			invalide_single_redir(t_lst_redir *redir);
 t_bool			invalide_redir_sep(t_lst_redir *redir, char **error);
 
 /*

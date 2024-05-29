@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:32:29 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 16:36:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:30:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ static t_lst_redir	*get_redir(char **s, int i, int j)
 			chose = init_chose(&j, get_type(*(s + i + j)));
 		else
 			i += 1;
+	}
+	if (chose)
+	{
+		if (!ft_lst_redir_add(&lst, chose, NULL))
+			lst = NULL;
 	}
 	return (lst);
 }
