@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/29 17:43:25 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:29:40 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool	split_two_lst(
 			tmp = -1 * invalide_redir_sep((*cmd)->redir, &error);
 		else if (lst->type != CMD)
 		{
-			tmp = (tmp || !*cmd)* -2 + 1;
+			tmp = (tmp || !*cmd) * -2 + 1;
 			if (tmp == -1)
 				error = ft_strdup(type_of_node[lst->type]);
 			else
