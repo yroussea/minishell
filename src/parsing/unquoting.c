@@ -6,9 +6,9 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 17:11:33 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:36:33 by yroussea         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/* *******************************************************e******************* */
 
 #include "../minishell.h"
 #include <stdarg.h>
@@ -63,6 +63,11 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	else
 		res = strdup_until_funct(s, is_alphanum_underscore);
 	variable = get_envp_variable(lst_envp, res);
+	if (res && !*res)
+	{
+		free(variable);
+		variable = ft_strdup("$");
+	}
 	if (!variable)
 	{
 		free(res);

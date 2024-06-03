@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 17:26:55 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/28 17:08:35 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:42:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	skip_underscore(char *s)
 	char	*tmp;
 
 	tmp = s;
-	if (s)
+	if (!s)
 		return (0);
 	if (*s == '?')
 		return (1);
