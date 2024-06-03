@@ -6,20 +6,15 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/23 12:57:27 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:57:48 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "include/utils.h"
+#include <sys/wait.h>
 
 int	g_exitcode;
-
-void	ft_print_exit(char *str)
-{
-	ft_printf("%s", str);
-	exit(42);
-}
 
 int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 {
@@ -32,29 +27,31 @@ int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 	return (1);
 }
 
+#define WELL_PLAYED "\u2B50 %s Bien joué! %s \u2B50\n%s%s"
+#define EASTER_EGG "Vous avez trouvé un des easters eggs !\n"
+#define BETTER_THAN_BASH "PS : petite-coquille > bash\n"
+#define MINISHORSH "\e[0;30mFaut aller se faire foutre aussi ...\e[0m\n"
+#define AUTOR "\u26A1 Made by Yroussea and Basverdi \u26A1\n"
+
 void	ft_stop(int ac, char **av)
 {
-	if (ac == 2)
+	if (ac > 1 && ft_strncmp("--no-clear", av[1], 10))
 	{
-		if (ft_strncmp(av[1], "--mini-coque", 12) == 0)
-		{
-			ft_printf("\u2B50 %s Bien joué! %s \u2B50\n", YELLOW, DEFAULT);
-			ft_printf("Vous avez trouvé un des easters eggs !\n");
-			ft_print_exit("PS : petite-coquille > bash\n");
-		}
-		else if (ft_strncmp(av[1], "--goat", 6) == 0)
-			ft_print_exit("\u26A1 Made by Yroussea and Basverdi \u26A1\n");
-		else if (ft_strncmp(av[1], "--42sh", 6) == 0)
-			ft_print_exit("\e[0;30mFaut aller se faire foutre aussi ...\e[0m\n"\
-			);
-		else if (!ft_strncmp("--no-clear", av[1], 10))
-			ft_printf("%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
+		if (!ft_strncmp(av[1], "--mini-coque", 12))
+			ft_printf_fd(2, WELL_PLAYED, YELLOW, DEFAULT, EASTER_EGG, BETTER_THAN_BASH);
+		else if (!ft_strncmp(av[1], "--goat", 6))
+			ft_printf_fd(2, AUTOR);
+		else if (!ft_strncmp(av[1], "--42sh", 6))
+			ft_printf_fd(2, MINISHORSH);
+		else
+			ft_printf_fd(2, "%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
+		exit(42);
 	}
 	else if (ac == 1 || ft_strncmp("--no-clear", av[1], 10))
-		ft_printf("\033c");
-	else if (ac > 1)
+		ft_printf_fd(2, "\033c");
+	else if (ac > 2)
 	{
-		ft_printf("%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
+		ft_printf_fd(2, "%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
 		exit(1);
 	}
 }
@@ -68,6 +65,7 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 
 	prompt = NULL;
 	user = NULL;
+	signal(SIGPIPE, SIG_IGN);
 	while (1)
 	{
 		set_sigaction(0);

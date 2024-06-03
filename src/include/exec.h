@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/29 16:38:19 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:34:50 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ t_bool			exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks,
  */
 int				ft_heredoc(char *eof);
 char			*get_access(t_lst_envp *lst_envp, char *cmd);
+t_bool			print_error_access(t_error error_type, char *cmd);
 int				heredoc_reopen(int fd, t_lst_envp *lst_envp);
 
 t_bool			all_redir_builtin(t_node *node, t_lst_redir *redir, \
