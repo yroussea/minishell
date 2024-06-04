@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/04 14:36:53 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:11:07 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 	ft_lst_ope_add(ope, -1);
 	if (!*error && lst)
 		*error = ft_strdup(type_of_node[lst->type]);
-	else if (!error)
+	else if (!*error)
 		*error = ft_strdup("newline");
 	ft_printf_fd(2, "%s `%s`\n", "syntax error close to", *error);
 	free(*error);
@@ -57,7 +57,6 @@ t_bool	split_two_lst(
 		}
 		lst = lst->next;
 	}
-	ft_print_com(2, *cmd);
 	return (TRUE);
 }
 
