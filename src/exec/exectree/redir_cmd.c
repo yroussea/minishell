@@ -6,23 +6,41 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:42:26 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:06:39 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <string.h>
 
+int	count_space(char *str)
+{
+	int	count;
+
+	count = 0;
+	while (*str)
+	{
+		if (*str == ' ')
+			count++;
+		str++;
+	}
+	return (count);
+}
+
 t_bool	unqote_redir(char **str, t_lst_envp *envp)
 {
 	char	*trimed;
 	char	*s;
 	int		is_dollard;
+	int		count;
 
 	is_dollard = 0;
-	s = *str;
-	if (!s)
+	if (!str || !*str)
 		return (TRUE);
+	s = ft_strtrim(*str, " ");
+	count = count_space(s);
+	free(s);
+	s = *str;
 	while (*s)
 	{
 		if (*s == '$')
@@ -33,13 +51,12 @@ t_bool	unqote_redir(char **str, t_lst_envp *envp)
 	}
 	s = ft_unquote(*str, envp);
 	trimed = ft_strtrim(s, " ");
-	// espace dans le dollars et pas n'importe ou
-	if (is_dollard && strchr(trimed, ' '))
+	if (is_dollard && count != count_space(trimed))
 	{
 		ft_magic_free("%1 %1", trimed, s);
 		return (FALSE);
 	}
-	ft_magic_free("%1 %1", str, s);
+	free(s);
 	*str = trimed;
 	return (TRUE);
 }
