@@ -6,58 +6,55 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 15:16:01 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:28:48 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <string.h>
 
-int	count_space(char *str)
+int	count_space(char *str, int need_free)
 {
-	int	count;
+	int		count;
+	char	*tmp;
 
 	count = 0;
+	tmp = str;
 	while (*str)
 	{
 		if (*str == ' ')
 			count++;
 		str++;
 	}
+	if (need_free)
+		free(tmp);
 	return (count);
 }
 
-t_bool	unqote_redir(char **str, t_lst_envp *envp)
+t_bool	unqote_redir(char **str, t_lst_envp *envp, int is_dollard)
 {
 	char	*trimed;
 	char	*s;
-	int		is_dollard;
 	int		count;
 
-	is_dollard = 0;
 	if (!str || !*str)
 		return (TRUE);
 	s = ft_strtrim(*str, " ");
-	count = count_space(s);
-	free(s);
+	count = count_space(s, 1);
 	s = *str;
-	while (*s)
+	while (*s && !is_dollard)
 	{
-		if (*s == '$')
-			is_dollard = 1;
-		if (*s == '$')
-			break ;
+		is_dollard = *s == '$';
 		s += 1;
 	}
 	s = ft_unquote(*str, envp);
 	trimed = ft_strtrim(s, " ");
-	if (is_dollard && count != count_space(trimed))
+	if (is_dollard && count != count_space(trimed, 0))
 	{
 		ft_magic_free("%1 %1", trimed, s);
 		return (FALSE);
 	}
-	free(*str);
-	free(s);
+	ft_magic_free("%1 %1", *str, s);
 	*str = trimed;
 	return (TRUE);
 }
@@ -88,7 +85,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 	{
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
-		if (!unqote_redir(&redir->file, lst_envp))
+		if (!unqote_redir(&redir->file, lst_envp, 0))
 			return (!print_error_access(AMBIGUOUS, redir->file));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
@@ -113,7 +110,7 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 	{
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
-		if (!unqote_redir(&redir->file, lst_envp))
+		if (!unqote_redir(&redir->file, lst_envp, 0))
 			return (!print_error_access(AMBIGUOUS, redir->file));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
