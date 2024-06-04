@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 16:49:31 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:13:54 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,7 @@ t_type_of_node	get_type(char *s)
 	return (CMD);
 }
 
-char	**unzoom(char *s)
-{
-	char	**unzoomed;
-
-	unzoomed = ft_calloc(2, sizeof(char *));
-	if (unzoomed)
-	{
-		unzoomed[0] = ft_strdup(s);
-		unzoomed[1] = NULL;
-	}
-	return (unzoomed);
-}
-
-void	test(char **args, t_lst_cmd **lst_cmd)
+void	tokenise_redir(char **args, t_lst_cmd **lst_cmd)
 {
 	int				i;
 	char			**cmd_and_arg;
@@ -75,7 +62,7 @@ t_lst_cmd	*parsing(char *line)
 
 	lst_cmd = NULL;
 	args = va_tokeniser(line, 3, "||", "&&", "|");
-	test(args, &lst_cmd);
+	tokenise_redir(args, &lst_cmd);
 	ft_magic_free("%1 %2", line, args);
 	return (lst_cmd);
 }
