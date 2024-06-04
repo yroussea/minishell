@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:01 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:14:57 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:44:14 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_bool	invalide_redir_sep(t_lst_redir *redir, char **error)
 		i = 0;
 		while (i < 4)
 		{
+			ft_printf_fd(2, "{%s}\n",redir->file);
 			if (strncmp(invalide_sep[i], redir->file, 3) == 0)
 			{
 				*error = ft_strdup(invalide_sep[i]);

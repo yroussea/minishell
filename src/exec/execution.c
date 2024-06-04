@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/04 14:07:13 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:36:53 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_bool	split_two_lst(
 		if ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR)
 			ft_lst_com_add(cmd, lst->cmd);
 		if ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR)
-			tmp = -1 * invalide_redir_sep((*cmd)->redir, &error);
+			tmp = -1 * invalide_redir_sep(lst_com_pop(cmd)->redir, &error);
 		else if (lst->type != CMD)
 		{
 			tmp = (tmp || !*cmd) * -2 + 1;
@@ -57,6 +57,7 @@ t_bool	split_two_lst(
 		}
 		lst = lst->next;
 	}
+	ft_print_com(2, *cmd);
 	return (TRUE);
 }
 

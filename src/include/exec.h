@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/03 14:34:50 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:36:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_lst_com		*init_node_com(char **s);
 void			ft_lst_com_free(t_lst_com *lst);
 t_bool			ft_lst_com_add(t_lst_com **lst, char **s);
 void			lst_com_add_back(t_lst_com **lst, t_lst_com *new);
-void			lst_com_pop(t_lst_com **lst);
+t_lst_com		*lst_com_pop(t_lst_com **lst);
 
 t_lst_ope		*init_node_ope(t_type_of_node type);
 void			ft_lst_ope_free(t_lst_ope *lst);
