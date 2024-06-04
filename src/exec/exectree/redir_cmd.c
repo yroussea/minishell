@@ -6,12 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 15:28:48 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:56:20 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <string.h>
+
 
 int	count_space(char *str, int need_free)
 {
@@ -89,7 +89,11 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 			return (!print_error_access(AMBIGUOUS, redir->file));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
+		{
+			ft_printf("petite-coquille: %s: No such file or directory\n", \
+				redir->file);
 			return (FALSE);
+		}
 		redir = redir->next;
 	}
 	replace_fds(fds_in, fds_out, fds_error, fds);
@@ -114,7 +118,11 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 			return (!print_error_access(AMBIGUOUS, redir->file));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
+		{
+			ft_printf("petite-coquille: %s: No such file or directory\n", \
+				redir->file);
 			return (FALSE);
+		}
 		redir = redir->next;
 	}
 	node->infile = fds_in;

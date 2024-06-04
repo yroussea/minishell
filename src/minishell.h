@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/29 13:30:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:56:25 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <strings.h>
+# include <string.h>
 # include <termios.h>
 
 # define DEFAULT "\001\033[m\002"

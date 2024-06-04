@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/04 15:11:07 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:56:47 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
-#include <string.h>
 
 void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 {
