@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/03 14:56:13 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:42:26 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,35 @@ t_bool	unqote_redir(char **str, t_lst_envp *envp)
 	while (*s)
 	{
 		if (*s == '$')
-		{
 			is_dollard = 1;
+		if (*s == '$')
 			break ;
-		}
 		s += 1;
 	}
-	trimed = ft_strtrim(ft_unquote(*str, envp), " ");
+	s = ft_unquote(*str, envp);
+	trimed = ft_strtrim(s, " ");
+	// espace dans le dollars et pas n'importe ou
 	if (is_dollard && strchr(trimed, ' '))
 	{
-		free(trimed);
+		ft_magic_free("%1 %1", trimed, s);
 		return (FALSE);
 	}
-	free(*str);
+	ft_magic_free("%1 %1", str, s);
 	*str = trimed;
 	return (TRUE);
+}
+
+void	check_type(int *fds_in, int *fds_out, int *fds_error, t_lst_redir \
+*redir)
+{
+	if (redir->type == DIRE_IN)
+		*fds_in = redir_infile(*fds_in, redir);
+	if (redir->type == ADD)
+		*fds_out = redir_add(*fds_out, redir);
+	if (redir->type == DIRE_OUT)
+		*fds_out = redir_out(*fds_out, redir);
+	if (redir->type == DIRE_TWO)
+		*fds_error = redir_error(*fds_error, redir);
 }
 
 t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
@@ -57,18 +71,8 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
 		if (!unqote_redir(&redir->file, lst_envp))
-		{
-			print_error_access(AMBIGUOUS, redir->file);
-			return (FALSE);
-		}
-		if (redir->type == DIRE_IN)
-			fds_in = redir_infile(fds_in, redir);
-		if (redir->type == ADD)
-			fds_out = redir_add(fds_out, redir);
-		if (redir->type == DIRE_OUT)
-			fds_out = redir_out(fds_out, redir);
-		if (redir->type == DIRE_TWO)
-			fds_error = redir_error(fds_error, redir);
+			return (!print_error_access(AMBIGUOUS, redir->file));
+		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
 			return (FALSE);
 		redir = redir->next;
@@ -92,18 +96,8 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
 		if (!unqote_redir(&redir->file, lst_envp))
-		{
-			print_error_access(AMBIGUOUS, redir->file);
-			return (FALSE);
-		}
-		if (redir->type == DIRE_IN)
-			fds_in = redir_infile(fds_in, redir);
-		if (redir->type == ADD)
-			fds_out = redir_add(fds_out, redir);
-		if (redir->type == DIRE_OUT)
-			fds_out = redir_out(fds_out, redir);
-		if (redir->type == DIRE_TWO)
-			fds_error = redir_error(fds_error, redir);
+			return (!print_error_access(AMBIGUOUS, redir->file));
+		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
 			return (FALSE);
 		redir = redir->next;

@@ -6,11 +6,29 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:10:51 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/01 16:32:13 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:15:02 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_bool	only_space(char **strs)
+{
+	int	j;
+
+	j = 0;
+	while (strs && *strs)
+	{
+		while ((*strs)[j])
+		{
+			if ((*strs)[j] != ' ')
+				return (FALSE);
+			j += 1;
+		}
+		strs += 1;
+	}
+	return (TRUE);
+}
 
 void	remove_var_env(t_lst_envp **lst_envp, char *variable)
 {

@@ -6,29 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:01 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/31 15:32:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:14:57 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-t_bool	only_space(char **strs)
-{
-	int	j;
-
-	j = 0;
-	while (strs && *strs)
-	{
-		while ((*strs)[j])
-		{
-			if ((*strs)[j] != ' ')
-				return (FALSE);
-			j += 1;
-		}
-		strs += 1;
-	}
-	return (TRUE);
-}
 
 t_bool	no_replace_heredoc(char *str)
 {

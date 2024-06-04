@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:48 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:12:58 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,13 @@ int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 	return (1);
 }
 
-#define WELL_PLAYED "\u2B50 %s Bien joué! %s \u2B50\n%s%s"
-#define EASTER_EGG "Vous avez trouvé un des easters eggs !\n"
-#define BETTER_THAN_BASH "PS : petite-coquille > bash\n"
-#define MINISHORSH "\e[0;30mFaut aller se faire foutre aussi ...\e[0m\n"
-#define AUTOR "\u26A1 Made by Yroussea and Basverdi \u26A1\n"
-
 void	ft_stop(int ac, char **av)
 {
 	if (ac > 1 && ft_strncmp("--no-clear", av[1], 10))
 	{
 		if (!ft_strncmp(av[1], "--mini-coque", 12))
-			ft_printf_fd(2, WELL_PLAYED, YELLOW, DEFAULT, EASTER_EGG, BETTER_THAN_BASH);
+			ft_printf_fd(2, WELL_PLAYED, YELLOW, DEFAULT, EASTER_EGG, \
+				BETTER_THAN_BASH);
 		else if (!ft_strncmp(av[1], "--goat", 6))
 			ft_printf_fd(2, AUTOR);
 		else if (!ft_strncmp(av[1], "--42sh", 6))
