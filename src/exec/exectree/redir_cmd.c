@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 15:06:39 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:16:01 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_bool	unqote_redir(char **str, t_lst_envp *envp)
 		ft_magic_free("%1 %1", trimed, s);
 		return (FALSE);
 	}
+	free(*str);
 	free(s);
 	*str = trimed;
 	return (TRUE);
