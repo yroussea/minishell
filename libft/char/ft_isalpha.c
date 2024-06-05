@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:08:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 16:52:47 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:44:02 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,13 @@
 int	ft_isalpha(int c)
 {
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
+
+int	ft_isnum(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else if (c == '-' || c == '+' || c == '/')
+		return (1);
+	return (0);
 }

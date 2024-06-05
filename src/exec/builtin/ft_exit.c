@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/01 16:01:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:02:58 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool	check_evry_arg(char **args)
 		j = 0;
 		while (args[i][j])
 		{
-			if (!ft_isalpha(args[i][j]))
+			if (!ft_isnum(args[i][j]))
 				return (FALSE);
 			j++;
 		}
@@ -58,18 +58,18 @@ void	ft_exit(t_node *node, t_bool frompipe)
 		ft_printf_fd(node->errorfile, "exit\n");
 	if (!frompipe)
 		fds = node->errorfile;
-	if (ft_str_str_len(node->args) > 2)
+	if (ft_str_str_len(node->args) > 2 && node->args[2])
 	{
-		ft_printf_fd(fds, "bash: exit: too many arguments\n", g_exitcode = 1);
-		if (check_evry_arg(node->args))
-			free_exit(node);
+		ft_printf_fd(fds, "petite-coquille: exit: too many arguments\n", \
+			g_exitcode = 1);
 		return ;
 	}
 	if (ft_str_str_len(node->args) == 2)
 	{
 		if (ft_overflow(node->args[1]) || !check_evry_arg(node->args))
 		{
-			ft_printf_fd(fds, "bash: exit: %s: numeric argument required\n", \
+			ft_printf_fd(fds, \
+			"petite-coquille: exit: %s: numeric argument required\n", \
 				node->args[1], g_exitcode = 2);
 			free_exit(node);
 		}

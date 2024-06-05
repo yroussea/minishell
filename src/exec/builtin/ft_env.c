@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:00:07 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/01 15:48:10 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:56:18 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_env(t_node *node, char *str)
+void	ft_env(t_node *node, char *str, int type)
 {
 	t_lst_envp	*envp;
 	char		*vars;
@@ -36,7 +36,9 @@ void	ft_env(t_node *node, char *str)
 		}
 		else
 			vars = ft_vjoin(4, "", str, envp->key, "=", envp->value);
-		ft_printf_fd(node->outfile, "%s\n", vars, envp = envp->next);
+		if (envp->value || type == 1)
+			ft_printf_fd(node->outfile, "%s\n", vars);
+		envp = envp->next;
 		free(vars);
 	}
 }

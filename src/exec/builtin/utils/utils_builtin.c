@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:55:27 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/01 15:56:29 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:57:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	display_env(t_node *node)
 {
-	ft_env(node, "declare -x ");
+	ft_env(node, "declare -x ", 1);
 }
 
 char	*is_envp_variable(t_lst_envp *lst_envp, char *variable)
