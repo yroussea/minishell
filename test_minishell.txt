@@ -1,37 +1,38 @@
-MANDATORY
+echo
 
-echo hello world                                              OK
-echo "hello world"                                            OK
-echo 'hello world'                                            OK
-echo hello'world'                                             OK
-echo hello""world                                             OK
-echo ''                                                       OK
-echo "$PWD"                                                   OK
-echo '$PWD'                                                   OK
-echo "aspas ->'"                                              OK
-echo "aspas -> ' "                                            OK
-echo 'aspas ->"'                                              OK
-echo 'aspas -> " '                                            OK
-echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"            ERREUR (ne print pas le dollars)
-echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'            OK
-echo "exit_code ->$? user ->$USER home -> $HOME"              ERREUR (print le ? apres la valeur du $?)
-echo 'exit_code ->$? user ->$USER home -> $HOME'              OK
-echo "$"                                                      ERREUR (line vide)
-echo '$'                                                      OK
-echo $                                                        ERREUR (line vide)
-echo $?                                                       ERREUR (print le ? apres la valeur du $?)
-echo $?HELLO                                                  ERREUR (print le ? apres la valeur du $?)
-pwd                                                           OK
-pwd oi                                                        OK
-export hello                                                  OK (a verifier)
-export HELLO=123                                              OK
-export A-                                                     OK
-export HELLO=123 A
-export HELLO="123 A-"
-export hello world
-export HELLO-=123
-export =
-export 123
+MANDATORY
+hello world                                        OK
+echo "hello world"                                 OK
+echo 'hello world'                                 OK
+echo hello'world'                                  OK
+echo hello""world                                  OK
+echo ''                                            OK
+echo "$PWD"                                        OK
+echo '$PWD'                                        OK
+echo "aspas ->'"                                   OK
+echo "aspas -> ' "                                 OK
+echo 'aspas ->"'                                   OK
+echo 'aspas -> " '                                 OK
+echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<" OK
+echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<' OK
+echo "exit_code ->$? user ->$USER home -> $HOME"   OK
+echo 'exit_code ->$? user ->$USER home -> $HOME'   OK
+echo "$"                                           OK
+echo '$'                                           OK
+echo $                                             OK
+echo $?                                            OK
+echo $?HELLO                                       OK
+pwd                                                OK
+pwd oi                                             OK
+export hello                                       OK
+export HELLO=123                                   OK
+export A-                                          OK
+export HELLO=123 A                                 OK
+export HELLO="123 A-"                              OK
+export hello world                                 OK
+export HELLO-=123                                  OK
+export =                                           OK
+export 123                                         OK
 unset
 unset HELLO
 unset HELLO1 HELLO2
@@ -41,44 +42,45 @@ unset SHELL
 cd $PWD
 cd $PWD hi 
 cd 123123
-exit 123
-exit 298
-exit +100
-exit "+100"
-exit +"100"
-exit -100
-exit "-100"
-exit -"100"
-exit hello
-exit 42 world
-$PWD
-$EMPTY
-$EMPTY echo hi
-./test_files/invalid_permission
+exit 123                                           OK
+exit 298                                           OK
+exit +100                                          OK
+exit "+100"                                        OK
+exit +"100"                                        OK
+exit -100                                          OK
+exit "-100"                                        OK
+exit -"100"                                        OK
+exit hello                                         OK
+exit 42 world					   OK                                                 
+$PWD                                               OK
+$EMPTY                                             OK
+$EMPTY echo hi                                     ERREUR (le echo ne s'execute pas)
+./test_files/no_file                               ERREUR ("command not found" au lieu de "No such file or directory")
+./test_files/bad_permissions                       ERREUR ("command not found" au lieu de "Permission denied")
 ./missing.out
 missing.out
-"aaa"
+"aaa"                                              OK
 test_files
 ./test_files
 /test_files
-minishell.h
-$
-$?
-README.md
+minishell.h                                        OK
+$                                                  OK
+$?                                                 OK
+README.md                                          OK
 unset HELLO=
 unset  A-
 export HELLO=123 A- WORLD=456
 unset  HELLO A- WORLD
 export UNO=1 DOS-2 TRES=3 || env | grep TRES
 export | sort | grep -v SHLVL | grep -v "declare -x _" | grep -v "PS.="
-exit 9223372036854775807
-exit 9223372036854775808
-exit -9223372036854775807
-exit -9223372036854775808
-exit -9223372036854775809
-env | sort | grep -v SHLVL | grep -v ^_
+exit 9223372036854775807                           OK
+exit 9223372036854775808                           OK
+exit -9223372036854775807                          OK
+exit -9223372036854775808                          OK
+exit -9223372036854775809                          OK
+env | sort | grep -v SHLVL | grep -v ^_            OK (a verifier)
 cat ./test_files/infile_big | grep oi
-cat minishell.h | grep ");"$
+cat minishell.h | grep ");"$                       OK (a verifier)
 export GHOST=123 | env | grep GHOST
 grep hi <./test_files/infile
 grep hi "<infile" <         ./test_files/infile
