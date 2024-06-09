@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 17:36:30 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/09 08:59:08 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,33 @@
 
 extern int	g_exitcode;
 
-void	parse_quote(t_node *node)
+void	parse_quote(t_node *node, int j, int i)
 {
-	int		i;
 	char	**result;
 
-	i = ft_str_str_len(node->args);
-	result = ft_calloc(sizeof(char *), i + 1);
-	i = 0;
-	while (result && node->args && *(node->args + i))
+	result = ft_calloc(sizeof(char *), ft_str_str_len(node->args) + 1);
+	while (result && node->args && *(node->args + j))
 	{
-		result[i] = ft_unquote(*(node->args + i), *(node->envp));
+		result[i] = ft_unquote(*(node->args + j), *(node->envp));
 		if (!result[i])
 		{
 			ft_free_split(result);
 			node->cmd = ft_strdup(*node->args);
 			return ;
 		}
-		i += 1;
+		if (!*result[i++])
+			free(result[--i]);
+		j += 1;
 	}
 	if (!result)
-	{
 		node->cmd = ft_strdup(*node->args);
+	if (!result)
 		return ;
-	}
 	node->args = result;
-	node->cmd = ft_strdup(*result);
+	if (!*result)
+		node->cmd = ft_strdup("");
+	else
+		node->cmd = ft_strdup(*(result));
 }
 
 void	exit_cmd(char *full_cmd, t_node *node, char **envp, int exitcode)
@@ -101,7 +102,7 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	int			pid;
 	char		*full_cmd;
 
-	parse_quote(node);
+	parse_quote(node, 0, 0);
 	if (node->cmd && is_builtin(node))
 		return (ft_exec_builtin(node, from_pipe, stks, fds));
 	full_cmd = get_access(*(node->envp), node->cmd);

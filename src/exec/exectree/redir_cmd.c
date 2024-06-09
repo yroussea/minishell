@@ -6,12 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 16:56:20 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/09 06:44:42 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 int	count_space(char *str, int need_free)
 {
@@ -72,6 +71,17 @@ void	check_type(int *fds_in, int *fds_out, int *fds_error, t_lst_redir \
 		*fds_error = redir_error(*fds_error, redir);
 }
 
+t_bool	diff_type_err_file(char *name)
+{
+	if (access(name, F_OK))
+		ft_printf_fd(2, NO_FILE, name);
+	else if (access(name, R_OK))
+		ft_printf_fd(2, HAVE_NO_PERM, name);
+	else
+		ft_printf_fd(2, "unexpected error happened with redirects\n");
+	return (FALSE);
+}
+
 t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 {
 	int		fds_error;
@@ -89,11 +99,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 			return (!print_error_access(AMBIGUOUS, redir->file));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-		{
-			ft_printf("petite-coquille: %s: No such file or directory\n", \
-				redir->file);
-			return (FALSE);
-		}
+			return (diff_type_err_file(redir->file));
 		redir = redir->next;
 	}
 	replace_fds(fds_in, fds_out, fds_error, fds);
@@ -118,11 +124,7 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 			return (!print_error_access(AMBIGUOUS, redir->file));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
-		{
-			ft_printf("petite-coquille: %s: No such file or directory\n", \
-				redir->file);
-			return (FALSE);
-		}
+			return (diff_type_err_file(redir->file));
 		redir = redir->next;
 	}
 	node->infile = fds_in;

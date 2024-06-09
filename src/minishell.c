@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:12:58 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/09 06:52:21 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 
 	prompt = NULL;
 	user = NULL;
-	signal(SIGPIPE, SIG_IGN);
+	// rl_outstream = stderr;
 	while (1)
 	{
 		set_sigaction(0);

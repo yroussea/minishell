@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/04 14:13:29 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/09 08:21:38 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef enum s_error
 {
 	NOT_CMD,
 	IS_DIR,
-	ISNOT_DIR,
 	NO_PERM,
+	ISNOT_DIR,
 	AMBIGUOUS,
 }			t_error;
 

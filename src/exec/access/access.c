@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/05/28 16:45:22 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/09 08:59:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,27 @@ extern int	g_exitcode;
 
 t_bool	print_error_access(t_error error_type, char *cmd)
 {
-	if (error_type == NOT_CMD && cmd && *cmd == '/')
-		ft_printf_fd(2, NO_FILE, cmd);
-	else if (error_type == NOT_CMD)
-	{
+	if (error_type == NOT_CMD)
 		g_exitcode = 127;
+	if (error_type == NOT_CMD && cmd && ft_strchr(cmd, '/') != NULL)
+		ft_printf_fd(2, NO_FILE, cmd);
+	else if (error_type == NOT_CMD || (error_type <= 2 && ft_strchr(cmd, '/') == NULL))
 		ft_printf_fd(2, CMD_NOT_FOUND, cmd);
-	}
 	else if (error_type == IS_DIR)
+	{
+		g_exitcode = 126;
 		ft_printf_fd(2, IS_A_DIR, cmd);
+	}
 	else if (error_type == NO_PERM)
+	{
+		g_exitcode = 126;
 		ft_printf_fd(2, HAVE_NO_PERM, cmd);
+	}
 	else if (error_type == ISNOT_DIR)
+	{
+		g_exitcode = 126;
 		ft_printf_fd(2, IS_NOT_DIR, cmd);
+	}
 	else if (error_type == AMBIGUOUS)
 		ft_printf_fd(2, AMBIGUOUS_ARG, cmd);
 	return (TRUE);
@@ -57,7 +65,6 @@ t_bool	access_errors(struct stat st, int status, char *path, char *cmd)
 		print_error_access(NO_PERM, cmd);
 	else
 		return (FALSE);
-	g_exitcode = 126;
 	return (TRUE);
 }
 
@@ -69,14 +76,14 @@ char	*extract_path(t_lst_envp *lst_envp, char *cmd)
 
 	if (!cmd)
 		return (NULL);
-	if (cmd && *cmd && access(cmd, X_OK) == 0)
+	if (cmd && *cmd && access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
 	allpaths = get_all_path(lst_envp);
 	i = 0;
 	while (allpaths && allpaths[i])
 	{
 		path = ft_vjoin(2, "/", allpaths[i], cmd);
-		if (path && *path && access(path, X_OK) == 0)
+		if (path && *path && access(path, F_OK) == 0)
 		{
 			{
 				ft_magic_free("%2", allpaths);

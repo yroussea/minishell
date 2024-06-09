@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/05 17:29:01 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/09 06:54:29 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool	is_forbidden(t_node *node, char *var)
 		if ((!ft_isalnum(var[i]) || !ft_isalpha(var[0])) && var[i] != '=' \
 			&& var[i] != '\'' && var[i] != '\"')
 		{
-			ft_printf_fd(node->outfile, \
+			ft_printf_fd(node->errorfile, \
 				"petite-coquille: export: `%s': not a valid identifier\n", \
 				var);
 			g_exitcode = 1;
@@ -54,7 +54,7 @@ t_bool	check_splited(char **splited, t_node *node)
 	if (!*splited)
 	{
 		ft_magic_free("%2", splited);
-		ft_printf_fd(node->outfile, "petite-coquille: export: `=': not a valid identifier\n");
+		ft_printf_fd(node->errorfile, "petite-coquille: export: `=': not a valid identifier\n");
 		g_exitcode = 1;
 		return (TRUE);
 	}
