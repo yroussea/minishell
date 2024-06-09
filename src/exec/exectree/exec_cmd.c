@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/09 08:59:08 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/09 10:42:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,8 @@ void	parse_quote(t_node *node, int j, int i)
 	while (result && node->args && *(node->args + j))
 	{
 		result[i] = ft_unquote(*(node->args + j), *(node->envp));
-		if (!result[i])
-		{
-			ft_free_split(result);
-			node->cmd = ft_strdup(*node->args);
-			return ;
-		}
-		if (!*result[i++])
-			free(result[--i]);
+		if (result[i])
+			i += 1;
 		j += 1;
 	}
 	if (!result)

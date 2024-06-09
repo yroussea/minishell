@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/04 14:36:05 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/09 10:42:08 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*ft_undoublequote(char *s, t_lst_envp *lst_envp)
 		tmp = ft_undolars(++s, lst_envp);
 		s += skip_underscore(s);
 		tmp_str = ft_undoublequote(s, lst_envp);
+		if (!tmp)
+			tmp = ft_strdup("");
 		return (join_and_free(3, "", res, tmp, tmp_str));
 	}
 	if (s && *s && *(s + 1))
@@ -71,7 +73,7 @@ char	*ft_undolars(char *s, t_lst_envp *lst_envp)
 	if (!variable)
 	{
 		free(res);
-		return (ft_strdup(""));
+		return (NULL);
 	}
 	free(res);
 	return (variable);
@@ -93,6 +95,7 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 {
 	char	*res;
 	char	*str;
+	char	*tmp;
 
 	res = strdup_until_sep(s, 3, 34, 36, 39);
 	while (s && *s && *s != 34 && *s != 36 && *s != 39)
@@ -104,13 +107,14 @@ char	*ft_unquote(char *s, t_lst_envp *lst_envp)
 	if (s && *s == 36)
 	{
 		str = ft_undolars(++s, lst_envp);
-		if (str && !*str)
+		s += skip_underscore(s); 
+		tmp = ft_unquote(s, lst_envp);
+		if (!str && (!res || !*res) && (!tmp || !*tmp))
 		{
-			free(str);
-			str = NULL;
+			ft_magic_free("%1 %1", res, tmp);
+			return (NULL);
 		}
-		s += skip_underscore(s);
-		return (join_and_free(3, "", res, str, ft_unquote(s, lst_envp)));
+		return (join_and_free(3, "", res, str, tmp));
 	}
 	return (res);
 }
