@@ -14,6 +14,7 @@ SRCS_FILES = 							\
 	parsing/parsing.c					\
 	parsing/tokeniser/tokeniser.c		\
 	parsing/unquoting.c					\
+	utils/utils_exec.c					\
 	utils/better_fnct.c					\
 	utils/better_fnct_2.c				\
 	utils/get_malloc.c					\
@@ -47,6 +48,7 @@ SRCS_FILES = 							\
 	exec/heredoc/heredoc_reopen.c		\
 	exec/lst_com_split_args.c			\
 	exec/utils/heredoc/utils_heredoc.c	\
+	exec/utils/exit_cmd.c				\
 	exec/utils/print_lst.c				\
 	exec/utils/print_tree.c				\
 	exec/utils/utils_cmd.c				\

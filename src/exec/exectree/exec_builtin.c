@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 18:53:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:24:45 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ t_bool	ft_exec_builtin(t_node *node, t_from_pipe from_pipe, \
 	}
 	else
 	{
-		get_set_exit_code(1 - all_redir_builtin(node, node->redir, *node->envp));
+		get_set_exit_code(1 - all_redir_builtin(node, node->redir, \
+			*node->envp));
 		if (!get_set_exit_code(-1))
 			exec_builtin(node->cmd, node, FALSE);
 		close_redir_builtin(node);

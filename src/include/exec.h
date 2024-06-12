@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 18:35:05 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:22:03 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,10 @@ t_data_stk		*init_stks(void);
 t_bool			invalide_single_redir(t_lst_redir *redir);
 t_bool			invalide_redir_sep(t_lst_redir *redir, char **error);
 int				count_space(char *str, int need_free);
+void			exit_cmd(char *full_cmd, t_node *node, char **envp, \
+	int exitcode);
+t_bool			verif_complete_tree(t_node *root);
+void			set_sig_fork(void);
 
 /*
  *

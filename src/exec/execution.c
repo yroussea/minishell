@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 19:20:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:25:26 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_bool	split_two_lst(
 		if ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR)
 			ft_lst_com_add(cmd, lst->cmd);
 		tmp_cmd = lst_com_pop(cmd);
-		if (tmp_cmd && ((lst->type == CMD && !only_space(lst->cmd)) 
-			|| lst->type > OR))
+		if (tmp_cmd && ((lst->type == CMD && !only_space(lst->cmd)) || \
+			lst->type > OR))
 			tmp = -1 * invalide_redir_sep(tmp_cmd->redir, &error);
 		else if (lst->type != CMD)
 		{

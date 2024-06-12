@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exitcode.c                                         :+:      :+:    :+:   */
+/*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 18:14:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 19:24:06 by basverdi         ###   ########.fr       */
+/*   Created: 2024/06/12 18:51:16 by basverdi          #+#    #+#             */
+/*   Updated: 2024/06/12 19:05:26 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../..//minishell.h"
+#include "../minishell.h"
 
-int	get_set_exit_code(int code)
+void	set_sig_fork(void)
 {
-	static int		exitcode;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handler_exec);
+	signal(SIGQUIT, handler_exec);
+}
 
-	if (code != -1)
-		exitcode = code;
-	return (exitcode);
+t_bool	verif_complete_tree(t_node *root)
+{
+	if (!root)
+		return (FALSE);
+	if (root->type == PIPE || root->type == AND || root->type == OR)
+		return (verif_complete_tree(root->left) && \
+			verif_complete_tree(root->right));
+	return (TRUE);
 }
