@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 16:30:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:44:11 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,11 @@ char	*ft_unquote(char *s, t_lst_envp *lst, int in_dollar)
 	while (s && *s && *s != 34 && *s != 36 && *s != 39)
 		s++;
 	if (s && *s == 34)
-		return (join_and_free(4, "", res, ft_strdup("\001"), ft_undoublequote(s + 1, lst, in_dollar), ft_strdup("\001")));
+		return (join_and_free(4, "", res, ft_strdup("\001"), \
+			ft_undoublequote(s + 1, lst, in_dollar), ft_strdup("\001")));
 	if (s && *s == 39)
-		return (join_and_free(4, "", res, ft_strdup("\001"), ft_unsimplequote(s + 1, lst, in_dollar), ft_strdup("\001")));
+		return (join_and_free(4, "", res, ft_strdup("\001"), \
+			ft_unsimplequote(s + 1, lst, in_dollar), ft_strdup("\001")));
 	if (s && *s == 36)
 	{
 		str = ft_undolars(++s, lst, in_dollar);

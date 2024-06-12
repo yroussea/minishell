@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 15:30:20 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:54:42 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	**test(char **res, char *unqoted)
 	tmp = ft_split_out_quote(unqoted, ' ', '\001');
 	if (!tmp)
 		return (res);
-	tab = ft_calloc(sizeof(char *), ft_str_str_len(tmp) + ft_str_str_len(res) + 1);
+	tab = ft_calloc(sizeof(char *), \
+	ft_str_str_len(tmp) + ft_str_str_len(res) + 1);
 	if (!tab)
 	{
 		ft_free_split(tmp);
@@ -40,7 +41,6 @@ char	**test(char **res, char *unqoted)
 	ft_free_split(tmp);
 	return (tab);
 }
-
 
 void	parse_quote(t_node *node, int j, int i)
 {

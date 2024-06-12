@@ -6,11 +6,22 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:00:07 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/05 16:56:18 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:57:14 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+t_bool	env_err(t_node *node)
+{
+	if (ft_str_str_len(node->args) > 1)
+	{
+		ft_printf_fd(node->outfile, "env: %s: No such file or directory\n", \
+			node->args[1]);
+		return (TRUE);
+	}
+	return (FALSE);
+}
 
 void	ft_env(t_node *node, char *str, int type)
 {
@@ -18,12 +29,8 @@ void	ft_env(t_node *node, char *str, int type)
 	char		*vars;
 
 	envp = *(node->envp);
-	if (ft_str_str_len(node->args) > 1)
-	{
-		ft_printf_fd(node->outfile, "env: %s: No such file or directory\n", \
-			node->args[1]);
-		return ;
-	}
+	if (env_err(node))
+			return ;
 	while (envp)
 	{
 		if (str)

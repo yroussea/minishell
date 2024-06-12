@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/11 07:15:50 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:57:42 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int g_exitcode;
+extern int	g_exitcode;
 
 void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 {

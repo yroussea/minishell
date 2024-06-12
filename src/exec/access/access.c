@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 16:48:01 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:48:19 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,33 @@
 
 extern int	g_exitcode;
 
+void	print_msg(char *msg, char *cmd)
+{
+	ft_printf_fd(2, msg, cmd);
+}
+
 t_bool	print_error_access(t_error error_type, char *cmd)
 {
 	if (error_type == NOT_CMD)
 		g_exitcode = 127;
 	if (error_type == NOT_CMD && cmd && ft_strchr(cmd, '/') != NULL)
 		ft_printf_fd(2, NO_FILE, cmd);
-	else if (error_type == NOT_CMD || (error_type <= 2 && ft_strchr(cmd, '/') == NULL))
+	else if (error_type == NOT_CMD || \
+		(error_type <= 2 && ft_strchr(cmd, '/') == NULL))
 	{
 		g_exitcode = 127;
 		ft_printf_fd(2, CMD_NOT_FOUND, cmd);
 	}
-	else if (error_type == IS_DIR)
+	else if (error_type == IS_DIR || error_type == NO_PERM || \
+		error_type == ISNOT_DIR)
 	{
 		g_exitcode = 126;
-		ft_printf_fd(2, IS_A_DIR, cmd);
-	}
-	else if (error_type == NO_PERM)
-	{
-		g_exitcode = 126;
-		ft_printf_fd(2, HAVE_NO_PERM, cmd);
-	}
-	else if (error_type == ISNOT_DIR)
-	{
-		g_exitcode = 126;
-		ft_printf_fd(2, IS_NOT_DIR, cmd);
+		if (error_type == IS_DIR)
+			print_msg(IS_A_DIR, cmd);
+		else if (error_type == NO_PERM)
+			print_msg(HAVE_NO_PERM, cmd);
+		else if (error_type == ISNOT_DIR)
+			print_msg(IS_NOT_DIR, cmd);
 	}
 	else if (error_type == AMBIGUOUS)
 		ft_printf_fd(2, AMBIGUOUS_ARG, cmd);
