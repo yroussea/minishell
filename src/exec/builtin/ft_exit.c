@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/11 05:55:04 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:23:19 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,28 @@
 #include <unistd.h>
 
 extern int	g_exitcode;
+
+t_bool    check_first_arg(char **args)
+{
+    int    i;
+
+    i = 0;
+    while (args[1][i])
+    {
+        if (i == 0 && args[1][i] == '-')
+            i++;
+        if (!ft_isnum(args[1][i]))
+            return (FALSE);
+        i++;
+    }
+    return (TRUE);
+}
+
+if (!check_first_arg(node->args))
+{
+  g_exitcode = 2;
+  free_exit(node);
+}
 
 t_bool	check_evry_arg(char **args)
 {
