@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 15:26:08 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:55:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_bool	check_evry_arg(char **args)
 		j = 0;
 		while (args[i][j])
 		{
-			if (!ft_isnum(args[i][j]))
+			if (!ft_isnum(args[i][j]) && args[i][j] != ' ')
 				return (FALSE);
 			j++;
 		}

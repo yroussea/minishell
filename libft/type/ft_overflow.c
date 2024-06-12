@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:30:10 by basverdi          #+#    #+#             */
-/*   Updated: 2024/04/10 17:47:44 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:52:43 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_bool	ft_overflow(char *s)
 
 	i = 0;
 	neg = 0;
+	while (s && *s && *s == ' ')
+		s++;
 	if (!is_nb(s))
 		return (TRUE);
 	neg = (*s == '-') * -1 + (*s == '+') * 1;
