@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   exitcode.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 14:19:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:49:57 by yroussea         ###   ########.fr       */
+/*   Created: 2024/06/12 18:14:08 by yroussea          #+#    #+#             */
+/*   Updated: 2024/06/12 19:14:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../..//minishell.h"
 
-void	ft_pwd(t_node *node)
+int	get_set_exit_code(int code)
 {
-	char	buf[10000];
+	static int		exitcode;
 
-	getcwd(buf, 10000);
-	ft_printf_fd(node->outfile, "%s\n", buf);
-	get_set_exit_code(0);
+	if (code != -1)
+		exitcode = code;
+	return (exitcode);
 }
+

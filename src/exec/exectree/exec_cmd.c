@@ -6,15 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 17:54:42 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:17:45 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-extern int	g_exitcode;
-
-char	**test(char **res, char *unqoted)
+char	**quote_realloc(char **res, char *unqoted)
 {
 	char	**tmp;
 	char	**tab;
@@ -51,7 +49,7 @@ void	parse_quote(t_node *node, int j, int i)
 	while (res && node->args && *(node->args + j))
 	{
 		unqoted = ft_unquote(*(node->args + j), *(node->envp), 0);
-		res = test(res, unqoted);
+		res = quote_realloc(res, unqoted);
 		free(unqoted);
 		while (res[i])
 			i += 1;
@@ -63,18 +61,6 @@ void	parse_quote(t_node *node, int j, int i)
 		return ;
 	node->args = res;
 	node->cmd = ft_strdup(*res);
-}
-
-void	exit_cmd(char *full_cmd, t_node *node, char **envp, int exitcode)
-{
-	free(full_cmd);
-	ft_magic_free("%2 %2", node->args, envp);
-	ft_get_envp(NULL, FALSE, TRUE);
-	ft_get_root(NULL, FALSE, TRUE);
-	ft_get_lsts(NULL, NULL, FALSE, TRUE);
-	ft_get_stks(NULL, FALSE, TRUE);
-	rl_clear_history();
-	exit(exitcode);
 }
 
 void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
@@ -93,9 +79,9 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
 		}
 		else
 			ft_close_pipe(stks->pipes);
-		g_exitcode = 1;
+		get_set_exit_code(1);
 	}
-	exit_cmd(full_cmd, node, envp_char, g_exitcode);
+	exit_cmd(full_cmd, node, envp_char, get_set_exit_code(-1));
 }
 
 void	fake_pid(int exit_code, t_data_stk *stks)
@@ -145,6 +131,6 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	all_redir_builtin(node, node->redir, *node->envp);
 	close_redir_builtin(node);
 	ft_free_split(node->args);
-	fake_pid(g_exitcode, stks);
+	fake_pid(get_set_exit_code(-1), stks);
 	return (ERROR);
 }

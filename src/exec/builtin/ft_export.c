@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:02:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:11:28 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-extern int	g_exitcode;
 
 t_bool	is_forbidden(t_node *node, char *var)
 {
@@ -27,7 +25,7 @@ t_bool	is_forbidden(t_node *node, char *var)
 			ft_printf_fd(node->errorfile, \
 				"petite-coquille: export: `%s': not a valid identifier\n", \
 				var);
-			g_exitcode = 1;
+			get_set_exit_code(1);
 			return (TRUE);
 		}
 		i++;
@@ -56,7 +54,7 @@ t_bool	check_splited(char **splited, t_node *node)
 		ft_magic_free("%2", splited);
 		ft_printf_fd(node->errorfile, \
 		"petite-coquille: export: `=': not a valid identifier\n");
-		g_exitcode = 1;
+		get_set_exit_code(1);
 		return (TRUE);
 	}
 	return (FALSE);

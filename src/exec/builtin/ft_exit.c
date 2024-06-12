@@ -6,14 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 17:53:08 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:58:05 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <unistd.h>
-
-extern int	g_exitcode;
 
 t_bool	check_first_arg(char **args)
 {
@@ -26,7 +24,7 @@ t_bool	check_first_arg(char **args)
 			i++;
 		if (!ft_isnum(args[1][i]))
 		{
-			g_exitcode = 2;
+			get_set_exit_code(2);
 			return (FALSE);
 		}
 		i++;
@@ -51,7 +49,7 @@ t_bool	check_evry_arg(char **args)
 		}
 		i++;
 	}
-	g_exitcode = 2;
+	get_set_exit_code(2);
 	return (TRUE);
 }
 
@@ -65,14 +63,15 @@ void	free_exit(t_node *node)
 	ft_get_root(NULL, FALSE, TRUE);
 	ft_get_envp(NULL, FALSE, TRUE);
 	rl_clear_history();
-	exit(g_exitcode);
+	exit(get_set_exit_code(-1));
 }
 
 void	exit_err(t_node *node, int fds)
 {
 	ft_printf_fd(fds, \
 		"petite-coquille: exit: %s: numeric argument required\n", \
-		node->args[1], g_exitcode = 2);
+		node->args[1]);
+	get_set_exit_code(2);
 	free_exit(node);
 }
 
@@ -89,8 +88,8 @@ void	ft_exit(t_node *node, t_bool frompipe)
 	{
 		if (ft_overflow(node->args[1]))
 			exit_err(node, fds);
-		ft_printf_fd(fds, "petite-coquille: exit: too many arguments\n", \
-			g_exitcode = 1);
+		ft_printf_fd(fds, "petite-coquille: exit: too many arguments\n");
+		get_set_exit_code(1);
 		if (!check_first_arg(node->args))
 			free_exit(node);
 		return ;
@@ -99,7 +98,7 @@ void	ft_exit(t_node *node, t_bool frompipe)
 	{
 		if (ft_overflow(node->args[1]) || !check_evry_arg(node->args))
 			exit_err(node, fds);
-		g_exitcode = ft_atoll(node->args[1]) % 256;
+		get_set_exit_code(ft_atoll(node->args[1]) % 256);
 	}
 	free_exit(node);
 }

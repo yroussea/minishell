@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/11 11:07:30 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:49:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-extern int	g_exitcode;
 
 void	handler(int signal)
 {
@@ -22,7 +20,7 @@ void	handler(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_exitcode = 130;
+		get_set_exit_code(130);
 	}
 	if (signal == SIGQUIT)
 		return ;
@@ -33,12 +31,12 @@ void	handler_exec(int signal)
 	if (signal == SIGINT)
 	{
 		ft_printf("\n");
-		g_exitcode = 130;
+		get_set_exit_code(130);
 	}
 	if (signal == SIGQUIT)
 	{
 		ft_printf("Quit\n");
-		g_exitcode = 131;
+		get_set_exit_code(131);
 	}
 }
 

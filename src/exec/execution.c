@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 18:05:28 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:20:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-extern int	g_exitcode;
 
 void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 {
@@ -24,7 +22,7 @@ void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 	else if (!*error)
 		*error = ft_strdup("newline");
 	ft_printf_fd(2, "%s `%s`\n", "syntax error close to", *error);
-	g_exitcode = 2;
+	get_set_exit_code(2);
 	free(*error);
 }
 
@@ -36,7 +34,7 @@ t_bool	split_two_lst(
 {
 	static char		*type_of_node[4] = {"42", "|", "&&", "||"};
 	char			*error;
-	t_lst_com       *tmp_cmd;
+	t_lst_com		*tmp_cmd;
 
 	error = NULL;
 	while (lst || tmp == -1)
@@ -48,7 +46,8 @@ t_bool	split_two_lst(
 		if ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR)
 			ft_lst_com_add(cmd, lst->cmd);
 		tmp_cmd = lst_com_pop(cmd);
-		if (tmp_cmd && ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR))
+		if (tmp_cmd && ((lst->type == CMD && !only_space(lst->cmd)) 
+			|| lst->type > OR))
 			tmp = -1 * invalide_redir_sep(tmp_cmd->redir, &error);
 		else if (lst->type != CMD)
 		{
@@ -60,16 +59,6 @@ t_bool	split_two_lst(
 		}
 		lst = lst->next;
 	}
-	return (TRUE);
-}
-
-t_bool	verif_complete_tree(t_node *root)
-{
-	if (!root)
-		return (FALSE);
-	if (root->type == PIPE || root->type == AND || root->type == OR)
-		return (verif_complete_tree(root->left) && \
-			verif_complete_tree(root->right));
 	return (TRUE);
 }
 
@@ -112,7 +101,7 @@ void	execution(t_lst_cmd *lst, t_lst_envp **envp, t_data_stk *stks)
 	else
 	{
 		ft_printf_fd(2, "syntax error: Uncomplete line\n");
-		g_exitcode = 2;
+		get_set_exit_code(2);
 	}
 }
 

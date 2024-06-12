@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 17:15:58 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:00:47 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-extern int	g_exitcode;
 
 t_bool	go_to_oldpwd(t_node *node)
 {
@@ -29,7 +27,7 @@ t_bool	go_to_oldpwd(t_node *node)
 		}
 		else
 		{
-			g_exitcode = 1;
+			get_set_exit_code(1);
 			ft_printf_fd(node->errorfile, \
 				"petite-coquille: cd: OLDPWD not set\n");
 			return (FALSE);
@@ -42,14 +40,14 @@ t_bool	cd_err(t_node *node)
 {
 	if (ft_str_str_len(node->args) > 2)
 	{
-		g_exitcode = 1;
+		get_set_exit_code(1);
 		ft_printf_fd(node->errorfile, \
 			"petite-coquille: cd: too many arguments\n");
 		return (TRUE);
 	}
-	if (g_exitcode != 0)
+	if (get_set_exit_code(-1) != 0)
 	{
-		g_exitcode = 1;
+		get_set_exit_code(1);
 		ft_printf_fd(node->errorfile, \
 			"petite-coquille: cd: %s: No such file or directory\n", \
 			node->args[1]);
@@ -78,6 +76,6 @@ void	ft_cd(t_node *node)
 	var = ft_vjoin(2, "", "PWD=", buf);
 	ft_export(node, var);
 	free(var);
-	g_exitcode = errno;
+	get_set_exit_code(errno);
 	cd_err(node);
 }

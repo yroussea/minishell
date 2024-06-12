@@ -6,14 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 17:48:19 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:13:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <sys/stat.h>
-
-extern int	g_exitcode;
 
 void	print_msg(char *msg, char *cmd)
 {
@@ -23,19 +21,19 @@ void	print_msg(char *msg, char *cmd)
 t_bool	print_error_access(t_error error_type, char *cmd)
 {
 	if (error_type == NOT_CMD)
-		g_exitcode = 127;
+		get_set_exit_code(127);
 	if (error_type == NOT_CMD && cmd && ft_strchr(cmd, '/') != NULL)
 		ft_printf_fd(2, NO_FILE, cmd);
 	else if (error_type == NOT_CMD || \
 		(error_type <= 2 && ft_strchr(cmd, '/') == NULL))
 	{
-		g_exitcode = 127;
+		get_set_exit_code(127);
 		ft_printf_fd(2, CMD_NOT_FOUND, cmd);
 	}
 	else if (error_type == IS_DIR || error_type == NO_PERM || \
 		error_type == ISNOT_DIR)
 	{
-		g_exitcode = 126;
+		get_set_exit_code(126);
 		if (error_type == IS_DIR)
 			print_msg(IS_A_DIR, cmd);
 		else if (error_type == NO_PERM)

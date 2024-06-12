@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/11 05:54:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:12:47 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-extern int	g_exitcode;
 
 void	ft_exit_heredoc(char *eof, int fd, char *line)
 {
@@ -58,8 +56,7 @@ t_bool	exec_heredoc(char *eof, int fd)
 		}
 	}
 	waitpid(pid, &status, 0);
-	g_exitcode = WEXITSTATUS(status);
-	return (!g_exitcode);
+	return (!get_set_exit_code(WEXITSTATUS(status)));
 }
 
 char	*end_word(char *eof)

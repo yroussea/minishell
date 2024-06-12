@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/18 17:09:24 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:10:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-extern int	g_exitcode;
 
 int	get_os(t_lst_envp *lst_envp)
 {
@@ -65,13 +63,13 @@ char	*get_envp_variable(t_lst_envp *lst_envp, char *variable)
 			return (ft_strdup(lst_envp->value));
 		lst_envp = lst_envp->next;
 	}
-	if (ft_strncmp(variable, "PWD", 3) == 0)
+	if (ft_strncmp(variable, "PWD", 3) == 0) //prb echo si unset
 	{
 		getcwd(buf, 10000);
 		return (ft_strdup(buf));
 	}
 	if (ft_strncmp(variable, "?", 1) == 0)
-		return (ft_itoa(g_exitcode));
+		return (ft_itoa(get_set_exit_code(-1)));
 	return (NULL);
 }
 

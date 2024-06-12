@@ -6,13 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:57:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 17:46:56 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:52:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-extern int	g_exitcode;
 
 void	wait_all(t_stack_id **stk, int checkpoint)
 {
@@ -30,9 +28,9 @@ void	wait_all(t_stack_id **stk, int checkpoint)
 		if (last_cmd)
 		{
 			if (tmp_code == 2)
-				g_exitcode = 130;
+				get_set_exit_code(130);
 			else
-				g_exitcode = WEXITSTATUS(tmp_code);
+				get_set_exit_code(WEXITSTATUS(tmp_code));
 			last_cmd = FALSE;
 		}
 	}

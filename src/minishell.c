@@ -6,15 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/11 06:36:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:48:06 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "include/utils.h"
 #include <sys/wait.h>
-
-int	g_exitcode;
 
 int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 {
@@ -82,14 +80,14 @@ int	main(int argc, char **argv, char **envp)
 	t_lst_envp	*lst_envp;
 
 	ft_stop(argc, argv);
-	g_exitcode = 0;
+	get_set_exit_code(0);
 	lst_envp = init_lst_envp(envp);
 	if (!display_prompt(lst_envp))
 	{
 		rl_clear_history();
-		return (g_exitcode);
+		return (get_set_exit_code(-1));
 	}
 	free_lst_envp(lst_envp);
 	rl_clear_history();
-	return (g_exitcode);
+	return (get_set_exit_code(-1));
 }

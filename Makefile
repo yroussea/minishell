@@ -24,6 +24,7 @@ SRCS_FILES = 							\
 	utils/prompt/prompt.c				\
 	utils/prompt/prompt_get_git.c		\
 	utils/sig/sig.c						\
+	utils/sig/exitcode.c				\
 	exec/access/access.c				\
 	exec/builtin/ft_cd.c				\
 	exec/builtin/ft_echo.c				\
