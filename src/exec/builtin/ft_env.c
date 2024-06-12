@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:00:07 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 17:57:14 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:00:02 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_env(t_node *node, char *str, int type)
 
 	envp = *(node->envp);
 	if (env_err(node))
-			return ;
+		return ;
 	while (envp)
 	{
 		if (str)

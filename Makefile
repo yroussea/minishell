@@ -49,6 +49,7 @@ SRCS_FILES = 							\
 	exec/utils/print_lst.c				\
 	exec/utils/print_tree.c				\
 	exec/utils/utils_cmd.c				\
+	exec/utils/utils_redir.c			\
 	exec/utils/lst/lst_com.c			\
 	exec/utils/lst/stkpid.c				\
 	exec/utils/lst/stkpipe.c			\

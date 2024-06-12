@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/04 14:36:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:04:03 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ t_bool			only_space(char **strs);
 t_data_stk		*init_stks(void);
 t_bool			invalide_single_redir(t_lst_redir *redir);
 t_bool			invalide_redir_sep(t_lst_redir *redir, char **error);
+int				count_space(char *str, int need_free);
 
 /*
  *

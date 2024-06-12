@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 17:55:29 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:02:03 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	is_forbidden(t_node *node, char *var)
 	while (var[i])
 	{
 		if ((!ft_isalnum(var[i]) || !ft_isalpha(var[0])) && var[i] != '=' \
-			&& var[i] != '\'' && var[i] != '\"')
+			&& var[i] != '\'' && var[i] != '\"' && var[i] != '_')
 		{
 			ft_printf_fd(node->errorfile, \
 				"petite-coquille: export: `%s': not a valid identifier\n", \
