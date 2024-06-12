@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 15:09:33 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:30:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_undoublequote(char *s, t_lst_envp *lst, int in_dollar)
 		s++;
 	if (s && *s == 36)
 	{
-		tmp = ft_undolars(++s, lst, in_dollar);
+		tmp = ft_undolars(++s, lst, in_dollar + 2);
 		s += skip_underscore(s);
 		tmp_str = ft_undoublequote(s, lst, in_dollar);
 		if (!tmp)
@@ -68,7 +68,7 @@ char	*ft_undolars(char *s, t_lst_envp *lst, int in_dollar)
 	if (res && !*res)
 	{
 		free(variable);
-		if ((*s == '\'' || *s == '"') && !in_dollar)
+		if ((*s == '\'' || *s == '"') && 0 == (in_dollar))
 			variable = NULL;
 		else
 			variable = ft_strdup("$");
