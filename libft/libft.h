@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:31:20 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/05 17:34:43 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:40:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strrchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strdup(const char *s);
+char		*ft_strdupexept(char *s, char c);
+char		*ft_strndup(const char *s, int n);
 char		*strdup_until_funct(char *s, int (f(char c)));
 char		*strdup_until_sep(char *s, int nb_sep, ...);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
@@ -86,6 +88,7 @@ char		**ft_str_realloc(char **str);
 int			ft_str_str_len(char **str);
 char		*ft_strtrim(char const *s1, char const *set);
 void		ft_free_split(char **result);
+char		**ft_split_out_quote(char const *s, char c, char quote);
 char		**ft_split(char const *s, char c);
 char		**ft_split_charset(char const *s, char *charset);
 char		**ft_split_first_sep(char const *s, char c);

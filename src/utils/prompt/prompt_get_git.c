@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:36:21 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/25 13:03:15 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 09:33:41 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	get_branch(char **branch, char *config_file)
 		{
 			tmp = ft_strchr(line, '"');
 			if (!tmp)
-				continue ;
+				tmp = line;
 			*branch = ft_vjoin(6, "", CYAN, "git:(", RED, BRANCH, " ", \
 				tmp + 1);
-			if (*branch)
+			if (*branch && tmp != line)
 				*ft_strrchr(*branch, '"') = 0;
 		}
 		free(line);

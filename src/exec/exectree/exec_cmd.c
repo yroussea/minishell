@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/11 05:55:27 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:09:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,55 @@
 
 extern int	g_exitcode;
 
+char	**test(char **res, char *unqoted)
+{
+	char	**tmp;
+	char	**tab;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
+	tmp = ft_split_out_quote(unqoted, ' ', '\001');
+	if (!tmp)
+		return (res);
+	tab = ft_calloc(sizeof(char *), ft_str_str_len(tmp) + ft_str_str_len(res) + 1);
+	if (!tab)
+	{
+		ft_free_split(tmp);
+		return (res);
+	}
+	while (res && *(res + ++i))
+		*(tab + i) = ft_strdup(*(res + i));
+	while (tmp && *(tmp + j))
+		*(tab + i++) = ft_strdupexept(*(tmp + j++), '\001');
+	ft_free_split(res);
+	ft_free_split(tmp);
+	return (tab);
+}
+
+
 void	parse_quote(t_node *node, int j, int i)
 {
-	char	**result;
+	char	**res;
+	char	*unqoted;
 
-	result = ft_calloc(sizeof(char *), ft_str_str_len(node->args) + 1);
-	while (result && node->args && *(node->args + j))
+	res = ft_calloc(sizeof(char *), 1);
+	while (res && node->args && *(node->args + j))
 	{
-		result[i] = ft_unquote(*(node->args + j), *(node->envp));
-		if (result[i])
+		unqoted = ft_unquote(*(node->args + j), *(node->envp), 0);
+		res = test(res, unqoted);
+		free(unqoted);
+		while (res[i])
 			i += 1;
 		j += 1;
 	}
-	if (!result)
+	if (!res)
 		node->cmd = ft_strdup(*node->args);
-	if (!result)
+	if (!res)
 		return ;
-	node->args = result;
-	if (!*result)
-		node->cmd = ft_strdup("");
-	else
-		node->cmd = ft_strdup(*(result));
+	node->args = res;
+	node->cmd = ft_strdup(*res);
 }
 
 void	exit_cmd(char *full_cmd, t_node *node, char **envp, int exitcode)

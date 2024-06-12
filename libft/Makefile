@@ -6,7 +6,7 @@
 #    By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 13:06:11 by yroussea          #+#    #+#              #
-#    Updated: 2024/04/10 17:47:17 by basverdi         ###   ########.fr        #
+#    Updated: 2024/06/12 13:28:56 by yroussea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS_FILES = char/ft_isalnum.c			\
 	print/ft_putstr_fd.c		\
 	print/ft_putstack.c			\
 	str/ft_split.c				\
+	str/ft_split_out_quote.c	\
 	str/ft_split_charset.c		\
 	str/ft_split_first_sep.c	\
 	str/ft_strchr.c				\

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/09 08:59:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 09:23:42 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ char	*extract_path(t_lst_envp *lst_envp, char *cmd)
 	char		**allpaths;
 	int			i;
 
-	if (!cmd)
-		return (NULL);
+	if (!cmd || !*cmd)
+		return (ft_strdup(cmd));
 	if (cmd && *cmd && access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
 	allpaths = get_all_path(lst_envp);
