@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 15:24:26 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:30:20 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,10 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	int			pid;
 	char		*full_cmd;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handler_exec);
+	signal(SIGQUIT, handler_exec);
 	parse_quote(node, 0, 0);
 	if (node->cmd && is_builtin(node))
 		return (ft_exec_builtin(node, from_pipe, stks, fds));
@@ -130,7 +134,6 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	free(node->cmd);
 	if (full_cmd)
 	{
-		signal(SIGINT, SIG_IGN);
 		pid = ft_fork();
 		if (pid == 0)
 			child_exec_cmd(full_cmd, node, fds, stks);

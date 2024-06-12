@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 15:23:19 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:26:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,20 @@
 
 extern int	g_exitcode;
 
-t_bool    check_first_arg(char **args)
+t_bool	check_first_arg(char **args)
 {
-    int    i;
+	int	i;
 
-    i = 0;
-    while (args[1][i])
-    {
-        if (i == 0 && args[1][i] == '-')
-            i++;
-        if (!ft_isnum(args[1][i]))
-            return (FALSE);
-        i++;
-    }
-    return (TRUE);
-}
-
-if (!check_first_arg(node->args))
-{
-  g_exitcode = 2;
-  free_exit(node);
+	i = 0;
+	while (args[1][i])
+	{
+		if (i == 0 && args[1][i] == '-')
+			i++;
+		if (!ft_isnum(args[1][i]))
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }
 
 t_bool	check_evry_arg(char **args)
@@ -84,6 +78,11 @@ void	ft_exit(t_node *node, t_bool frompipe)
 	{
 		ft_printf_fd(fds, "petite-coquille: exit: too many arguments\n", \
 			g_exitcode = 1);
+		if (!check_first_arg(node->args))
+		{
+			g_exitcode = 2;
+			free_exit(node);
+		}
 		return ;
 	}
 	if (ft_str_str_len(node->args) == 2)
