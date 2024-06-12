@@ -1,0 +1,22 @@
+echo * | cat > ./outfiles/out
+echo * | cat > ./outfiles/out | cat < ./test_files/infile
+echo * | cat > ./outfiles/out | cat < ./test_files/infile | cat > ./outfiles/out2
+echo *** | cat > ./outfiles/out
+ls * | grep 1
+ls *** | grep 1
+ls *1 | grep ./test_files/infile
+(echo a && echo b) > ./outfiles/out
+(echo a || echo b) > ./outfiles/out
+(echo a && echo b || echo c && echo d) > ./outfiles/out
+(((echo a || echo b) > ./outfiles/out) && echo c) | cat > ./outfiles/out2 || echo d
+echo ./outfiles/out && ls not_dir | cat > ./outfiles/out
+(echo ./outfiles/out && ls not_dir) | cat > ./outfiles/out
+(echo ./outfiles/out && ls not_dir) | cat > ./outfiles/out && echo 21 || echo 42
+(echo f*l*********1 && ls not_dir) | cat > ./outfiles/out && echo 21 || echo 42
+(((echo ***1 || ls not_dir) && cat < ./test_files/infile | cat > ./outfiles/out2 || ls ***
+echo *1 | cat > ./outfiles/out && grep * | cat > ./outfiles/out2 | cat < ./outfiles/out2
+(echo a) | echo b
+(echo a || echo b) | echo c
+(echo a && echo b) | echo c || echo d && (echo e || echo f) | echo g
+(cat < ./test_files/infile || echo a) | (cat > ./outfiles/out2 && echo b) > ./outfiles/out3 | echo c
+(cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2 && (cat < "./test_files/infile" > ./outfiles/out > ./outfiles/out2) && cat ./outfiles/out2

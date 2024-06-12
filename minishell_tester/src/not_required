@@ -1,0 +1,13 @@
+env -qwerqwer
+env $PATH
+env -i
+yes "no" | head -n 10
+echo "\033[33mHello, world!\033[0m"
+echo "\\n"
+echo "\\r"
+printf "\\n"
+printf "\\r"
+sudo
+cd ~
+pwd -wqer
+cd -qwer

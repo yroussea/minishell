@@ -1,0 +1,13 @@
+cd && cd -
+echo 42 < ./test_files/infile | wc -l && (echo 1 2 3 4 > tmp_out || echo 2 > tmp_out >> tmp_out tmp_out ) && rm -f tmp_out
+grep 42 < ./test_files/infile | wc -l && (echo 1 2 3 4 > tmp_out || echo 2 > tmp_out >> tmp_out tmp_out ) && rm -f tmp_out
+(echo 1 && echo 2) | (grep 1 && grep 2)
+(printf "Hello\nWorld\n") | (read -n 3 && cat)
+(echo 1 && echo 2) | (read -n 1 && grep 2)
+(echo 1 && echo 2) | (read -n 1 && grep 1)
+echo 42 | echo 42 || (echo 42)
+echo 42 | echo 42 && (echo 42)
+export bla='||' || echo 42 && echo 43
+export or='||' && export and='&&' && echo 42 $and echo 43 $or echo 43
+(export a="*" && printf $a) && echo $a
+(export a="*" && echo $a) && echo $a
