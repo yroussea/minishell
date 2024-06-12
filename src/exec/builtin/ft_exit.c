@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 15:55:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:00:04 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ void	ft_exit(t_node *node, t_bool frompipe)
 		ft_printf_fd(node->errorfile, "exit\n");
 	if (!frompipe)
 		fds = node->errorfile;
+	if (ft_overflow(node->args[1]))
+	{
+		ft_printf_fd(fds, "petite-coquille: exit: %s: numeric argument required\n", \
+			node->args[1], g_exitcode = 2);
+		free_exit(node);
+	}
 	if (ft_str_str_len(node->args) > 2 && node->args[2])
 	{
 		ft_printf_fd(fds, "petite-coquille: exit: too many arguments\n", \
@@ -94,6 +100,7 @@ void	ft_exit(t_node *node, t_bool frompipe)
 				node->args[1], g_exitcode = 2);
 			free_exit(node);
 		}
+		printf("%lld\n", ft_atoll(node->args[1]));
 		g_exitcode = ft_atoll(node->args[1]) % 256;
 	}
 	free_exit(node);

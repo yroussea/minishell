@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 09:23:42 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:48:01 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ t_bool	print_error_access(t_error error_type, char *cmd)
 	if (error_type == NOT_CMD && cmd && ft_strchr(cmd, '/') != NULL)
 		ft_printf_fd(2, NO_FILE, cmd);
 	else if (error_type == NOT_CMD || (error_type <= 2 && ft_strchr(cmd, '/') == NULL))
+	{
+		g_exitcode = 127;
 		ft_printf_fd(2, CMD_NOT_FOUND, cmd);
+	}
 	else if (error_type == IS_DIR)
 	{
 		g_exitcode = 126;
