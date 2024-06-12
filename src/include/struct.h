@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/09 08:21:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:24:49 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define STRUCT_H
 
 # define ERROR_ARGS "Invalid arguments\n"
-# define ERROR_CLOSE "(A/Mult) close fct didn't work??"
-# define ERROR_DUP "(A/Mult) dup fct didn't work??"
-# define ERROR_PIPE "(A/Mult) Pipe as fail"
-# define ERROR_FORK "(A/Mult) fork as fail??"
+# define ERROR_CLOSE "(A/Mult) close fct didn't work??\n"
+# define ERROR_DUP "(A/Mult) dup fct didn't work\n??"
+# define ERROR_PIPE "(A/Mult) Pipe as fail\n"
+# define ERROR_FORK "(A/Mult) fork as fail\n??"
 
 # define NO_FILE "petit-coquillage: %s: No such file or directory\n" 
 # define CMD_NOT_FOUND "%s: command not found\n"
