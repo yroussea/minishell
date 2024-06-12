@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 15:09:36 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:24:26 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
 	char	**envp_char;
 
 	envp_char = envp_to_char(*node->envp);
-	signal(SIGINT, handler_fail);
 	if (envp_char)
 	{
 		if (all_redir_cmd(node->redir, fds, *node->envp))
