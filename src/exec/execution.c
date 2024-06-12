@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/04 16:56:47 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/11 07:15:50 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int g_exitcode;
 
 void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 {
@@ -22,6 +24,7 @@ void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 	else if (!*error)
 		*error = ft_strdup("newline");
 	ft_printf_fd(2, "%s `%s`\n", "syntax error close to", *error);
+	g_exitcode = 2;
 	free(*error);
 }
 
@@ -105,7 +108,10 @@ void	execution(t_lst_cmd *lst, t_lst_envp **envp, t_data_stk *stks)
 		wait_all(stks->pids, -1);
 	}
 	else
+	{
 		ft_printf_fd(2, "syntax error: Uncomplete line\n");
+		g_exitcode = 2;
+	}
 }
 
 void	exec(t_lst_cmd *lst, t_lst_envp **envp)

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/05 16:57:14 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/11 05:54:42 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	exit_builtin(t_node *node, int exit_code)
 	ft_get_root(NULL, FALSE, TRUE);
 	ft_get_lsts(NULL, NULL, FALSE, TRUE);
 	ft_get_stks(NULL, FALSE, TRUE);
-	clear_history();
+	rl_clear_history();
 	exit(exit_code);
 }
 

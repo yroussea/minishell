@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 17:08:49 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/11 06:08:23 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_bool			is_redir(char *s);
  */
 t_lst_envp		*init_lst_envp(char **envp);
 t_bool			lst_envp_add(t_lst_envp **lst_envp, char *variable);
-void			lst_envp_add_order(t_lst_envp **lst_envp, t_lst_envp *new, \
+void			lst_envp_add_order(t_lst_envp **lst_envp, t_lst_envp *new,
 					size_t len);
 void			free_lst_envp(t_lst_envp *lst_envp);
 t_lst_envp		*init_node_envp(char *key, char *value);

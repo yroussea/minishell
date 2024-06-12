@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/09 10:42:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/11 05:55:27 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	exit_cmd(char *full_cmd, t_node *node, char **envp, int exitcode)
 	ft_get_root(NULL, FALSE, TRUE);
 	ft_get_lsts(NULL, NULL, FALSE, TRUE);
 	ft_get_stks(NULL, FALSE, TRUE);
-	clear_history();
+	rl_clear_history();
 	exit(exitcode);
 }
 
@@ -83,7 +83,7 @@ void	fake_pid(int exit_code, t_data_stk *stks)
 		ft_get_root(NULL, FALSE, TRUE);
 		ft_get_lsts(NULL, NULL, FALSE, TRUE);
 		ft_get_stks(NULL, FALSE, TRUE);
-		clear_history();
+		rl_clear_history();
 		exit(exit_code);
 	}
 	if (pid > 0)
