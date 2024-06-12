@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 17:14:13 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:15:58 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern int	g_exitcode;
 t_bool	go_to_oldpwd(t_node *node)
 {
 	char	*var;
-	
+
 	if (ft_strncmp(node->args[1], "-", 1) == 0)
 	{
 		var = get_envp_variable(*node->envp, "OLDPWD");
@@ -30,7 +30,8 @@ t_bool	go_to_oldpwd(t_node *node)
 		else
 		{
 			g_exitcode = 1;
-			ft_printf_fd(node->errorfile, "petite-coquille: cd: OLDPWD not set\n");
+			ft_printf_fd(node->errorfile, \
+				"petite-coquille: cd: OLDPWD not set\n");
 			return (FALSE);
 		}
 	}
@@ -42,7 +43,8 @@ t_bool	cd_err(t_node *node)
 	if (ft_str_str_len(node->args) > 2)
 	{
 		g_exitcode = 1;
-		ft_printf_fd(node->errorfile, "petite-coquille: cd: too many arguments\n");
+		ft_printf_fd(node->errorfile, \
+			"petite-coquille: cd: too many arguments\n");
 		return (TRUE);
 	}
 	if (g_exitcode != 0)
