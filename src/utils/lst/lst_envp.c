@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:44:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 16:43:10 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:30:15 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_lst_envp	*init_lst_envp(char **envp)
 	else
 	{
 		remove_var_env(&lst_envp, "SHLVL=X");
-		lvl = ft_itoa(ft_atoi(tmp) + 1);
+		lvl = ft_itoa(ft_vmax(0, ft_atoi(tmp) + 1));
 		if (lst_envp_add(&lst_envp, ft_vjoin(2, "=", "SHLVL", lvl)) == ERROR)
 			return (NULL);
 		ft_magic_free("%1 %1", tmp, lvl);

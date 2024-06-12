@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 19:00:47 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:32:39 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ t_bool	cd_err(t_node *node)
 
 void	ft_cd(t_node *node)
 {
-	char	buf[10000];
-	char	*var;
+	static char	buf[4096];
+	char		*var;
 
 	if (cd_err(node))
 		return ;
 	if (go_to_oldpwd(node))
 		return ;
-	getcwd(buf, 10000);
+	getcwd(buf, 4096);
 	var = ft_vjoin(2, "", "OLDPWD=", buf);
 	ft_export(node, var);
 	free(var);
@@ -72,7 +72,7 @@ void	ft_cd(t_node *node)
 		chdir("~/");
 	else
 		chdir(node->args[1]);
-	getcwd(buf, 10000);
+	getcwd(buf, 4096);
 	var = ft_vjoin(2, "", "PWD=", buf);
 	ft_export(node, var);
 	free(var);
