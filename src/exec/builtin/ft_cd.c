@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 14:32:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:30:36 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bool	go_to_oldpwd(t_node *node)
 {
 	char	*var;
 
-	if (ft_strncmp(node->args[1], "-", 1) == 0)
+	if (node->args[1] && ft_strncmp(node->args[1], "-", 1) == 0)
 	{
 		var = get_envp_variable(*node->envp, "OLDPWD", 1);
 		if (var)
@@ -38,6 +38,11 @@ t_bool	go_to_oldpwd(t_node *node)
 
 t_bool	cd_err(t_node *node)
 {
+	if (!node->args[1])
+	{
+		get_set_exit_code(0);
+		return (FALSE);
+	}
 	if (ft_str_str_len(node->args) > 2)
 	{
 		get_set_exit_code(1);
@@ -105,18 +110,19 @@ void	get_new_pwd(t_node *node, t_bool pwd)
 
 void	ft_cd(t_node *node)
 {
+	char	*path;
 
+	path = NULL;
 	if (cd_err(node))
 		return ;
 	if (go_to_oldpwd(node))
 		return ;
-	if (ft_str_str_len(node->args) < 1)
-		chdir("~/");
+	if (ft_str_str_len(node->args) == 1)
+	{
+		path = get_envp_variable(*node->envp, "HOME", 1);
+		move_to_dir(path, node);
+		free(path);
+	}
 	else
-		chdir(node->args[1]);
-	// si ca marche:
-	get_new_pwd(node, 0);
-	get_new_pwd(node, 1);
-	get_set_exit_code(errno);
-	cd_err(node);
+		move_to_dir(node->args[1], node);
 }

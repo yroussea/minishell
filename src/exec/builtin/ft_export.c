@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 14:49:13 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:10:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool	is_forbidden(t_node *node, char *var)
 
 	i = 0;
 	if (var && *var)
-		return (TRUE);
+		return (FALSE);
 	while (var[i])
 	{
 		if ((!ft_isalnum(var[i]) || !ft_isalpha(var[0])) && var[i] != '=' \
@@ -88,9 +88,10 @@ void	ft_export(t_node *node)
 
 	i = ft_str_str_len(node->args);
 	if (i == 1)
+	{
 		display_env(node);
-	if (i == 1)
 		return ;
+	}
 	n = 0;
 	while (++n < i)
 	{

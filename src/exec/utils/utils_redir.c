@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:01:15 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:01:34 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:30:52 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,14 @@ int	count_space(char *str, int need_free)
 	if (need_free)
 		free(tmp);
 	return (count);
+}
+
+void	move_to_dir(char *path, t_node *node)
+{
+	chdir(path);
+	//proteger
+	get_new_pwd(node, 0);
+	get_new_pwd(node, 1);
+	get_set_exit_code(errno);
+	cd_err(node);
 }
