@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 13:54:57 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:48:57 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,23 @@ char	*replace(char *str, char *search, char *replace)
 	t_bool	find;
 
 	find = FALSE;
+	tmp = str;
 	while (str && search && *str && *search && *str == *search)
 	{
 		str++;
 		search++;
 		find = TRUE;
 	}
-	if (find)
+	if (find && search && !*search)
 	{
-		str++;
-		tmp = ft_vjoin(2, "", replace, str);
-		return (tmp);
+		if (*str)
+			tmp = ft_vjoin(2, "", replace, ++str);
+		else
+			tmp = ft_strdup("~");
 	}
 	else
-		return (ft_strdup(str));
+		tmp = ft_strdup(tmp);
+	return (tmp);
 }
 
 char	*get_logo(t_lst_envp *lst_envp)
@@ -71,7 +74,9 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 
 	branch = NULL;
 	logo = get_logo(lst_envp);
-	pwd = get_envp_variable(lst_envp, "PWD", 0);
+	pwd = get_envp_variable(lst_envp, "PWD", 1); //unset /!
+	if (!pwd)
+		pwd = get_envp_variable(lst_envp, "PWD", -2); //unset /!
 	is_git_file(pwd, &branch);
 	home = get_envp_variable(lst_envp, "HOME", 0);
 	new_pwd = replace(pwd, home, "~/");

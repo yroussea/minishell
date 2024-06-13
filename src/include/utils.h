@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 10:55:40 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:37:01 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_lst_envp		*init_node_envp(char *key, char *value);
 int				envp_lst_len(t_lst_envp *lst_envp);
 char			**envp_to_char(t_lst_envp *lst_envp);
 char			**get_all_path(t_lst_envp *lst_envp);
-char			*get_envp_variable(t_lst_envp *lst_envp, char *variable, t_bool exist);
+char			*get_envp_variable(t_lst_envp *lst_envp, char *variable, int exist);
 int				get_os(t_lst_envp *lst_envp);
 void			remove_var_env(t_lst_envp **lst_envp, char *variable);
 

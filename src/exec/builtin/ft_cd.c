@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 13:54:51 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:32:32 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ void	get_new_pwd(t_node *node, t_bool pwd)
 		var = get_envp_variable(*node->envp, "PWD", -1);
 		active = modif_envp(*node->envp, "PWD", NULL, -2);
 		active_old = modif_envp(*node->envp, "OLDPWD", NULL, -2);
-		if (active_old && active)
+		if (active_old == 1 && active == 1)
 			active = 1;
 		else if (active == -1 || active_old == 1)
 			active = -1;
 		else
 			 active = 0;
-		modif_envp(*node->envp, "OLDPWD", buf, active);
+		modif_envp(*node->envp, "OLDPWD", var, active);
 	}
 }
 
