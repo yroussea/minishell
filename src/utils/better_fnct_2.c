@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:10:51 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:15:02 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:23:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,35 @@ t_bool	only_space(char **strs)
 	return (TRUE);
 }
 
+t_bool	remove_pwd_env(t_lst_envp **lst_envp, char *variable)
+{
+	char		**splited;
+	t_lst_envp	*tmp;
+
+	if (!(!ft_strncmp(variable, "PWD", 4) || !ft_strncmp(variable, "OLDPWD", 7)))
+		return (FALSE);
+	splited = ft_split_first_sep(variable, '=');
+	tmp = *lst_envp;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, *splited, ft_strlen(variable) +1) == 0)
+		{
+			tmp->active = -1;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	ft_free_split(splited);
+	return (TRUE);
+}
+
 void	remove_var_env(t_lst_envp **lst_envp, char *variable)
 {
 	char		**splited;
 	t_lst_envp	*tmp;
 	t_lst_envp	*checkpoint;
 
-	if (!*lst_envp)
+	if (!*lst_envp || (remove_pwd_env(lst_envp, variable)))
 		return ;
 	splited = ft_split_first_sep(variable, '=');
 	if (ft_strncmp((*lst_envp)->key, *splited, ft_strlen(*splited)) == 0)

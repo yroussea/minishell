@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:00:07 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:00:02 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:45:32 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_env(t_node *node, char *str, int type)
 		}
 		else
 			vars = ft_vjoin(4, "", str, envp->key, "=", envp->value);
-		if (envp->value || type == 1)
+		if ((envp->value || type == 1) && envp->active == 1)
 			ft_printf_fd(node->outfile, "%s\n", vars);
 		envp = envp->next;
 		free(vars);

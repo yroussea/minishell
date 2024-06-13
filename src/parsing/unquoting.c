@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 17:44:11 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:50:50 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_undolars(char *s, t_lst_envp *lst, int in_dollar)
 		res = ft_strdup("?");
 	else
 		res = strdup_until_funct(s, is_alphanum_underscore);
-	variable = get_envp_variable(lst, res);
+	variable = get_envp_variable(lst, res, 0);
 	if (res && !*res)
 	{
 		free(variable);
