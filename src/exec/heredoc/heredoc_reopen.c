@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 14:50:39 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:59:13 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_undolars_heredoc(char *s, t_lst_envp *lst_envp)
 		res = strdup_until_funct(s, is_alphanum_underscore);
 	variable = get_envp_variable(lst_envp, res, 0);
 	if (!variable)
-		variable = ft_vjoin(2, "", "?", res);
+		variable = ft_vjoin(2, "", "$", res);
 	free(res);
 	return (variable);
 }
@@ -102,7 +102,6 @@ int	heredoc_reopen(int fd, t_lst_envp *lst_envp)
 	char	buf[19];
 	int		i;
 
-	ft_printf_fd(2, "salut\n");
 	ft_strlcpy(buf, ".heredoc", 9);
 	i = 8;
 	while (i < 18)

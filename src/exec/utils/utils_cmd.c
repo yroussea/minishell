@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:37:01 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/04 14:52:00 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:52:23 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ t_bool	no_replace_heredoc(char *str)
 {
 	while (str && *str)
 	{
-		if (*str == 34 && *str == 39)
-			return (FALSE);
+		if (*str == 34 || *str == 39)
+			return (TRUE);
 		str += 1;
 	}
-	return (TRUE);
+	return (FALSE);
 }
 
 void	replace_fds(int fds_in, int fds_out, int fds_error, t_fds fds)

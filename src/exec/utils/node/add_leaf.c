@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 18:52:30 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/29 16:41:53 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:44:42 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_bool	ft_open_redir(t_node *node, t_lst_com *cmd)
 			if (!ft_lst_redir_heredoc(&node->redir, HEREDOC, \
 					ft_heredoc(tmp->file)))
 				return (FALSE);
+			node->redir->file = ft_strdup(tmp->file);
 		}
 		else
 		{
