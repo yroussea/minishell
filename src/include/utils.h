@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 14:37:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:51:33 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ int				get_set_exit_code(int code);
  */
 void			display_env(t_node *node);
 char			*is_envp_variable(t_lst_envp *lst_envp, char *variable);
+char			*join_and_free(size_t nb_str, char *sep, ...);
 
 #endif

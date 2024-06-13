@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:44:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 10:24:31 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:13:18 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ void	lst_envp_add_order(t_lst_envp **lst_envp, t_lst_envp *new, size_t len)
 		lst_envp_add_order(&(*lst_envp)->next, new, len);
 	else
 	{
+		if (ft_strncmp((*lst_envp)->key, new->key, len + 1) == 0)
+		{
+			ft_magic_free("%1 %1", (*lst_envp)->value, new->key);
+			(*lst_envp)->value = new->value;
+			free(new);
+			return ;
+		}
 		new->next = (*lst_envp);
 		*lst_envp = new;
 	}
