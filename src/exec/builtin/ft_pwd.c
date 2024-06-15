@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:19:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 16:24:28 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/15 07:48:55 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_pwd(t_node *node)
 {
-	char	buf[4096];
+	static char	buf[4096];
 
 	if (getcwd(buf, 4096))
 		ft_printf_fd(node->outfile, "%s\n", buf);

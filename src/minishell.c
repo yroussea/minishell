@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:48:06 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/15 07:44:27 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 
 	prompt = NULL;
 	user = NULL;
-	// rl_outstream = stderr;
+	rl_outstream = stderr;
 	while (1)
 	{
 		set_sigaction(0);
@@ -82,12 +82,8 @@ int	main(int argc, char **argv, char **envp)
 	ft_stop(argc, argv);
 	get_set_exit_code(0);
 	lst_envp = init_lst_envp(envp);
-	if (!display_prompt(lst_envp))
-	{
-		rl_clear_history();
-		return (get_set_exit_code(-1));
-	}
-	free_lst_envp(lst_envp);
+	if (display_prompt(lst_envp))
+		free_lst_envp(lst_envp);
 	rl_clear_history();
 	return (get_set_exit_code(-1));
 }

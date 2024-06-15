@@ -6,11 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:14:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 19:24:06 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/15 07:45:14 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../..//minishell.h"
+#include "../../minishell.h"
 
 int	get_set_exit_code(int code)
 {

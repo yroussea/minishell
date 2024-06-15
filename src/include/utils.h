@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 15:39:04 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/15 09:07:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void			display_env(t_node *node);
 char			*is_envp_variable(t_lst_envp *lst_envp, char *variable);
 char			*join_and_free(size_t nb_str, char *sep, ...);
 void			move_to_dir(char *path, t_node *node);
-void			get_new_pwd(t_node *node, t_bool pwd);
-t_bool			cd_err(t_node *node);
+t_bool			get_new_pwd(t_node *node, t_bool pwd);
+t_bool			cd_err(t_node *node, int error_code);
 
 #endif

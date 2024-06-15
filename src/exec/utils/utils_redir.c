@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:01:15 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 16:26:06 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/15 09:08:47 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ int	count_space(char *str, int need_free)
 
 void	move_to_dir(char *path, t_node *node)
 {
-	chdir(path);
-	if (errno == ENOENT)
+	int	error;
+
+	error = chdir(path);
+	if (!error)
 	{
-		ft_printf_fd(node->outfile, "cd: stale file handle: %s\n", path);
-		get_set_exit_code(1);
+		if (get_new_pwd(node, 0))
+			get_new_pwd(node, 1);
 	}
-	get_new_pwd(node, 0);
-	get_new_pwd(node, 1);
-	get_set_exit_code(errno);
-	cd_err(node);
+	cd_err(node, errno);
 }

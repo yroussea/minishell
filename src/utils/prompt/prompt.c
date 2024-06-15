@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 14:48:57 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/15 07:44:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt)
 
 	branch = NULL;
 	logo = get_logo(lst_envp);
-	pwd = get_envp_variable(lst_envp, "PWD", 1); //unset /!
+	pwd = get_envp_variable(lst_envp, "PWD", 1);
 	if (!pwd)
-		pwd = get_envp_variable(lst_envp, "PWD", -2); //unset /!
+		pwd = get_envp_variable(lst_envp, "PWD", -2);
 	is_git_file(pwd, &branch);
 	home = get_envp_variable(lst_envp, "HOME", 0);
 	new_pwd = replace(pwd, home, "~/");
