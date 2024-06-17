@@ -6,27 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:51:16 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 16:19:34 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:50:19 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	set_sig(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handler_exec);
-	signal(SIGQUIT, handler_exec);
-}
-
-void	set_sig_fork(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handler_exec);
-	signal(SIGQUIT, handler_exec);
-}
 
 t_bool	verif_complete_tree(t_node *root)
 {
@@ -36,4 +20,18 @@ t_bool	verif_complete_tree(t_node *root)
 		return (verif_complete_tree(root->left) && \
 			verif_complete_tree(root->right));
 	return (TRUE);
+}
+
+void	check_status(int status)
+{
+	if (!WIFEXITED(status) && WCOREDUMP(status))
+	{
+		ft_printf_fd(STDERR_FILENO, "Quit (core dumped)\n");
+		get_set_exit_code(131, TRUE);
+	}
+	if (WTERMSIG(status) == 2)
+	{
+		ft_printf_fd(STDERR_FILENO, "\n");
+		get_set_exit_code(130, TRUE);
+	}
 }

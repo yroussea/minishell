@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/15 07:44:27 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:15:18 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ int	main(int argc, char **argv, char **envp)
 	t_lst_envp	*lst_envp;
 
 	ft_stop(argc, argv);
-	get_set_exit_code(0);
+	get_set_exit_code(0, TRUE);
 	lst_envp = init_lst_envp(envp);
 	if (display_prompt(lst_envp))
 		free_lst_envp(lst_envp);
 	rl_clear_history();
-	return (get_set_exit_code(-1));
+	return (get_set_exit_code(0, FALSE));
 }

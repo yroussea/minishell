@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 15:59:49 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:15:43 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	go_to_oldpwd(t_node *node)
 		}
 		else
 		{
-			get_set_exit_code(1);
+			get_set_exit_code(1, TRUE);
 			ft_printf_fd(node->errorfile, \
 				"petite-coquille: cd: OLDPWD not set\n");
 			return (FALSE);
@@ -43,18 +43,18 @@ t_bool	cd_err(t_node *node, int error_code)
 
 	if (!node->args[1])
 	{
-		get_set_exit_code(0);
+		get_set_exit_code(0, TRUE);
 		return (FALSE);
 	}
 	if (ft_str_str_len(node->args) > 2)
 	{
-		get_set_exit_code(1);
+		get_set_exit_code(1, TRUE);
 		ft_printf_fd(node->errorfile, CDTOOMANY);
 		return (TRUE);
 	}
 	if (error_code != 0)
 	{
-		get_set_exit_code(1);
+		get_set_exit_code(1, TRUE);
 		ft_printf_fd(node->errorfile, CDERROR, node->args[1], \
 			error_msg[(error_code / 10) % 4]);
 	}

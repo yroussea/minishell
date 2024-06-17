@@ -1,6 +1,6 @@
 SILENT = @
 
-CC = $(SILENT)cc $(CFLAGS)
+CC = $(SILENT)clang $(CFLAGS)
 CFLAGS = -Wall -Werror -Wextra -g
 
 

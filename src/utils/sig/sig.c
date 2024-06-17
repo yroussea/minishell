@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 16:05:33 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:43:34 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,15 @@ void	handler(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		get_set_exit_code(130);
+		get_set_exit_code(130, TRUE);
 	}
 	if (signal == SIGQUIT)
 		return ;
 }
 
-void	handler_exec(int signal)
+void	handler_void(int sig)
 {
-	int	status;
-
-	status = 0;
-	if (signal == SIGINT)
-	{
-		ft_printf("\n");
-		get_set_exit_code(130);
-	}
-	if (signal == SIGQUIT)
-	{
-		if (WCOREDUMP(status))
-			ft_printf("Quit (core dump)\n");
-		else
-			ft_printf("Quit\n");
-		get_set_exit_code(131);
-	}
+	(void) sig;
 }
 
 t_bool	sig_heredoc(char *line, char *eof, int count)

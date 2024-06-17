@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 19:12:47 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:16:57 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_bool	exec_heredoc(char *eof, int fd)
 		}
 	}
 	waitpid(pid, &status, 0);
-	return (!get_set_exit_code(WEXITSTATUS(status)));
+	return (!get_set_exit_code(WEXITSTATUS(status), TRUE));
 }
 
 char	*end_word(char *eof)

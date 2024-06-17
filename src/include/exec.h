@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 16:37:22 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:50:49 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int				count_space(char *str, int need_free);
 void			exit_cmd(char *full_cmd, t_node *node, char **envp, \
 	int exitcode);
 t_bool			verif_complete_tree(t_node *root);
-void			set_sig_fork(void);
+void			check_status(int status);
 
 /*
  *

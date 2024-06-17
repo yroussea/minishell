@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:45:42 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:58:05 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:18:32 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool	check_first_arg(char **args)
 			i++;
 		if (!ft_isnum(args[1][i]))
 		{
-			get_set_exit_code(2);
+			get_set_exit_code(2, TRUE);
 			return (FALSE);
 		}
 		i++;
@@ -49,7 +49,7 @@ t_bool	check_evry_arg(char **args)
 		}
 		i++;
 	}
-	get_set_exit_code(2);
+	get_set_exit_code(2, TRUE);
 	return (TRUE);
 }
 
@@ -63,7 +63,7 @@ void	free_exit(t_node *node)
 	ft_get_root(NULL, FALSE, TRUE);
 	ft_get_envp(NULL, FALSE, TRUE);
 	rl_clear_history();
-	exit(get_set_exit_code(-1));
+	exit(get_set_exit_code(0, FALSE));
 }
 
 void	exit_err(t_node *node, int fds)
@@ -71,7 +71,7 @@ void	exit_err(t_node *node, int fds)
 	ft_printf_fd(fds, \
 		"petite-coquille: exit: %s: numeric argument required\n", \
 		node->args[1]);
-	get_set_exit_code(2);
+	get_set_exit_code(2, TRUE);
 	free_exit(node);
 }
 
@@ -89,7 +89,7 @@ void	ft_exit(t_node *node, t_bool frompipe)
 		if (ft_overflow(node->args[1]))
 			exit_err(node, fds);
 		ft_printf_fd(fds, "petite-coquille: exit: too many arguments\n");
-		get_set_exit_code(1);
+		get_set_exit_code(1, TRUE);
 		if (!check_first_arg(node->args))
 			free_exit(node);
 		return ;
@@ -98,7 +98,7 @@ void	ft_exit(t_node *node, t_bool frompipe)
 	{
 		if (ft_overflow(node->args[1]) || !check_evry_arg(node->args))
 			exit_err(node, fds);
-		get_set_exit_code(ft_atoll(node->args[1]) % 256);
+		get_set_exit_code(ft_atoll(node->args[1]) % 256, TRUE);
 	}
 	free_exit(node);
 }

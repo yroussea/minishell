@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 19:13:36 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:15:30 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ void	print_msg(char *msg, char *cmd)
 t_bool	print_error_access(t_error error_type, char *cmd)
 {
 	if (error_type == NOT_CMD)
-		get_set_exit_code(127);
+		get_set_exit_code(127, TRUE);
 	if (error_type == NOT_CMD && cmd && ft_strchr(cmd, '/') != NULL)
 		ft_printf_fd(2, NO_FILE, cmd);
 	else if (error_type == NOT_CMD || \
 		(error_type <= 2 && ft_strchr(cmd, '/') == NULL))
 	{
-		get_set_exit_code(127);
+		get_set_exit_code(127, TRUE);
 		ft_printf_fd(2, CMD_NOT_FOUND, cmd);
 	}
 	else if (error_type == IS_DIR || error_type == NO_PERM || \
 		error_type == ISNOT_DIR)
 	{
-		get_set_exit_code(126);
+		get_set_exit_code(126, TRUE);
 		if (error_type == IS_DIR)
 			print_msg(IS_A_DIR, cmd);
 		else if (error_type == NO_PERM)

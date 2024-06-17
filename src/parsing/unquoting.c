@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 15:49:28 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:01:09 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_undoublequote(char *s, t_lst_envp *lst, int in_dollar)
 	}
 	if (s && *s && *(s + 1))
 	{
-		tmp = ft_unquote(s + 1, lst, 0);
+		tmp = ft_unquote(s + 1, lst, 0, NULL);
 		return (join_and_free(2, "", res, tmp));
 	}
 	return (res);
@@ -85,13 +85,12 @@ char	*ft_unsimplequote(char *s, t_lst_envp *lst, int in_dollar)
 	res = strdup_until_sep(s, 1, 39);
 	while (s && *s && *s != 39)
 		s++;
-	str = ft_unquote(s + 1, lst, in_dollar - in_dollar);
+	str = ft_unquote(s + 1, lst, in_dollar - in_dollar, NULL);
 	return (join_and_free(2, "", res, str));
 }
 
-char	*ft_unquote(char *s, t_lst_envp *lst, int in_dollar)
+char	*ft_unquote(char *s, t_lst_envp *lst, int in_dollar, char *res)
 {
-	char	*res;
 	char	*str;
 	char	*tmp;
 
@@ -108,7 +107,7 @@ char	*ft_unquote(char *s, t_lst_envp *lst, int in_dollar)
 	{
 		str = ft_undolars(++s, lst, in_dollar);
 		s += skip_underscore(s);
-		tmp = ft_unquote(s, lst, !!(in_dollar + *s == '"' || *s == '\''));
+		tmp = ft_unquote(s, lst, !!(in_dollar + *s == '"' || *s == '\''), 0);
 		if (!str && (!res || !*res) && (!tmp || !*tmp))
 		{
 			ft_magic_free("%1 %1", res, tmp);

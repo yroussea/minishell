@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 15:53:33 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:45:09 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 	else if (!*error)
 		*error = ft_strdup("newline");
 	ft_printf_fd(2, "%s `%s`\n", "syntax error close to", *error);
-	get_set_exit_code(2);
+	get_set_exit_code(2, TRUE);
 	free(*error);
 	return (TRUE);
 }
@@ -37,7 +37,6 @@ t_bool	split_two_lst(
 	char			*error;
 	t_lst_com		*tmp_cmd;
 
-	error = NULL;
 	while (lst || tmp == -1)
 	{
 		if (tmp == -1)
@@ -100,7 +99,7 @@ void	execution(t_lst_cmd *lst, t_lst_envp **envp, t_data_stk *stks)
 	else
 	{
 		ft_printf_fd(2, "syntax error: Uncomplete line\n");
-		get_set_exit_code(2);
+		get_set_exit_code(2, TRUE);
 	}
 }
 
@@ -120,6 +119,8 @@ void	exec(t_lst_cmd *lst, t_lst_envp **envp)
 		stk_pid = NULL;
 		stks->pids = &stk_pid;
 		execution(lst, envp, stks);
+		signal(SIGINT, handler);
+		signal(SIGQUIT, SIG_IGN);
 		ft_get_root(NULL, FALSE, TRUE);
 		free(stks);
 	}

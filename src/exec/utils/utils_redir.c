@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:01:15 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 16:36:28 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:59:24 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	move_to_dir(char *path, t_node *node)
 
 void	swap_unquate(char **str, t_lst_envp *envp, char **trimed, char **s)
 {
-	*trimed = ft_unquote(*str, envp, 0);
+	*trimed = ft_unquote(*str, envp, 0, NULL);
 	*s = ft_strdupexept(*trimed, '\001');
 	free(*trimed);
 	*trimed = ft_strtrim(*s, " ");

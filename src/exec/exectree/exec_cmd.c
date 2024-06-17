@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 16:19:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:35:36 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parse_quote(t_node *node, int j, int i)
 	res = ft_calloc(sizeof(char *), 1);
 	while (res && node->args && *(node->args + j))
 	{
-		unqoted = ft_unquote(*(node->args + j), *(node->envp), 0);
+		unqoted = ft_unquote(*(node->args + j), *(node->envp), 0, NULL);
 		res = quote_realloc(res, unqoted);
 		free(unqoted);
 		while (res[i])
@@ -79,9 +79,9 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
 		}
 		else
 			ft_close_pipe(stks->pipes);
-		get_set_exit_code(1);
+		get_set_exit_code(1, TRUE);
 	}
-	exit_cmd(full_cmd, node, envp_char, get_set_exit_code(-1));
+	exit_cmd(full_cmd, node, envp_char, get_set_exit_code(0, FALSE));
 }
 
 void	fake_pid(int exit_code, t_data_stk *stks)
@@ -99,17 +99,18 @@ void	fake_pid(int exit_code, t_data_stk *stks)
 		rl_clear_history();
 		exit(exit_code);
 	}
-	if (pid > 0)
-		ft_stk_pid_add(stks->pids, pid);
+	ft_stk_pid_add(stks->pids, pid);
 }
 
-t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
-	fds)
+t_bool	exec_cmd(
+	t_node *node,
+	t_from_pipe from_pipe,
+	t_data_stk *stks,
+	t_fds fds)
 {
 	int			pid;
 	char		*full_cmd;
 
-	set_sig();
 	parse_quote(node, 0, 0);
 	if (node->cmd && is_builtin(node))
 		return (ft_exec_builtin(node, from_pipe, stks, fds));
@@ -128,6 +129,6 @@ t_bool	exec_cmd(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	all_redir_builtin(node, node->redir, *node->envp);
 	close_redir_builtin(node);
 	ft_free_split(node->args);
-	fake_pid(get_set_exit_code(-1), stks);
+	fake_pid(get_set_exit_code(0, FALSE), stks);
 	return (ERROR);
 }

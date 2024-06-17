@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 16:19:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:42:42 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_data_stk		*ft_get_stks(t_data_stk *stks, t_bool reset, t_bool free_stks);
 t_bool			ft_get_envp(t_lst_envp *lst_envp, t_bool reset, t_bool \
 					free_envp);
 void			close_heredoc(t_node *node);
-int				get_set_exit_code(int code);
+int				get_set_exit_code(int code, t_bool set);
 
 /*
  * utils builtins
@@ -92,6 +92,5 @@ char			*join_and_free(size_t nb_str, char *sep, ...);
 void			move_to_dir(char *path, t_node *node);
 t_bool			get_new_pwd(t_node *node, t_bool pwd);
 t_bool			cd_err(t_node *node, int error_code);
-void			set_sig(void);
 
 #endif

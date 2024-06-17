@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:50:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/18 13:51:00 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:44:35 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 t_bool	exec_tree(t_node *node, t_from_pipe from_pipe, t_data_stk *stks, t_fds \
 	fds)
 {
+	signal(SIGINT, handler_void);
+	signal(SIGQUIT, handler_void);
 	if (node->type == PIPE)
 		exec_pipe(node, from_pipe, stks, fds);
 	if (node->type == AND)
