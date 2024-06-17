@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/15 09:09:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:59:49 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,9 @@ t_bool	go_to_oldpwd(t_node *node)
 	return (FALSE);
 }
 
-#define CDERROR "petite-coquille: cd: %s: %s\n"
-#define CDTOOMANY "petite-coquille: cd: too many arguments"
-#define CDPERM "Permission denied"
-#define CDNOFILE "No such file or direcroty"
-#define CDNOTDIR "Not a direcroty"
-#define CDNAMELONG "File name too long"
-
-
 t_bool	cd_err(t_node *node, int error_code)
 {
-	static char *error_msg[4] = {CDNOFILE, CDPERM, CDNOTDIR, CDNAMELONG};
+	static char	*error_msg[4] = {CDNOFILE, CDPERM, CDNOTDIR, CDNAMELONG};
 
 	if (!node->args[1])
 	{
@@ -64,12 +56,13 @@ t_bool	cd_err(t_node *node, int error_code)
 	{
 		get_set_exit_code(1);
 		ft_printf_fd(node->errorfile, CDERROR, node->args[1], \
-			   error_msg[(error_code / 10) % 4]);
+			error_msg[(error_code / 10) % 4]);
 	}
 	return (FALSE);
 }
 
-int	modif_envp(t_lst_envp *lst_envp, char *variable, char *new_value, int active)
+int	modif_envp(t_lst_envp *lst_envp, char *variable, char *new_value, \
+int active)
 {
 	while (lst_envp)
 	{
@@ -100,7 +93,8 @@ t_bool	get_new_pwd(t_node *node, t_bool pwd)
 		if (getcwd(buf, 4096))
 		{
 			active = modif_envp(*node->envp, "PWD", NULL, -2);
-			modif_envp(*node->envp, "PWD", ft_strdup(buf), ft_vmax(2, active, 0));
+			modif_envp(*node->envp, "PWD", ft_strdup(buf), \
+			ft_vmax(2, active, 0));
 		}
 		else
 			return (FALSE);
@@ -110,12 +104,7 @@ t_bool	get_new_pwd(t_node *node, t_bool pwd)
 		var = get_envp_variable(*node->envp, "PWD", -1);
 		active = modif_envp(*node->envp, "PWD", NULL, -2);
 		active_old = modif_envp(*node->envp, "OLDPWD", NULL, -2);
-		if (active_old == 1 && active == 1)
-			active = 1;
-		else if (active == -1 || active_old == 1)
-			active = -1;
-		else
-			 active = 0;
+		check_active(&active, &active_old);
 		modif_envp(*node->envp, "OLDPWD", var, active);
 	}
 	return (TRUE);

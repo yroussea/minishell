@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/15 09:07:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:19:55 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ t_lst_envp		*init_node_envp(char *key, char *value);
 int				envp_lst_len(t_lst_envp *lst_envp);
 char			**envp_to_char(t_lst_envp *lst_envp);
 char			**get_all_path(t_lst_envp *lst_envp);
-char			*get_envp_variable(t_lst_envp *lst_envp, char *variable, int exist);
+char			*get_envp_variable(t_lst_envp *lst_envp, char *variable, \
+					int exist);
 int				get_os(t_lst_envp *lst_envp);
 void			remove_var_env(t_lst_envp **lst_envp, char *variable);
 
@@ -91,5 +92,6 @@ char			*join_and_free(size_t nb_str, char *sep, ...);
 void			move_to_dir(char *path, t_node *node);
 t_bool			get_new_pwd(t_node *node, t_bool pwd);
 t_bool			cd_err(t_node *node, int error_code);
+void			set_sig(void);
 
 #endif

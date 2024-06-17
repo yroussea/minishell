@@ -6,11 +6,19 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:51:16 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 19:05:26 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:19:34 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	set_sig(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handler_exec);
+	signal(SIGQUIT, handler_exec);
+}
 
 void	set_sig_fork(void)
 {

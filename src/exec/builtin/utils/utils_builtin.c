@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:55:27 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/05 16:57:08 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:59:31 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,14 @@ char	*is_envp_variable(t_lst_envp *lst_envp, char *variable)
 		lst_envp = lst_envp->next;
 	}
 	return (NULL);
+}
+
+void	check_active(int *active, int *active_old)
+{
+	if (*active_old == 1 && *active == 1)
+		*active = 1;
+	else if (*active == -1 || *active_old == 1)
+		*active = -1;
+	else
+		*active = 0;
 }

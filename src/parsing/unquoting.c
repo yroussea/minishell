@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 15:59:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:49:28 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*ft_unquote(char *s, t_lst_envp *lst, int in_dollar)
 	if (s && *s == 36)
 	{
 		str = ft_undolars(++s, lst, in_dollar);
-		s += skip_underscore(s); 
+		s += skip_underscore(s);
 		tmp = ft_unquote(s, lst, !!(in_dollar + *s == '"' || *s == '\''));
 		if (!str && (!res || !*res) && (!tmp || !*tmp))
 		{

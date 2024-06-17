@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 19:22:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:37:22 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,5 +207,7 @@ int				redir_infile(int fds_in, t_lst_redir *redir);
 int				redir_add(int fds_out, t_lst_redir *redir);
 int				redir_out(int fds_out, t_lst_redir *redir);
 int				redir_error(int fds_error, t_lst_redir *redir);
+void			swap_unquate(char **str, t_lst_envp *envp, \
+					char **trimed, char **s);
 
 #endif

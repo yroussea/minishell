@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:10:51 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 12:23:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:50:29 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ t_bool	remove_pwd_env(t_lst_envp **lst_envp, char *variable)
 	char		**splited;
 	t_lst_envp	*tmp;
 
-	if (!(!ft_strncmp(variable, "PWD", 4) || !ft_strncmp(variable, "OLDPWD", 7)))
+	if (!(!ft_strncmp(variable, "PWD", 4) || \
+	!ft_strncmp(variable, "OLDPWD", 7)))
 		return (FALSE);
 	splited = ft_split_first_sep(variable, '=');
 	tmp = *lst_envp;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, *splited, ft_strlen(variable) +1) == 0)
+		if (ft_strncmp(tmp->key, *splited, ft_strlen(variable) + 1) == 0)
 		{
 			tmp->active = -1;
 			break ;

@@ -6,13 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 21:28:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 15:31:54 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:53:33 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
+t_bool	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 {
 	static char		*type_of_node[4] = {"42", "|", "&&", "||"};
 
@@ -24,6 +24,7 @@ void	manage_error_on_split(char **error, t_lst_cmd *lst, t_lst_ope **ope)
 	ft_printf_fd(2, "%s `%s`\n", "syntax error close to", *error);
 	get_set_exit_code(2);
 	free(*error);
+	return (TRUE);
 }
 
 t_bool	split_two_lst(
@@ -40,9 +41,7 @@ t_bool	split_two_lst(
 	while (lst || tmp == -1)
 	{
 		if (tmp == -1)
-			manage_error_on_split(&error, lst, ope);
-		if (tmp == -1)
-			return (TRUE);
+			return (manage_error_on_split(&error, lst, ope));
 		if ((lst->type == CMD && !only_space(lst->cmd)) || lst->type > OR)
 			ft_lst_com_add(cmd, lst->cmd);
 		tmp_cmd = lst_com_pop(cmd);

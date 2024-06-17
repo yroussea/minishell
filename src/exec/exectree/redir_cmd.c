@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/13 15:06:52 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:36:17 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ t_bool	unqote_redir(char **str, t_lst_envp *envp, int is_dollard)
 		is_dollard = *s == '$';
 		s += 1;
 	}
-	trimed = ft_unquote(*str, envp, 0);
-	s = ft_strdupexept(trimed, '\001');
-	free(trimed);
-	trimed = ft_strtrim(s, " ");
+	trimed = NULL;
+	swap_unquate(str, envp, &trimed, &s);
 	if (is_dollard && count != count_space(trimed, 0))
 	{
 		ft_magic_free("%1 %1", trimed, s);

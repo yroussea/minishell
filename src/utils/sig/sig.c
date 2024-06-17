@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:19:47 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:49:34 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:05:33 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	handler(int signal)
 
 void	handler_exec(int signal)
 {
+	int	status;
+
+	status = 0;
 	if (signal == SIGINT)
 	{
 		ft_printf("\n");
@@ -35,7 +38,10 @@ void	handler_exec(int signal)
 	}
 	if (signal == SIGQUIT)
 	{
-		ft_printf("Quit\n");
+		if (WCOREDUMP(status))
+			ft_printf("Quit (core dump)\n");
+		else
+			ft_printf("Quit\n");
 		get_set_exit_code(131);
 	}
 }
@@ -60,7 +66,6 @@ t_bool	sig_heredoc(char *line, char *eof, int count)
 
 void	heredoc_handler(int signal)
 {
-	ft_printf("ok\n");
 	if (signal == SIGINT)
 	{
 		ft_printf("\n");
