@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 18:15:18 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:38:20 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,6 @@ int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 		return (0);
 	}
 	return (1);
-}
-
-void	ft_stop(int ac, char **av)
-{
-	if (ac > 1 && ft_strncmp("--no-clear", av[1], 10))
-	{
-		if (!ft_strncmp(av[1], "--mini-coque", 12))
-			ft_printf_fd(2, WELL_PLAYED, YELLOW, DEFAULT, EASTER_EGG, \
-				BETTER_THAN_BASH);
-		else if (!ft_strncmp(av[1], "--goat", 6))
-			ft_printf_fd(2, AUTOR);
-		else if (!ft_strncmp(av[1], "--42sh", 6))
-			ft_printf_fd(2, MINISHORSH);
-		else
-			ft_printf_fd(2, "%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
-		exit(42);
-	}
-	else if (ac == 1 || ft_strncmp("--no-clear", av[1], 10))
-		ft_printf_fd(2, "\033c");
-	else if (ac > 2)
-	{
-		ft_printf_fd(2, "%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
-		exit(1);
-	}
 }
 
 t_bool	display_prompt(t_lst_envp *lst_envp)
@@ -79,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_lst_envp	*lst_envp;
 
-	ft_stop(argc, argv);
+	ft_clear_term(argc, argv);
 	get_set_exit_code(0, TRUE);
 	lst_envp = init_lst_envp(envp);
 	if (display_prompt(lst_envp))

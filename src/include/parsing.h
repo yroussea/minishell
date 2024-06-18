@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:59:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 17:59:36 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:40:08 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef enum s_quote
 	DOUBLE,
 }			t_quote;
 
+void			ft_clear_term(int ac, char **av);
 t_type_of_node	get_type(char *s);
 char			**va_tokeniser(char *s, int nb, ...);
 t_lst_cmd		*parsing(char *line);
