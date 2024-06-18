@@ -1,3 +1,0 @@
-Ctrl D, et exit -> doivent return le dernier exitcode
-relire les heredocs
-les $ s'arrete au non alpha-num
