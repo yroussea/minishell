@@ -6,12 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:01:15 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/25 15:42:43 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:16:51 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdio.h>
 #include <string.h>
 
 int	count_space(char *str, int need_free)

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 18:16:57 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:24:53 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*init_pid(char *eof, int fd)
 	ft_get_root(NULL, FALSE, TRUE);
 	ft_get_envp(NULL, FALSE, TRUE);
 	rl_clear_history();
-	return ("");
+	return (NULL);
 }
 
 t_bool	exec_heredoc(char *eof, int fd)
@@ -43,9 +43,9 @@ t_bool	exec_heredoc(char *eof, int fd)
 	if (pid == 0)
 	{
 		line = init_pid(eof, fd);
-		while (ft_strncmp(line, eof, ft_strlen(line) + 1) != 0)
+		signal(SIGINT, heredoc_handler);
+		while (!line || ft_strncmp(line, eof, ft_strlen(line) + 1) != 0)
 		{
-			signal(SIGINT, heredoc_handler);
 			line = readline("> ");
 			if (sig_heredoc(line, eof, count) == FALSE)
 				ft_exit_heredoc(eof, fd, line);
