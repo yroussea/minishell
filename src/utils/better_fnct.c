@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/01 17:29:03 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/19 09:45:24 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,11 @@ int	ft_fork(void)
 
 t_lst_envp	*index_removed_var(t_lst_envp *lst_envp, char *key)
 {
-	int	i;
 	int	len;
 
-	i = 0;
 	len = ft_strlen(key);
 	while (lst_envp && ft_strncmp(lst_envp->key, key, len))
-	{
 		lst_envp = lst_envp->next;
-		i += 1;
-	}
 	if (lst_envp && ft_strncmp(lst_envp->key, key, len) != 0)
 		return (NULL);
 	return (lst_envp);

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 18:15:43 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:09:01 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	ft_cd(t_node *node)
 	char	*path;
 
 	path = NULL;
+	ft_printf("%S\n", node->args);
 	if (cd_err(node, 0))
 		return ;
 	if (go_to_oldpwd(node))
