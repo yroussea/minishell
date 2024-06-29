@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 18:50:49 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:30:38 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			ft_print_com(int fd, t_lst_com *lst);
 void			ft_print_lst(int fd, t_lst_cmd *lst);
 void			ft_print_tree(t_node *root);
 void			ft_print_node(t_node *node);
+//est ce que c'est du debug ?
 
 void			exec(t_lst_cmd *lst_cmd, t_lst_envp **envp);
 

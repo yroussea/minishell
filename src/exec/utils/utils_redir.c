@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:01:15 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/25 16:16:51 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:38:47 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char	*get_absolut_path(char *relativ_path, char *pwd)
 	return (absolut_path);
 }
 
-
 void	move_to_dir(char *path, t_node *node)
 {
 	static char	buf[4096];
@@ -100,12 +99,4 @@ void	move_to_dir(char *path, t_node *node)
 		return ;
 	}
 	cd_err(node, errno);
-}
-
-void	swap_unquate(char **str, t_lst_envp *envp, char **trimed, char **s)
-{
-	*trimed = ft_unquote(*str, envp, 0, NULL);
-	*s = ft_strdupexept(*trimed, '\001');
-	free(*trimed);
-	*trimed = ft_strtrim(*s, " ");
 }

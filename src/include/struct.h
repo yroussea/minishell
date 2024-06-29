@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:15:54 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 18:32:55 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:36:16 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define IS_NOT_DIR "petit-coquillage: %s: Not a directory\n"
 # define AMBIGUOUS_ARG "petit-coquillage: %s: ambiguous redirect\n"
 
-# define WELL_PLAYED "\u2B50 %s Bien joué! %s \u2B50\n%s%s"
-# define EASTER_EGG "Vous avez trouvé un des easters eggs !\n"
+# define WELL_PLAYED "\u2B50 %s Well played ! %s \u2B50\n%s%s"
+# define EASTER_EGG "You found one of the easter eggs !\n"
 # define BETTER_THAN_BASH "PS : petite-coquille > bash\n"
-# define MINISHORSH "\e[0;30mFaut aller se faire foutre aussi ...\e[0m\n"
+# define MINISHORSH "\e[0;30mYou have to go fuck yourself too...\e[0m\n"
 # define AUTOR "\u26A1 Made by Yroussea and Basverdi \u26A1\n"
 
 /*

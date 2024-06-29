@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:48:27 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/12 18:48:43 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:39:59 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,12 @@ void	exit_cmd(char *full_cmd, t_node *node, char **envp, int exitcode)
 	ft_get_stks(NULL, FALSE, TRUE);
 	rl_clear_history();
 	exit(exitcode);
+}
+
+void	swap_unquate(char **str, t_lst_envp *envp, char **trimed, char **s)
+{
+	*trimed = ft_unquote(*str, envp, 0, NULL);
+	*s = ft_strdupexept(*trimed, '\001');
+	free(*trimed);
+	*trimed = ft_strtrim(*s, " ");
 }
