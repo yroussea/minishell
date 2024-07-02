@@ -6,11 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:51:16 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/18 13:38:32 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:47:40 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <unistd.h>
 
 t_bool	verif_complete_tree(t_node *root)
 {
@@ -24,9 +25,12 @@ t_bool	verif_complete_tree(t_node *root)
 
 void	check_status(int status)
 {
-	if (!WIFEXITED(status) && WCOREDUMP(status))
+	if (!WIFEXITED(status))
 	{
-		ft_printf_fd(STDERR_FILENO, "Quit (core dumped)\n");
+		if (WCOREDUMP(status))
+			ft_printf_fd(STDERR_FILENO, "Quit (core dumped)\n");
+		else
+			ft_printf_fd(STDERR_FILENO, "Quit\n");
 		get_set_exit_code(131, TRUE);
 	}
 	if (WTERMSIG(status) == 2)
