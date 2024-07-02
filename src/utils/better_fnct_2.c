@@ -6,11 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:10:51 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 15:50:29 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:34:50 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 t_bool	only_space(char **strs)
 {

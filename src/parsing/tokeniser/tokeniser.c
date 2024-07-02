@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/04/01 09:32:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:21:58 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t	jump_quote(char *s, size_t len, size_t *count)
 		tmp = len_quote(s + 1, DOUBLE) + 2;
 		if (len < tmp)
 		{
-			*count += 1;
+			*count += 2;
 			tmp = len;
 		}
 		return (tmp);
@@ -43,7 +43,7 @@ size_t	jump_quote(char *s, size_t len, size_t *count)
 		tmp = len_quote(s + 1, SIMPLE) + 2;
 		if (len < tmp)
 		{
-			*count += 1;
+			*count += 2;
 			tmp = len;
 		}
 		return (tmp);
@@ -72,7 +72,7 @@ char	**ft_tokeniser(char *s, char **token)
 	size_t	k;
 
 	k = 0;
-	result = ft_calloc(sizeof(char *), ft_count_word(s, token, 0) + 2);
+	result = ft_calloc(sizeof(char *), ft_count_word(s, token, 0) * 2);
 	if (!result)
 		return (NULL);
 	while (s && *s)

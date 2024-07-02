@@ -6,11 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:44:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/13 15:14:08 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:34:07 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdio.h>
 
 t_lst_envp	*init_node_envp(char *key, char *value)
 {
@@ -90,14 +91,12 @@ t_lst_envp	*init_lst_envp(char **envp)
 		envp++;
 	}
 	tmp = get_envp_variable(lst_envp, "SHLVL", 0);
-	if (!tmp)
-		return (lst_envp);
-	if (lst_envp_add(&lst_envp, ft_strdup("SHLVL=1")) == ERROR)
+	if (!tmp && lst_envp_add(&lst_envp, ft_strdup("SHLVL=1")) == ERROR)
 		return (NULL);
 	else
 	{
 		remove_var_env(&lst_envp, "SHLVL=X");
-		lvl = ft_itoa(ft_vmax(0, ft_atoi(tmp) + 1));
+		lvl = ft_itoa(ft_vmax(2, 0, ft_atoi(tmp) + 1));
 		if (lst_envp_add(&lst_envp, ft_vjoin(2, "=", "SHLVL", lvl)) == ERROR)
 			return (NULL);
 		ft_magic_free("%1 %1", tmp, lvl);

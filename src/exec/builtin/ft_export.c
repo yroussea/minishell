@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 18:15:59 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:45:24 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	create_env(t_node *node, char *arg)
 	if (tmp2)
 		concatenate_envp(node, variable, tmp2, arg);
 	else
+	{
 		lst_envp_add(node->envp, ft_strdup(arg));
+		ft_free_split(variable);
+	}
 	ft_magic_free("%1", tmp);
 }
 
