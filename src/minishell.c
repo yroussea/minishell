@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/18 13:38:20 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:10:11 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 {
 	if (line == NULL)
 	{
-		ft_printf("exit\n");
+		ft_printf_fd(2, "exit\n");
 		free_lst_envp(lst_envp);
 		return (0);
 	}
