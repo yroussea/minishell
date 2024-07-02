@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 16:36:17 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:01:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_bool	diff_type_err_file(char *name)
 		ft_printf_fd(2, HAVE_NO_PERM, name);
 	else
 		ft_printf_fd(2, "unexpected error happened with redirects\n");
+	get_set_exit_code(1, TRUE);
 	return (FALSE);
 }
 
