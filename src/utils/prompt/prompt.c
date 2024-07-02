@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/15 07:44:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/29 18:04:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,6 @@ char	*get_logo(t_lst_envp *lst_envp)
 	if (os == 3)
 		logo = ft_strdup(WINDOWS);
 	return (logo);
-}
-
-char	*get_user(t_lst_envp *lst_envp)
-{
-	char	*user;
-
-	user = get_envp_variable(lst_envp, "USER", 0);
-	if (user)
-		return (ft_vjoin(2, "", user, ":"));
-	return (NULL);
 }
 
 char	*get_prompt(t_lst_envp *lst_envp, char *prompt)

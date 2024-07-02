@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:18:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/05/28 16:16:09 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/29 18:04:58 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,6 @@ void	close_pipes(t_stack_pipe **stk_pipe)
 	if (stk->pipe[1] > 2)
 		ft_close(1, stk->pipe[1]);
 	free(stk);
-}
-
-void	ft_close_command(t_node *node)
-{
-	if (!node)
-		return ;
-	if (node->infile > 2)
-		close(node->infile);
-	if (node->outfile > 2)
-		close(node->outfile);
 }
 
 void	close_redir_builtin(t_node *node)

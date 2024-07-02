@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/29 17:30:38 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/06/29 18:04:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,6 @@ typedef struct s_node
 	t_lst_envp		**envp;
 }			t_node;
 
-void			ft_print_ope(int fd, t_lst_ope *lst);
-void			ft_print_redir(int fd, t_lst_redir *lst);
-void			ft_print_com(int fd, t_lst_com *lst);
-void			ft_print_lst(int fd, t_lst_cmd *lst);
-void			ft_print_tree(t_node *root);
-void			ft_print_node(t_node *node);
-//est ce que c'est du debug ?
-
 void			exec(t_lst_cmd *lst_cmd, t_lst_envp **envp);
 
 t_lst_com		*init_node_com(char **s);
@@ -137,7 +129,6 @@ t_bool			split_args(char **s, t_lst_com *lst);
 void			ft_close_pipe(t_stack_pipe **pipe);
 void			wait_all(t_stack_id **stk, int checkpoint);
 void			close_pipes(t_stack_pipe **stk_pipe);
-void			ft_close_command(t_node *node);
 t_bool			no_replace_heredoc(char *str);
 void			replace_fds(int fds_in, int fds_out, int fds_error, t_fds fds);
 t_bool			only_space(char **strs);

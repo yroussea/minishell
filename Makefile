@@ -1,7 +1,11 @@
 SILENT = @
 
-CC = $(SILENT)clang $(CFLAGS)
-CFLAGS = -Wall -Werror -Wextra -g
+CC = $(CLANG)
+CLANG = $(SILENT)clang $(CFLAGS)
+CFLAGS = -Wall -Werror -Wextra
+
+GCC_DEBUG := $(SILENT)gcc $(CFLAGS) $(GCC_FLAG)
+GCC_FLAG := -g -ffunction-sections -Wl,--gc-sections -Wl,--print-gc-sections
 
 
 SRCS_DIR = src
@@ -49,8 +53,6 @@ SRCS_FILES = 							\
 	exec/lst_com_split_args.c			\
 	exec/utils/heredoc/utils_heredoc.c	\
 	exec/utils/exit_cmd.c				\
-	exec/utils/print_lst.c				\
-	exec/utils/print_tree.c				\
 	exec/utils/utils_cmd.c				\
 	exec/utils/utils_redir.c			\
 	exec/utils/lst/lst_com.c			\
