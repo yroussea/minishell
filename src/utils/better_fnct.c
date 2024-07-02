@@ -6,11 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:23:27 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/19 09:45:24 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:30:14 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <string.h>
 
 t_bool	ft_close(int nb, ...)
 {
@@ -33,10 +34,7 @@ t_bool	ft_close(int nb, ...)
 	}
 	va_end(args);
 	if (error != 0)
-	{
-		ft_printf_fd(2, ERROR_CLOSE);
 		return (ERROR);
-	}
 	return (TRUE);
 }
 
