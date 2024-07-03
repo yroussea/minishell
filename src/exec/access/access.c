@@ -6,19 +6,22 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:31 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/17 18:15:30 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:54:15 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 void	print_msg(char *msg, char *cmd)
 {
 	ft_printf_fd(2, msg, cmd);
 }
 
-t_bool	print_error_access(t_error error_type, char *cmd)
+t_bool	print_error_access(t_error error_type, char *cmd, char *str)
 {
 	if (error_type == NOT_CMD)
 		get_set_exit_code(127, TRUE);
@@ -35,11 +38,11 @@ t_bool	print_error_access(t_error error_type, char *cmd)
 	{
 		get_set_exit_code(126, TRUE);
 		if (error_type == IS_DIR)
-			print_msg(IS_A_DIR, cmd);
+			print_msg(IS_A_DIR, str);
 		else if (error_type == NO_PERM)
-			print_msg(HAVE_NO_PERM, cmd);
+			print_msg(HAVE_NO_PERM, str);
 		else if (error_type == ISNOT_DIR)
-			print_msg(IS_NOT_DIR, cmd);
+			print_msg(IS_NOT_DIR, str);
 	}
 	else if (error_type == AMBIGUOUS)
 		ft_printf_fd(2, AMBIGUOUS_ARG, cmd);
@@ -53,19 +56,21 @@ t_bool	access_errors(struct stat st, int status, char *path, char *cmd)
 	else
 	{
 		if (cmd)
-			return (print_error_access(NOT_CMD, cmd));
+			return (print_error_access(NOT_CMD, cmd, ""));
 		return (TRUE);
 	}
 	if (S_ISDIR(st.st_mode))
-		return (print_error_access(IS_DIR, path));
-	else if (status != -1 && path && *path && access(path, X_OK))
-		print_error_access(NO_PERM, cmd);
+		return (print_error_access(IS_DIR, path, path));
+	else if (status != -1 && path && *path && (access(path, X_OK)))
+		print_error_access(NO_PERM, path, cmd);
+	else if (status != -1 && path && *path && (access(path, R_OK)))
+		print_error_access(NO_PERM, path, path);
 	else if (status == -1 && errno == ENOTDIR)
-		print_error_access(ISNOT_DIR, cmd);
+		print_error_access(ISNOT_DIR, cmd, cmd);
 	else if (status == -1 && errno == ENOENT)
-		return (print_error_access(NOT_CMD, cmd));
+		return (print_error_access(NOT_CMD, cmd, cmd));
 	else if (S_ISFIFO(st.st_mode))
-		print_error_access(NO_PERM, cmd);
+		print_error_access(NO_PERM, cmd, cmd);
 	else
 		return (FALSE);
 	return (TRUE);
@@ -79,7 +84,7 @@ char	*extract_path(t_lst_envp *lst_envp, char *cmd)
 
 	if (!cmd || !*cmd)
 		return (ft_strdup(cmd));
-	if (cmd && *cmd && access(cmd, F_OK) == 0)
+	if (cmd && *cmd && strchr(cmd, '/'))
 		return (ft_strdup(cmd));
 	allpaths = get_all_path(lst_envp);
 	i = 0;

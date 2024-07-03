@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:46:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 18:16:24 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:48:37 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	child_builtin(t_node *node, t_data_stk *stks, t_fds fds)
 		close_heredoc(ft_get_root(NULL, FALSE, FALSE));
 		exec_builtin(node->cmd, node, TRUE);
 		ft_close_pipe(stks->pipes);
+		close_redir_builtin(node);
 		exit_builtin(node, 0);
 	}
 	exit_builtin(node, 1);

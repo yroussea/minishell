@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:22:28 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/02 16:01:34 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:42:23 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_bool	all_redir_cmd(t_lst_redir *redir, t_fds fds, t_lst_envp *lst_envp)
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
 		if (!unqote_redir(&redir->file, lst_envp, 0))
-			return (!print_error_access(AMBIGUOUS, redir->file));
+			return (!print_error_access(AMBIGUOUS, redir->file, ""));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
 			return (diff_type_err_file(redir->file));
@@ -104,7 +104,7 @@ t_bool	all_redir_builtin(t_node *node, t_lst_redir *redir, t_lst_envp \
 		if (redir->type == HEREDOC)
 			fds_in = redir_heredoc(fds_in, redir, lst_envp);
 		if (!unqote_redir(&redir->file, lst_envp, 0))
-			return (!print_error_access(AMBIGUOUS, redir->file));
+			return (!print_error_access(AMBIGUOUS, redir->file, ""));
 		check_type(&fds_in, &fds_out, &fds_error, redir);
 		if (fds_error == -1 || fds_in == -1 || fds_out == -1)
 			return (diff_type_err_file(redir->file));
