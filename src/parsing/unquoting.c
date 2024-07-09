@@ -6,12 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 18:01:09 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <stdarg.h>
+#include <stdio.h>
 
 char	*join_and_free(size_t nb_str, char *sep, ...)
 {

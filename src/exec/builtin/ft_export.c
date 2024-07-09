@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/02 17:07:07 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:17:30 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_bool	is_forbidden(t_node *node, char *var)
 	}
 	if (ft_strrchr(var, '+') == var + ft_strlen(var) - !!ft_strlen(var))
 		tmp[ft_strlen(tmp) - !!ft_strlen(tmp)] = 0;
-	ft_printf_fd(node->errorfile,
-			  "petite-coquille: export: `%s': not a valid identifier\n", tmp);
+	ft_printf_fd(node->errorfile, \
+			"petite-coquille: export: `%s': not a valid identifier\n", tmp);
 	get_set_exit_code(1, TRUE);
 	return (TRUE);
 }
