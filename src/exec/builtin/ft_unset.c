@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:32:10 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:04:18 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_unset(t_node *node, char *arg)
 	}
 	else
 	{
+		if (node->args[0] && node->args[1] && node->args[1][0] == '-')
+			get_set_exit_code(2, TRUE);
 		i--;
 		while (i > 0)
 		{
