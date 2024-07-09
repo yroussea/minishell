@@ -6,11 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:51:16 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:12 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:46:02 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <signal.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 t_bool	verif_complete_tree(t_node *root)
@@ -25,7 +27,7 @@ t_bool	verif_complete_tree(t_node *root)
 
 void	check_status(int status)
 {
-	if (!WIFEXITED(status))
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 	{
 		if (WCOREDUMP(status))
 			ft_printf_fd(STDERR_FILENO, "Quit (core dumped)\n");
@@ -33,7 +35,7 @@ void	check_status(int status)
 			ft_printf_fd(STDERR_FILENO, "Quit\n");
 		get_set_exit_code(131, TRUE);
 	}
-	if (WTERMSIG(status) == 2)
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
 		ft_printf_fd(STDERR_FILENO, "\n");
 		get_set_exit_code(130, TRUE);
