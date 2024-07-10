@@ -1,8 +1,9 @@
 SILENT = @
 
 CC = $(CLANG)
-CLANG = $(SILENT)clang $(CFLAGS)
-CFLAGS = -Wall -Werror -Wextra -g -gdwarf-3
+CLANG := $(SILENT)clang $(CFLAGS)
+CFLAGS := -Wall -Werror -Wextra
+DEBUGCFLAG := -g -gdwarf-3
 
 GCC_DEBUG := $(SILENT)gcc $(CFLAGS) $(GCC_FLAG)
 GCC_FLAG := -g -ffunction-sections -Wl,--gc-sections -Wl,--print-gc-sections

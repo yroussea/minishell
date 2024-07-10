@@ -6,12 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:52:08 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdarg.h>
 #include <stdio.h>
 
 char	*join_and_free(size_t nb_str, char *sep, ...)
@@ -83,10 +82,12 @@ char	*ft_unsimplequote(char *s, t_lst_envp *lst, int in_dollar)
 	char	*res;
 	char	*str;
 
+	str = NULL;
 	res = strdup_until_sep(s, 1, 39);
 	while (s && *s && *s != 39)
 		s++;
-	str = ft_unquote(s + 1, lst, in_dollar - in_dollar, NULL);
+	if (s && *s && *(s + 1))
+		str = ft_unquote(s + 1, lst, in_dollar - in_dollar, NULL);
 	return (join_and_free(2, "", res, str));
 }
 
