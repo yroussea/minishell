@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/29 18:04:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:31:54 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			remove_var_env(t_lst_envp **lst_envp, char *variable);
 /*
  * just a better prompt
  */
-char			*get_prompt(t_lst_envp	*lst_envp, char *prompt);
+char			*get_prompt(t_lst_envp	*lst_envp, char *prompt, int no_color);
 t_bool			is_git_file(char *pwd, char **branch);
 t_lst_envp		*index_removed_var(t_lst_envp *lst_envp, char *key);
 int				modif_envp(t_lst_envp *lst_envp, char *variable, \
