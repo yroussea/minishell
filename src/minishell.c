@@ -6,32 +6,52 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/13 07:40:36 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 08:50:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "include/struct.h"
 #include "include/utils.h"
-#include <readline/history.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 
-#define BUFFER 10000 //si buff < taille?
-char	**exec_child_cmd(char **cmd, t_lst_envp *envp)
+char	**ft_realloc_strs(char **str)
 {
-	int	fd[2];
-	int	exit_status;
-	int	p_id;
+	int		i;
+	char	**r;
 
-	pipe(fd);
+	i = ft_str_str_len(str);
+	if (!str)
+		return (NULL);
+	r = ft_calloc(sizeof(char *), (i + 2));
+	if (!r)
+	{
+		ft_magic_free("%2", str);
+		return (NULL);
+	}
+	i = 0;
+	while (str[i])
+	{
+		r[i] = str[i];
+		i++;
+	}
+	free(str);
+	return (r);
+}
+
+int	in_child_cmd(char **cmd, t_lst_envp *envp, int fd[2])
+{
+	int		exit_status;
+	int		p_id;
+	char	**env;
+
 	p_id = fork();
 	if (p_id == 0)
 	{
 		dup2(fd[1], 1);
-		ft_close(2, fd[0], fd[1]);
-		char	**env = envp_to_char(envp);
+		ft_close(1, fd[1]);
+		env = envp_to_char(envp);
 		rl_clear_history();
 		free_lst_envp(envp);
 		execve(cmd[0], cmd, env);
@@ -39,23 +59,53 @@ char	**exec_child_cmd(char **cmd, t_lst_envp *envp)
 		exit(1);
 	}
 	waitpid(p_id, &exit_status, 0);
-	if (WEXITSTATUS(exit_status))
-		exit(1); //pas un exit
-	char	*s=malloc(BUFFER);
-	int r = BUFFER;
-	r = read(fd[0], s, BUFFER);
-	if (r <= 0)
-		return (NULL);
-	s[r] = 0;
-	ft_close(2, fd[0], fd[1]);
-	char	**str = ft_split(s, '\n');
-	free(s);
+	return (WEXITSTATUS(exit_status));
+}
+
+char	**gnl_all_file(char *file, int *fd)
+{
+	char	**str;
+	int		i;
+
+	i = 0;
+	*fd = open(file, O_RDONLY);
+	str = ft_calloc(sizeof(char *), 2);
+	while (str)
+	{
+		str[i] = get_next_line(*fd);
+		if (!str[i++])
+			break ;
+		str = ft_realloc_strs(str);
+	}
+	if (str)
+		str[i] = NULL;
 	return (str);
 }
 
-char	*get_var_char(char *key)
+char	**exec_child_cmd(char **cmd, t_lst_envp *envp)
 {
-	return (getenv(key));
+	int		i;
+	char	buf[11];
+	int		fd[2];
+	char	**str;
+
+	i = 0;
+	while (i < 10)
+		buf[i++] = ft_random();
+	buf[i] = 0;
+	fd[1] = open(buf, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (!fd[1])
+		return (NULL);
+	if (in_child_cmd(cmd, envp, fd))
+	{
+		ft_close(1, fd[1]);
+		unlink(buf);
+		return (NULL);
+	}
+	str = gnl_all_file(buf, fd);
+	ft_close(2, fd[0], fd[1]);
+	unlink(buf);
+	return (str);
 }
 
 t_bool	find_char_in_split(char *s, char **spl)
@@ -74,11 +124,14 @@ t_bool	find_char_in_split(char *s, char **spl)
 
 t_bool	correct_lang(t_lst_envp *envp)
 {
-	t_bool	return_value = 0;
-	char	**s1 = exec_child_cmd((char *[3]){"/bin/locale", "-a", (char *)0}, envp);
-	char	*lang = get_var_char("LANG");
-	char	*x = NULL;
+	t_bool	return_value;
+	char	**s;
+	char	*lang;
+	char	*x;
 
+	return_value = 0;
+	s = exec_child_cmd((char *[3]){"/bin/locale", "-a", (char *)0}, envp);
+	lang = getenv("LANG");
 	if (lang)
 		x = ft_strnstr(lang, "UTF", ft_strlen(lang) + 1);
 	if (lang && x)
@@ -87,19 +140,21 @@ t_bool	correct_lang(t_lst_envp *envp)
 		x[1] = 't';
 		x[2] = 'f';
 	}
-	return_value = find_char_in_split(lang, s1);
-	ft_free_split(s1);
+	return_value = find_char_in_split(lang, s);
+	ft_free_split(s);
 	return (return_value);
 }
 
-t_bool no_emojy_rl(t_lst_envp *envp)
+t_bool	no_emojy_rl(t_lst_envp *envp)
 {
-	t_bool	return_value = 0;
-	char	**s2 = exec_child_cmd((char *[3]){"/bin/toe", "-a", (char *)0}, envp);
-	char	*term_var = get_var_char("TERM");
-	if (correct_lang(envp) || find_char_in_split(term_var, s2))
-		return_value = 1;
-	ft_free_split(s2);
+	t_bool	return_value;
+	char	**s;
+	char	*term_var;
+
+	term_var = getenv("TERM");
+	s = exec_child_cmd((char *[3]){"/bin/toe", "-a", (char *)0}, envp);
+	return_value = (find_char_in_split(term_var, s) || correct_lang(envp));
+	ft_free_split(s);
 	return (!return_value);
 }
 
@@ -122,6 +177,7 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 	int			no_color;
 
 	prompt = NULL;
+	no_color = 0;
 	rl_outstream = stderr;
 	while (1)
 	{

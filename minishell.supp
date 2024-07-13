@@ -1,0 +1,57 @@
+{
+   readline
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:readline
+   ...
+}
+{
+   readline-history
+   Memcheck:Leak
+   ...
+   fun:xmalloc
+   fun:add_history
+   ...
+}
+{
+   </bin/toe>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/usr/bin/toe
+   fun:(below main)
+}
+{
+   </bin/locale>
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/locale
+   fun:(below main)
+}
+{
+   </bin/clear>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/usr/bin/clear
+   fun:(below main)
+}
+{
+   </bin/cat>
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/cat
+   fun:(below main)
+}
+{
+   </bin/ls>
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/ls
+   fun:(below main)
+}
+
+
+
+
