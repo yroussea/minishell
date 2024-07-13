@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:52:00 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/12 14:31:54 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:54:16 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,11 @@ char			*join_and_free(size_t nb_str, char *sep, ...);
 void			move_to_dir(char *path, t_node *node);
 t_bool			get_new_pwd(t_node *node, t_bool pwd);
 t_bool			cd_err(t_node *node, int error_code);
+
+t_bool			find_char_in_split(char *s, char **spl);
+char			**exec_child_cmd(char **cmd, t_lst_envp *envp);
+char			**gnl_all_file(char *file, int *fd);
+int				in_child_cmd(char **cmd, t_lst_envp *envp, int fd[2]);
+t_bool			diff_lang(char *lang, char *cmp);
 
 #endif

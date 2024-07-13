@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:31:20 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/12 13:40:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:51:35 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 
 void		*ft_calloc(size_t nmeb, size_t size);
+char		**ft_realloc_strs(char **str);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memchr(const void *s, int c, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
