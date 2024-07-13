@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/12 14:43:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 07:40:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,9 @@ char	**exec_child_cmd(char **cmd, t_lst_envp *envp)
 	return (str);
 }
 
-char	*get_var_char(char *key, t_lst_envp *envp)
+char	*get_var_char(char *key)
 {
-	uint	len;
-
-	len = ft_strlen(key);
-	while (key && envp)
-	{
-		if (!ft_strncmp(key, envp->key, len))
-			return (envp->value);
-		envp = envp->next;
-	}
-	return (NULL);
+	return (getenv(key));
 }
 
 t_bool	find_char_in_split(char *s, char **spl)
@@ -85,7 +76,7 @@ t_bool	correct_lang(t_lst_envp *envp)
 {
 	t_bool	return_value = 0;
 	char	**s1 = exec_child_cmd((char *[3]){"/bin/locale", "-a", (char *)0}, envp);
-	char	*lang = get_var_char("LANG", envp);
+	char	*lang = get_var_char("LANG");
 	char	*x = NULL;
 
 	if (lang)
@@ -105,7 +96,7 @@ t_bool no_emojy_rl(t_lst_envp *envp)
 {
 	t_bool	return_value = 0;
 	char	**s2 = exec_child_cmd((char *[3]){"/bin/toe", "-a", (char *)0}, envp);
-	char	*term_var = get_var_char("TERM", envp);
+	char	*term_var = get_var_char("TERM");
 	if (correct_lang(envp) || find_char_in_split(term_var, s2))
 		return_value = 1;
 	ft_free_split(s2);
