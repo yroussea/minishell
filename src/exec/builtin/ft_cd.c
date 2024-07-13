@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:28:50 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:20:18 by basverdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,12 @@ void	ft_cd(t_node *node)
 	if (ft_str_str_len(node->args) == 1)
 	{
 		path = get_envp_variable(*node->envp, "HOME", 1);
+		if (!path)
+		{
+			ft_printf_fd(node->outfile, "petite-coquille: cd: HOME not set\n");
+			get_set_exit_code(1, TRUE);
+			return ;
+		}
 		move_to_dir(path, node);
 		free(path);
 	}
