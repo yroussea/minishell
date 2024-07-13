@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:27:36 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:28:50 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,17 @@ char	*get_envp_variable(t_lst_envp *lst_envp, char *variable, int exist)
 
 	while (lst_envp && exist != -2)
 	{
-		if (exist <= lst_envp->active && \
+		if (exist <= lst_envp->active && variable && lst_envp->key &&
 			ft_strncmp(lst_envp->key, variable, ft_strlen(variable) + 1) == 0)
 			return (ft_strdup(lst_envp->value));
 		lst_envp = lst_envp->next;
 	}
-	if (exist == -2 && ft_strncmp(variable, "PWD", 3) == 0)
+	if (exist == -2 && variable && ft_strncmp(variable, "PWD", 3) == 0)
 	{
 		getcwd(buf, 4096);
 		return (ft_strdup(buf));
 	}
-	if (ft_strncmp(variable, "?", 1) == 0)
+	if (variable && ft_strncmp(variable, "?", 1) == 0)
 		return (ft_itoa(get_set_exit_code(0, FALSE)));
 	return (NULL);
 }

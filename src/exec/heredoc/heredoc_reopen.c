@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:32:44 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ t_bool	fill_heredoc(int old_fd, int new_fd, t_lst_envp *lst_envp)
 			return (FALSE);
 		}
 		buf[r] = 0;
-		str = ft_vjoin(2, "", str, buf);
-		free(buf);
+		str = join_and_free(2, "", str, buf);
 	}
 	buf = replace_dollar(str, lst_envp);
 	free(str);
 	ft_printf_fd(new_fd, "%s", buf);
+	free(buf);
 	return (TRUE);
 }
 

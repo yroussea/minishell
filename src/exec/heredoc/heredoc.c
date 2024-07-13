@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 22:39:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_exit_heredoc(char *eof, int fd, char *line)
 	free(line);
 	free(eof);
 	close(fd);
+	rl_clear_history();
 	exit(0);
 }
 

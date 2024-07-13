@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/09 09:17:30 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:30:30 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ t_bool	is_forbidden(t_node *node, char *var)
 
 void	concatenate_envp(t_node *node, char **variable, char *tmp2, char *arg)
 {
+	if (!tmp2 || !variable[0])
+	{
+		ft_magic_free("%1 %1 %2", arg, tmp2, variable);
+		return ;
+	}
 	variable[1] = ft_strdup(tmp2);
 	arg = ft_vjoin(3, "", variable[0], "=", variable[1]);
 	lst_envp_add(node->envp, ft_strdup(arg));
@@ -73,7 +78,7 @@ void	create_env(t_node *node, char *arg)
 
 t_bool	check_splited(char **splited, t_node *node)
 {
-	if (!*splited)
+	if (!splited || !*splited || !splited[1] || !**splited)
 	{
 		ft_magic_free("%2", splited);
 		ft_printf_fd(node->errorfile, \
