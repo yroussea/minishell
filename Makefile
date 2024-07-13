@@ -20,6 +20,7 @@ SRCS_FILES = 							\
 	parsing/tokeniser/tokeniser.c		\
 	parsing/unquoting.c					\
 	utils/utils_exec.c					\
+	utils/utils_nocolors_prompt.c		\
 	utils/better_fnct.c					\
 	utils/better_fnct_2.c				\
 	utils/get_malloc.c					\
