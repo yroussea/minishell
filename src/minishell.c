@@ -6,13 +6,14 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/13 08:50:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:26:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "include/struct.h"
 #include "include/utils.h"
+#include <ctype.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 
@@ -122,26 +123,49 @@ t_bool	find_char_in_split(char *s, char **spl)
 	return (FALSE);
 }
 
+t_bool	diff_lang(char *lang, char *cmp)
+{
+	while (lang && cmp && (*lang || *cmp))
+	{
+		if (*lang && !ft_isalnum(*lang))
+		{
+			lang++;
+			continue ;
+		}
+		if (*cmp && !ft_isalnum(*cmp))
+		{
+			cmp++;
+			continue ;
+		}
+		if (*cmp && *lang && ft_tolower(*cmp) == ft_tolower(*lang))
+		{
+			cmp++;
+			lang++;
+			continue ;
+		}
+		break ;
+	}
+	return (*cmp || *lang);
+}
+
 t_bool	correct_lang(t_lst_envp *envp)
 {
 	t_bool	return_value;
 	char	**s;
+	char	**tmp;
 	char	*lang;
-	char	*x;
 
 	return_value = 0;
 	s = exec_child_cmd((char *[3]){"/bin/locale", "-a", (char *)0}, envp);
 	lang = getenv("LANG");
-	if (lang)
-		x = ft_strnstr(lang, "UTF", ft_strlen(lang) + 1);
-	if (lang && x)
+	tmp = s;
+	return_value = 0;
+	while (return_value == 0 && s && *s)
 	{
-		x[0] = 'u';
-		x[1] = 't';
-		x[2] = 'f';
+		return_value = !diff_lang(lang, *s);
+		s++;
 	}
-	return_value = find_char_in_split(lang, s);
-	ft_free_split(s);
+	ft_free_split(tmp);
 	return (return_value);
 }
 
