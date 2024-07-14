@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/10 17:52:08 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 20:01:06 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,31 @@ char	*ft_unsimplequote(char *s, t_lst_envp *lst, int in_dollar)
 	return (join_and_free(2, "", res, str));
 }
 
+char	*invisible_char(t_bool creat, char *s)
+{
+	static char	*inv = "\001";
+
+	if (creat == TRUE)
+	{
+		if (!ft_strchr(s, '\001'))
+			inv = "\001";
+		else if (!ft_strchr(s, '\002'))
+			inv = "\002";
+		else if (!ft_strchr(s, '\003'))
+			inv = "\003";
+		else if (!ft_strchr(s, '\004'))
+			inv = "\004";
+		else if (!ft_strchr(s, '\005'))
+			inv = "\005";
+		else if (!ft_strchr(s, '\006'))
+			inv = "\006";
+		else
+			inv = "\001";
+		return (NULL);
+	}
+	return (ft_strdup(inv));
+}
+
 char	*ft_unquote(char *s, t_lst_envp *lst, int in_dollar, char *res)
 {
 	char	*str;
@@ -100,11 +125,11 @@ char	*ft_unquote(char *s, t_lst_envp *lst, int in_dollar, char *res)
 	while (s && *s && *s != 34 && *s != 36 && *s != 39)
 		s++;
 	if (s && *s == 34)
-		return (join_and_free(4, "", res, ft_strdup("\001"), \
-			ft_undoublequote(s + 1, lst, in_dollar), ft_strdup("\001")));
+		return (join_and_free(4, "", res, invisible_char(0, NULL), \
+			ft_undoublequote(s + 1, lst, in_dollar), invisible_char(0, NULL)));
 	if (s && *s == 39)
-		return (join_and_free(4, "", res, ft_strdup("\001"), \
-			ft_unsimplequote(s + 1, lst, in_dollar), ft_strdup("\001")));
+		return (join_and_free(4, "", res, invisible_char(0, NULL), \
+			ft_unsimplequote(s + 1, lst, in_dollar), invisible_char(0, NULL)));
 	if (s && *s == 36)
 	{
 		str = ft_undolars(++s, lst, in_dollar);

@@ -6,11 +6,24 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 19:23:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 20:02:14 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	get_inv_char(void)
+{
+	char	*s;
+	char	c;
+
+	s = invisible_char(0, NULL);
+	if (!s)
+		return (1);
+	c = *s;
+	free(s);
+	return (c);
+}
 
 char	**quote_realloc(char **res, char *unqoted)
 {
@@ -21,7 +34,7 @@ char	**quote_realloc(char **res, char *unqoted)
 
 	i = -1;
 	j = 0;
-	tmp = ft_split_out_quote(unqoted, " \r\t\v\f\n", '\001');
+	tmp = ft_split_out_quote(unqoted, " \r\t\v\f\n", get_inv_char());
 	if (!tmp)
 		return (res);
 	tab = ft_calloc(sizeof(char *), \
@@ -34,7 +47,7 @@ char	**quote_realloc(char **res, char *unqoted)
 	while (res && *(res + ++i))
 		*(tab + i) = ft_strdup(*(res + i));
 	while (tmp && *(tmp + j))
-		*(tab + i++) = ft_strdupexept(*(tmp + j++), '\001');
+		*(tab + i++) = ft_strdupexept(*(tmp + j++), get_inv_char());
 	ft_free_split(res);
 	ft_free_split(tmp);
 	return (tab);
@@ -48,6 +61,7 @@ void	parse_quote(t_node *node, int j, int i)
 	res = ft_calloc(sizeof(char *), 1);
 	while (res && node->args && *(node->args + j))
 	{
+		invisible_char(1, *(node->args + j));
 		unqoted = ft_unquote(*(node->args + j), *(node->envp), 0, NULL);
 		res = quote_realloc(res, unqoted);
 		free(unqoted);

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:50:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/13 17:29:39 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/14 19:31:12 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ char	*get_prompt(t_lst_envp *lst_envp, char *prompt, int no_color)
 		prompt = ft_vjoin(2, "", new_pwd, " > ");
 	else if (!branch)
 		prompt = ft_vjoin(11, "", DEFAULT, logo, DEFAULT, " | ", GREEN, FOLDER, \
-			" ", new_pwd, " ", END, DEFAULT);
+			" ", new_pwd, " ", END, DEFAULT_END);
 	else
 		prompt = ft_vjoin(14, "", DEFAULT, logo, DEFAULT, " | ", GREEN, FOLDER, \
-			" ", new_pwd, " ", DEFAULT, branch, CYAN, ") ", DEFAULT);
+			" ", new_pwd, " ", DEFAULT, branch, CYAN, ") ", DEFAULT_END);
 	ft_magic_free("%1 %1 %1 %1 %1", pwd, logo, new_pwd, branch, home);
 	return (prompt);
 }

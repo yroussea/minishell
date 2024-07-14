@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:11:32 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/17 18:33:52 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/14 19:37:58 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <termios.h>
 
 # define DEFAULT "\001\033[m\002"
+# define DEFAULT_END "\001\033[m\002"
 # define BLACK "\001\e[0;30m\002"
 # define RED "\001\e[1;31m\002"
 # define GREEN "\001\e[1;38;5;2m\002"
