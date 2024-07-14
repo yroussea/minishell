@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 19:23:32 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**quote_realloc(char **res, char *unqoted)
 
 	i = -1;
 	j = 0;
-	tmp = ft_split_out_quote(unqoted, ' ', '\001');
+	tmp = ft_split_out_quote(unqoted, " \r\t\v\f\n", '\001');
 	if (!tmp)
 		return (res);
 	tab = ft_calloc(sizeof(char *), \

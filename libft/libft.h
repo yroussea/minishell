@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:31:20 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 01:47:49 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 19:23:21 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char		**ft_str_realloc(char **str);
 int			ft_str_str_len(char **str);
 char		*ft_strtrim(char const *s1, char const *set);
 void		ft_free_split(char **result);
-char		**ft_split_out_quote(char const *s, char c, char quote);
+char		**ft_split_out_quote(char const *s, char *c, char quote);
 char		**ft_split(char const *s, char c);
 char		**ft_split_charset(char const *s, char *charset);
 char		**ft_split_first_sep(char const *s, char c);

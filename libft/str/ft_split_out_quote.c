@@ -6,33 +6,33 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:23:16 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:14:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 19:23:36 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static size_t	ft_len_split(char const *s, char c)
+static size_t	ft_len_split(char const *s, char *c)
 {
 	size_t	i;
 	size_t	k;
 
 	k = 1;
-	if (s[0] == c)
+	if (ft_strchr(c, *s))
 		k = 0;
 	i = 1;
 	if (!s[0])
 		return (0);
 	while (s && s[i])
 	{
-		if (s[i] != c && s[i - 1] == c)
+		if (!ft_strchr(c, s[i]) && ft_strchr(c, s[i - 1]))
 			k += 1;
 		i += 1;
 	}
 	return (k);
 }
 
-static size_t	ft_len_next_w(char const *s, char c, size_t j, char quote)
+static size_t	ft_len_next_w(char const *s, char *c, size_t j, char quote)
 {
 	int	inside;
 
@@ -42,14 +42,14 @@ static size_t	ft_len_next_w(char const *s, char c, size_t j, char quote)
 	{
 		if (s[j] == quote)
 			inside = 1 - inside;
-		if (!inside && s[j] == c)
+		if (!inside && ft_strchr(c, s[j]))
 			break ;
 		j += 1;
 	}
 	return (j);
 }
 
-static char	**fill_split(char const *s, char c, char **result, char quote)
+static char	**fill_split(char const *s, char *c, char **result, char quote)
 {
 	size_t	k;
 	size_t	i;
@@ -77,7 +77,7 @@ static char	**fill_split(char const *s, char c, char **result, char quote)
 	return (result);
 }
 
-char	**ft_split_out_quote(char const *s, char c, char quote)
+char	**ft_split_out_quote(char const *s, char *c, char quote)
 {
 	char	**result;
 
