@@ -1,13 +1,17 @@
 SILENT = @
 
-CC = $(CLANG)
-CLANG := $(SILENT)clang $(CFLAGS)
-CFLAGS := -Wall -Werror -Wextra
-DEBUGCFLAG := -g -gdwarf-3
+COMPIL = $(CLANG)
+ALL_FLAG =
+CC = $(COMPIL) $(ALL_FLAG)
 
-GCC_DEBUG := $(SILENT)gcc $(CFLAGS) $(GCC_FLAG)
-GCC_FLAG := -g -ffunction-sections -Wl,--gc-sections -Wl,--print-gc-sections
+CFLAGS = -Wall -Werror -Wextra
+CLANG = $(SILENT)clang $(CFLAGS)
+GCC = $(SILENT)gcc $(CFLAGS)
 
+DEAD_CODE = -g -ffunction-sections -Wl,--gc-sections -Wl,--print-gc-sections
+
+DEBUGCFLAG = -g -gdwarf-3
+MACRO_FLAG = -D FAST_PROMPT=1
 
 SRCS_DIR = src
 OBJS_DIR = obj
@@ -127,6 +131,35 @@ fclean:
 	$(DELET_LINE)
 	$(PRINT) $(MSG_TOTALY_CLEANED)
 
+--cc:
+	$(eval COMPIL = $(CLANG))
+	$(eval ALL_FLAG += $(DEBUGCFLAG))
+	$(eval CC = $(COMPIL) $(ALL_FLAG))
+
+--gcc:
+	$(eval COMPIL = $(GCC))
+	$(eval CC = $(COMPIL) $(ALL_FLAG))
+
+--dead_code:
+	$(eval ALL_FLAG += $(DEAD_CODE))
+	$(eval COMPIL = $(GCC))
+	$(eval CC = $(COMPIL) $(ALL_FLAG))
+
+--fast:
+	$(eval ALL_FLAG += $(MACRO_FLAG))
+	$(eval CC = $(COMPIL) $(ALL_FLAG))
+
+cc: fclean --cc $(NAME)
+gcc: fclean --gcc $(NAME)
+dead_code: fclean --dead_code $(NAME)
+fast: fclean --fast $(NAME)
+
+print_compilation_flag:
+	echo $(COMPIL)
+	echo $(ALL_FLAG)
+
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re fast cc gcc dead_code print_compilation_flag
+.SILENT:

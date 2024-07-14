@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:37:16 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/13 17:54:21 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/14 19:00:11 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,16 @@ int	in_child_cmd(char **cmd, t_lst_envp *envp, int fd[2])
 	p_id = fork();
 	if (p_id == 0)
 	{
-		dup2(fd[1], 1);
-		ft_close(1, fd[1]);
-		env = envp_to_char(envp);
 		rl_clear_history();
+		if (dup2(fd[1], 1) != -1)
+		{
+			ft_close(1, fd[1]);
+			env = envp_to_char(envp);
+			free_lst_envp(envp);
+			execve(cmd[0], cmd, env);
+			ft_free_split(env);
+		}
 		free_lst_envp(envp);
-		execve(cmd[0], cmd, env);
-		ft_free_split(env);
 		exit(1);
 	}
 	waitpid(p_id, &exit_status, 0);
@@ -81,13 +84,13 @@ char	**gnl_all_file(char *file, int *fd)
 
 char	**exec_child_cmd(char **cmd, t_lst_envp *envp)
 {
-	int		i;
-	char	buf[11];
-	int		fd[2];
-	char	**str;
+	int			i;
+	static char	buf[16] = "/tmp/";
+	int			fd[2];
+	char		**str;
 
-	i = 0;
-	while (i < 10)
+	i = 5;
+	while (i < 15)
 		buf[i++] = ft_random();
 	buf[i] = 0;
 	fd[1] = open(buf, O_WRONLY | O_CREAT | O_TRUNC, 0664);

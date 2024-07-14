@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/13 17:52:40 by basverdi         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:54:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_bool	correct_lang(t_lst_envp *envp)
 	return (return_value);
 }
 
+#ifndef FAST_PROMPT
 t_bool	no_emojy_rl(t_lst_envp *envp)
 {
 	t_bool	return_value;
@@ -50,6 +51,22 @@ t_bool	no_emojy_rl(t_lst_envp *envp)
 	ft_free_split(s);
 	return (!return_value);
 }
+#else
+t_bool	no_emojy_rl(t_lst_envp *envp)
+{
+	static t_bool	return_value = -1;
+	char			**s;
+	char			*term_var;
+
+	if (return_value != -1)
+		return (!return_value);
+	term_var = getenv("TERM");
+	s = exec_child_cmd((char *[3]){"/bin/toe", "-a", (char *)0}, envp);
+	return_value = (find_char_in_split(term_var, s) || correct_lang(envp));
+	ft_free_split(s);
+	return (!return_value);
+}
+#endif
 
 int	ft_empty_line(char *line, t_lst_envp *lst_envp)
 {

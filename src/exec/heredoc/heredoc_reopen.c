@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:57:07 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/13 21:32:44 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 01:27:15 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	*ft_undolars_heredoc(char *s, t_lst_envp *lst_envp)
 
 char	ft_random(void)
 {
-	char	buf[1];
-	int		fd;
+	static char	buf[1];
+	int			fd;
 
 	fd = open("/dev/random", 0);
 	read(fd, buf, 1);
@@ -101,13 +101,13 @@ int	heredoc_reopen(int fd, t_lst_envp *lst_envp)
 	char	buf[19];
 	int		i;
 
-	ft_strlcpy(buf, ".heredoc", 9);
-	i = 8;
+	ft_strlcpy(buf, "/tmp/.heredoc", 9 + 5);
+	i = 8 + 5;
 	while (i < 18)
 		buf[i++] = ft_random();
 	buf[i] = 0;
 	new_fd = open((char *)buf, 577, 0664);
-	if (!fill_heredoc(fd, new_fd, lst_envp))
+	if (new_fd <= 0 || !fill_heredoc(fd, new_fd, lst_envp))
 	{
 		unlink(buf);
 		close(!new_fd);

@@ -6,7 +6,7 @@
 /*   By: yroussea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:36:50 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:14:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 02:07:31 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_putmultstr_fd(char **strs, int fd)
 	i = 0;
 	while (strs && strs[k])
 	{
-		i += ft_printf_fd(fd, "%s\n", strs[k]);
+		i += ft_printf_fd(fd, "{%s}\n", strs[k]);
 		k += 1;
 	}
 	return (i);

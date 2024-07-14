@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/13 22:39:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 01:29:32 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_bool	exec_heredoc(char *eof, int fd)
 	int		count;
 	int		status;
 
+	if (!fd)
+		return (FALSE);
 	count = 0;
 	pid = ft_fork();
 	if (pid == 0)
@@ -85,8 +87,8 @@ int	ft_heredoc(char *eof)
 	char	*word_end;
 
 	word_end = end_word(eof);
-	ft_strlcpy(buf, ".heredoc", 9);
-	i = 8;
+	ft_strlcpy(buf, "/tmp/.heredoc", 9 + 5);
+	i = 8 + 5;
 	while (i < 18)
 		buf[i++] = ft_random();
 	buf[i] = 0;
@@ -96,10 +98,10 @@ int	ft_heredoc(char *eof)
 	{
 		free(word_end);
 		unlink(buf);
-		close(fd);
+		ft_close(1, fd);
 		return (-1);
 	}
-	close(fd);
+	ft_close(1, fd);
 	fd = open((char *)buf, 0);
 	unlink(buf);
 	free(word_end);

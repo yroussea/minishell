@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:08:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:14:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 01:36:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,9 @@ int	ft_isnum(int c)
 	else if (c == '-' || c == '+' || c == '/')
 		return (1);
 	return (0);
+}
+
+int	ft_iswhitespace(int c)
+{
+	return (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\r' || c == '\f');
 }

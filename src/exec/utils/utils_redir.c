@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:01:15 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 18:38:47 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ char	*find_dots(char *str)
 	size_t	len;
 
 	len = ft_strlen(str);
-	if (ft_strncmp(str, "../", 3) == 0)
+	if (len == 0)
+		return (NULL);
+	if (str && ft_strncmp(str, "../", 3) == 0)
 		return (str);
 	tmp = ft_strnstr(str, "/../", len);
 	if (tmp)

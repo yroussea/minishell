@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:12:38 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 
 int	is_token(char *s, char **token)
 {
+	char	*diff;
+
 	while (token && *token)
 	{
+		diff = *token;
+		if (ft_iswhitespace(**token))
+			diff = " ";
 		if (ft_strncmp(s, *token, ft_strlen(*token)) == 0)
-			return (ft_strlen(*token));
+			return (ft_strlen(diff));
 		token += 1;
 	}
 	return (FALSE);
@@ -68,7 +73,7 @@ size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
 char	**ft_tokeniser(char *s, char **token)
 {
 	char	**result;
-	size_t	j;
+	int		j;
 	size_t	k;
 
 	k = 0;
@@ -78,16 +83,21 @@ char	**ft_tokeniser(char *s, char **token)
 	while (s && *s)
 	{
 		j = is_token(s, token);
+		if (j && ft_iswhitespace(*s))
+			j = -1;
 		if (!j)
 			j = len_next_word(s, token, ft_strlen(s));
-		result[k] = ft_calloc(sizeof(char *), (j + 1));
+		result[k] = ft_calloc(sizeof(char *), (ft_abs(j) + 1));
 		if (!result[k])
 		{
 			ft_magic_free("%2", result);
 			return (NULL);
 		}
-		ft_strlcpy(result[k], s, j + 1);
-		s += j;
+		if (j == -1)
+			ft_strlcpy(result[k], " ", 2);
+		else
+			ft_strlcpy(result[k], s, j + 1);
+		s += ft_abs(j);
 		k += 1;
 	}
 	return (result);
