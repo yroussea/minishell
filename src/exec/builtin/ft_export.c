@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/13 21:30:30 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:11:40 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_bool	is_forbidden(t_node *node, char *var)
 {
+	//export a==
 	char	*tmp;
 
 	tmp = var;
@@ -36,7 +37,7 @@ t_bool	is_forbidden(t_node *node, char *var)
 
 void	concatenate_envp(t_node *node, char **variable, char *tmp2, char *arg)
 {
-	if (!tmp2 || !variable[0])
+	if (!tmp2 || !variable || !variable[0])
 	{
 		ft_magic_free("%1 %1 %2", arg, tmp2, variable);
 		return ;
@@ -47,44 +48,72 @@ void	concatenate_envp(t_node *node, char **variable, char *tmp2, char *arg)
 	ft_magic_free("%1 %1 %2", arg, tmp2, variable);
 }
 
-void	create_env(t_node *node, char *arg)
+void	export_adding(t_node *node, char *arg, char **variable)
 {
-	char	**variable;
 	char	*tmp;
 	char	*tmp2;
 	char	*env_var;
 
-	variable = ft_split_first_sep(arg, '=');
-	if (variable[0][ft_strlen(variable[0]) - 1] == '+')
-	{
-		variable[0][ft_strlen(variable[0]) - 1] = '\0';
-		env_var = get_envp_variable(*node->envp, variable[0], 1);
-		tmp2 = join_and_free(2, "", env_var, variable[1]);
-	}
-	else
-		tmp2 = NULL;
+	variable[0][ft_strlen(variable[0]) - 1] = '\0';
+	env_var = get_envp_variable(*node->envp, variable[0], 1);
+	tmp2 = join_and_free(2, "", env_var, variable[1]);
 	tmp = is_envp_variable(*node->envp, variable[0]);
 	if (tmp)
 		ft_unset(node, variable[0]);
-	if (tmp2)
-		concatenate_envp(node, variable, tmp2, arg);
+	concatenate_envp(node, variable, tmp2, arg);
+	ft_magic_free("%1", tmp);
+}
+
+void	create_env(t_node *node, char *arg)
+{
+	char	**variable;
+	char	*tmp;
+
+	variable = ft_split_first_sep(arg, '=');
+	if (!variable)
+		return ;
+	if (!variable[1] && ft_strchr(arg, '='))
+		variable[1] = ft_calloc(sizeof(char), 1);
+	if (variable[0] && variable[0][ft_strlen(variable[0]) - 1] == '+')
+	{
+		export_adding(node, arg, variable);
+		return ;
+	}
 	else
 	{
-		lst_envp_add(node->envp, ft_strdup(arg));
-		ft_free_split(variable);
+		tmp = is_envp_variable(*node->envp, variable[0]);
+		if (tmp && !ft_strchr(arg, '='))
+			ft_free_split(variable);
+		else
+		{
+			if (tmp)
+				ft_unset(node, variable[0]);
+			lst_envp_add(node->envp, ft_strdup(arg));
+			ft_free_split(variable);
+		}
 	}
 	ft_magic_free("%1", tmp);
 }
 
-t_bool	check_splited(char **splited, t_node *node)
+t_bool	check_splited(char **splited, t_node *node, char *str)
 {
-	if (!splited || !*splited || !splited[1] || !**splited)
+	if (!splited || !*splited || !**splited)
 	{
 		ft_magic_free("%2", splited);
 		ft_printf_fd(node->errorfile, \
 		"petite-coquille: export: `=': not a valid identifier\n");
 		get_set_exit_code(1, TRUE);
 		return (TRUE);
+	}
+	if (!ft_strncmp(str, "+=", 2))
+	{
+		ft_magic_free("%2", splited);
+		ft_printf_fd(node->errorfile, \
+		"petite-coquille: export: `%s': not a valid identifier\n",
+		str);
+		get_set_exit_code(1, TRUE);
+		return (TRUE);
+
 	}
 	return (FALSE);
 }
@@ -105,7 +134,7 @@ void	ft_export(t_node *node)
 	while (++n < i)
 	{
 		splited = ft_split_first_sep(node->args[n], '=');
-		if (check_splited(splited, node))
+		if (check_splited(splited, node, node->args[n]))
 			continue ;
 		if (!is_forbidden(node, splited[0]))
 			create_env(node, node->args[n]);

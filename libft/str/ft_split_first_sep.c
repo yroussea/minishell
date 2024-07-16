@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:40:52 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/09 09:14:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:46:51 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,29 @@ static size_t	ft_len_next_w(char const *s, char c)
 static char	**fill_split_fist_sep(char const *s, char c, char **result)
 {
 	int	j;
-	int	k;
 
 	j = 0;
-	k = 0;
-	while (s && *s)
+	j = ft_len_next_w(s, c);
+	result[0] = ft_calloc(sizeof(char), j + 1);
+	if (!result[0])
 	{
-		j = ft_len_next_w(s, c);
-		if (j != 0)
-		{
-			if (k == 1)
-				j = ft_strlen(s);
-			result[k] = ft_calloc(sizeof(char), j + 1);
-			if (!result)
-			{
-				ft_free_split(result);
-				return (NULL);
-			}
-			ft_strlcpy(result[k], s, j + 1);
-			s += j - 1;
-			k += 1;
-		}
-		s += 1;
+		ft_free_split(result);
+		return (NULL);
 	}
+	ft_strlcpy(result[0], s, j + 1);
+	s += j;
+	if (s && *s)
+		s += 1;
+	if (s && !*s)
+		return (result);
+	j = ft_strlen(s);
+	result[1] = ft_calloc(sizeof(char), j + 1);
+	if (!result[1])
+	{
+		ft_free_split(result);
+		return (NULL);
+	}
+	ft_strlcpy(result[1], s, j + 1);
 	return (result);
 }
 

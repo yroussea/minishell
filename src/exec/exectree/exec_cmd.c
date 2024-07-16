@@ -6,11 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 20:02:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:15:45 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdio.h>
 
 char	get_inv_char(void)
 {
