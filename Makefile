@@ -11,7 +11,7 @@ GCC = $(SILENT)gcc $(CFLAGS)
 DEAD_CODE = -g -ffunction-sections -Wl,--gc-sections -Wl,--print-gc-sections
 
 DEBUGCFLAG = -g -gdwarf-3
-MACRO_FLAG = -D FAST_PROMPT=1
+MACRO_FLAG = -O3 -D FAST_PROMPT=1
 
 SRCS_DIR = src
 OBJS_DIR = obj

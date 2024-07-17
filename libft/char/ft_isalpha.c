@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:08:05 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 01:36:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:11:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	ft_isnum(int c)
 
 int	ft_iswhitespace(int c)
 {
-	return (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\r' || c == '\f');
+	return (c == ' ' || c == '\n' || c == '\t' \
+		|| c == '\v' || c == '\r' || c == '\f');
 }

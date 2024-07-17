@@ -6,14 +6,13 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/14 17:54:20 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:12:09 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "include/struct.h"
 #include "include/utils.h"
-#include <ctype.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 
@@ -39,6 +38,7 @@ t_bool	correct_lang(t_lst_envp *envp)
 }
 
 #ifndef FAST_PROMPT
+
 t_bool	no_emojy_rl(t_lst_envp *envp)
 {
 	t_bool	return_value;
@@ -51,7 +51,9 @@ t_bool	no_emojy_rl(t_lst_envp *envp)
 	ft_free_split(s);
 	return (!return_value);
 }
+
 #else
+
 t_bool	no_emojy_rl(t_lst_envp *envp)
 {
 	static t_bool	return_value = -1;
@@ -66,6 +68,7 @@ t_bool	no_emojy_rl(t_lst_envp *envp)
 	ft_free_split(s);
 	return (!return_value);
 }
+
 #endif
 
 int	ft_empty_line(char *line, t_lst_envp *lst_envp)

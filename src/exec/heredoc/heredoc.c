@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:23:53 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 01:29:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:17:53 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ t_bool	exec_heredoc(char *eof, int fd)
 	int		count;
 	int		status;
 
-	if (!fd)
-		return (FALSE);
 	count = 0;
 	pid = ft_fork();
 	if (pid == 0)
@@ -94,7 +92,7 @@ int	ft_heredoc(char *eof)
 	buf[i] = 0;
 	fd = open((char *)buf, 577, 0664);
 	signal(SIGINT, SIG_IGN);
-	if (!exec_heredoc(word_end, fd))
+	if (fd == -1 || !exec_heredoc(word_end, fd))
 	{
 		free(word_end);
 		unlink(buf);

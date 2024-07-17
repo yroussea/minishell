@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 17:12:38 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:27:01 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,23 @@ size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
 	return (tmp);
 }
 
+void	conc_good_token(char *r, char *s, uint j)
+{
+	if (j == -1)
+		ft_strlcpy(r, " ", 2);
+	else
+		ft_strlcpy(r, s, j + 1);
+}
+
 char	**ft_tokeniser(char *s, char **token)
 {
 	char	**result;
-	int		j;
+	uint	j;
 	size_t	k;
 
 	k = 0;
 	result = ft_calloc(sizeof(char *), ft_count_word(s, token, 0) * 2);
-	if (!result)
-		return (NULL);
-	while (s && *s)
+	while (result && s && *s)
 	{
 		j = is_token(s, token);
 		if (j && ft_iswhitespace(*s))
@@ -93,12 +99,8 @@ char	**ft_tokeniser(char *s, char **token)
 			ft_magic_free("%2", result);
 			return (NULL);
 		}
-		if (j == -1)
-			ft_strlcpy(result[k], " ", 2);
-		else
-			ft_strlcpy(result[k], s, j + 1);
+		conc_good_token(result[k++], s, j);
 		s += ft_abs(j);
-		k += 1;
 	}
 	return (result);
 }

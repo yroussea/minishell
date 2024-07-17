@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/16 15:11:40 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:14:46 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_bool	is_forbidden(t_node *node, char *var)
 {
-	//export a==
 	char	*tmp;
 
 	tmp = var;
@@ -75,10 +74,7 @@ void	create_env(t_node *node, char *arg)
 	if (!variable[1] && ft_strchr(arg, '='))
 		variable[1] = ft_calloc(sizeof(char), 1);
 	if (variable[0] && variable[0][ft_strlen(variable[0]) - 1] == '+')
-	{
 		export_adding(node, arg, variable);
-		return ;
-	}
 	else
 	{
 		tmp = is_envp_variable(*node->envp, variable[0]);
@@ -91,8 +87,8 @@ void	create_env(t_node *node, char *arg)
 			lst_envp_add(node->envp, ft_strdup(arg));
 			ft_free_split(variable);
 		}
+		ft_magic_free("%1", tmp);
 	}
-	ft_magic_free("%1", tmp);
 }
 
 t_bool	check_splited(char **splited, t_node *node, char *str)
@@ -110,10 +106,9 @@ t_bool	check_splited(char **splited, t_node *node, char *str)
 		ft_magic_free("%2", splited);
 		ft_printf_fd(node->errorfile, \
 		"petite-coquille: export: `%s': not a valid identifier\n",
-		str);
+			str);
 		get_set_exit_code(1, TRUE);
 		return (TRUE);
-
 	}
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:25:08 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 17:17:10 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:18:59 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	tokenise_redir(char **args, t_lst_cmd **lst_cmd)
 	while (args && args[i])
 	{
 		tmp = ft_vjoin(2, "", " ", args[i]);
-		cmd_and_arg = va_tokeniser(tmp, 11, ">>", " 2>", ">", "<<", "<",
-							 " ", "\n", "\r", "\t", "\v", "\f");
+		cmd_and_arg = va_tokeniser(tmp, 11, ">>", " 2>", ">", "<<", "<", \
+			" ", "\n", "\r", "\t", "\v", "\f");
 		if (!ft_lst_cmd_add(lst_cmd, cmd_and_arg, get_type(args[i])))
 			*lst_cmd = NULL;
 		i += 1;
