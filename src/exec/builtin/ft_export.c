@@ -6,33 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:53:22 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/17 13:14:46 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:09:51 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-t_bool	is_forbidden(t_node *node, char *var)
-{
-	char	*tmp;
-
-	tmp = var;
-	if (!var || !*var)
-		return (TRUE);
-	if (!ft_isdigit(*var))
-	{
-		while (ft_isalnum(*var) || *var == '_')
-			var += 1;
-		if (!*var || (*var == '+' && !*(var + 1)))
-			return (FALSE);
-	}
-	if (ft_strrchr(var, '+') == var + ft_strlen(var) - !!ft_strlen(var))
-		tmp[ft_strlen(tmp) - !!ft_strlen(tmp)] = 0;
-	ft_printf_fd(node->errorfile, \
-			"petite-coquille: export: `%s': not a valid identifier\n", tmp);
-	get_set_exit_code(1, TRUE);
-	return (TRUE);
-}
 
 void	concatenate_envp(t_node *node, char **variable, char *tmp2, char *arg)
 {

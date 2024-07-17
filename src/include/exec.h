@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:54:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/14 17:29:56 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:11:40 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,7 @@ void			exit_cmd(char *full_cmd, t_node *node, char **envp, \
 t_bool			verif_complete_tree(t_node *root);
 void			check_status(int status);
 
-/*
- *
- */
-
+void			fake_pid(int exit_code, t_data_stk *stks);
 t_bool			ft_stk_pipe_add(t_stack_pipe **stk, int fds_pipe[2]);
 t_stack_pipe	*init_stk_pipe(int fds_pipe[2]);
 void			ft_stk_pipe_free(t_stack_pipe *stk);

@@ -6,28 +6,12 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/17 13:27:01 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:13:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <stdarg.h>
-
-int	is_token(char *s, char **token)
-{
-	char	*diff;
-
-	while (token && *token)
-	{
-		diff = *token;
-		if (ft_iswhitespace(**token))
-			diff = " ";
-		if (ft_strncmp(s, *token, ft_strlen(*token)) == 0)
-			return (ft_strlen(diff));
-		token += 1;
-	}
-	return (FALSE);
-}
 
 size_t	jump_quote(char *s, size_t len, size_t *count)
 {

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:58 by basverdi          #+#    #+#             */
-/*   Updated: 2024/06/25 14:08:27 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:10:15 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_export(t_node *node);
 void	ft_pwd(t_node *node);
 void	ft_unset(t_node *node, char *arg);
 
+t_bool	is_forbidden(t_node *node, char *var);
 void	close_redir_builtin(t_node *node);
 void	check_active(int *active, int *active_old);
 

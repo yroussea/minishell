@@ -6,12 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:14 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/15 14:15:45 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:10:53 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdio.h>
 
 char	get_inv_char(void)
 {
@@ -97,24 +96,6 @@ void	child_exec_cmd(char *full_cmd, t_node *node, t_fds fds, t_data_stk \
 		get_set_exit_code(1, TRUE);
 	}
 	exit_cmd(full_cmd, node, envp_char, get_set_exit_code(0, FALSE));
-}
-
-void	fake_pid(int exit_code, t_data_stk *stks)
-{
-	int	pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		ft_close_pipe(stks->pipes);
-		ft_get_envp(NULL, FALSE, TRUE);
-		ft_get_root(NULL, FALSE, TRUE);
-		ft_get_lsts(NULL, NULL, FALSE, TRUE);
-		ft_get_stks(NULL, FALSE, TRUE);
-		rl_clear_history();
-		exit(exit_code);
-	}
-	ft_stk_pid_add(stks->pids, pid);
 }
 
 t_bool	exec_cmd(

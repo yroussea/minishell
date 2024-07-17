@@ -6,28 +6,11 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:06:03 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/17 13:18:23 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:12:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
-
-char	*join_and_free(size_t nb_str, char *sep, ...)
-{
-	va_list	args;
-	va_list	copy;
-	char	*s;
-
-	va_start(args, sep);
-	va_copy(copy, args);
-	s = annex_vjoin(nb_str, sep, args);
-	while (nb_str--)
-		free(va_arg(copy, char *));
-	va_end(copy);
-	va_end(args);
-	return (s);
-}
 
 char	*ft_undoublequote(char *s, t_lst_envp *lst, int in_dollar)
 {

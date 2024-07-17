@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:48:27 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/09 09:16:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:15:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,20 @@ void	swap_unquate(char **str, t_lst_envp *envp, char **trimed, char **s)
 	*s = ft_strdupexept(*trimed, '\001');
 	free(*trimed);
 	*trimed = ft_strtrim(*s, " ");
+}
+
+int	is_token(char *s, char **token)
+{
+	char	*diff;
+
+	while (token && *token)
+	{
+		diff = *token;
+		if (ft_iswhitespace(**token))
+			diff = " ";
+		if (ft_strncmp(s, *token, ft_strlen(*token)) == 0)
+			return (ft_strlen(diff));
+		token += 1;
+	}
+	return (FALSE);
 }

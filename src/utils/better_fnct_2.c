@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:10:51 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/14 17:33:51 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:12:42 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,20 @@ char	**ft_duptab(char **s, int i, int j)
 		}
 	}
 	return (result);
+}
+
+char	*join_and_free(size_t nb_str, char *sep, ...)
+{
+	va_list	args;
+	va_list	copy;
+	char	*s;
+
+	va_start(args, sep);
+	va_copy(copy, args);
+	s = annex_vjoin(nb_str, sep, args);
+	while (nb_str--)
+		free(va_arg(copy, char *));
+	va_end(copy);
+	va_end(args);
+	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:51:16 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/09 14:46:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:11:44 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,44 @@ void	ft_clear_term(int ac, char **av)
 		ft_printf_fd(2, "%sError%s\n%s", RED, DEFAULT, ERROR_ARGS);
 		exit(1);
 	}
+}
+
+t_bool	is_forbidden(t_node *node, char *var)
+{
+	char	*tmp;
+
+	tmp = var;
+	if (!var || !*var)
+		return (TRUE);
+	if (!ft_isdigit(*var))
+	{
+		while (ft_isalnum(*var) || *var == '_')
+			var += 1;
+		if (!*var || (*var == '+' && !*(var + 1)))
+			return (FALSE);
+	}
+	if (ft_strrchr(var, '+') == var + ft_strlen(var) - !!ft_strlen(var))
+		tmp[ft_strlen(tmp) - !!ft_strlen(tmp)] = 0;
+	ft_printf_fd(node->errorfile, \
+			"petite-coquille: export: `%s': not a valid identifier\n", tmp);
+	get_set_exit_code(1, TRUE);
+	return (TRUE);
+}
+
+void	fake_pid(int exit_code, t_data_stk *stks)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		ft_close_pipe(stks->pipes);
+		ft_get_envp(NULL, FALSE, TRUE);
+		ft_get_root(NULL, FALSE, TRUE);
+		ft_get_lsts(NULL, NULL, FALSE, TRUE);
+		ft_get_stks(NULL, FALSE, TRUE);
+		rl_clear_history();
+		exit(exit_code);
+	}
+	ft_stk_pid_add(stks->pids, pid);
 }

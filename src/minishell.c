@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/17 13:12:09 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:18:14 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,14 @@ t_bool	no_emojy_rl(t_lst_envp *envp)
 
 #endif
 
-int	ft_empty_line(char *line, t_lst_envp *lst_envp)
-{
-	if (line == NULL)
-	{
-		ft_printf_fd(2, "exit\n");
-		free_lst_envp(lst_envp);
-		return (0);
-	}
-	return (1);
-}
-
 t_bool	display_prompt(t_lst_envp *lst_envp)
 {
 	t_lst_cmd	*lst_line;
 	char		*line;
 	char		*prompt;
-	int			no_color;
+	static int	no_color = 0;
 
 	prompt = NULL;
-	no_color = 0;
-	rl_outstream = stderr;
 	while (1)
 	{
 		no_color = no_emojy_rl(lst_envp);
@@ -99,8 +86,12 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 		prompt = get_prompt(lst_envp, prompt, no_color);
 		line = readline(prompt);
 		ft_magic_free("%1", prompt);
-		if (ft_empty_line(line, lst_envp) == 0)
+		if (line == NULL)
+		{
+			ft_printf_fd(2, "exit\n");
+			free_lst_envp(lst_envp);
 			return (FALSE);
+		}
 		if (*line)
 			add_history(line);
 		lst_line = parsing(line);
@@ -116,6 +107,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_clear_term(argc, argv);
 	get_set_exit_code(0, TRUE);
 	lst_envp = init_lst_envp(envp);
+	rl_outstream = stderr;
 	if (display_prompt(lst_envp))
 		free_lst_envp(lst_envp);
 	rl_clear_history();
