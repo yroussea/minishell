@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:37:16 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/14 19:00:11 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:21:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,14 @@ int	in_child_cmd(char **cmd, t_lst_envp *envp, int fd[2])
 	if (p_id == 0)
 	{
 		rl_clear_history();
+		env = envp_to_char(envp);
+		free_lst_envp(envp);
 		if (dup2(fd[1], 1) != -1)
 		{
 			ft_close(1, fd[1]);
-			env = envp_to_char(envp);
-			free_lst_envp(envp);
 			execve(cmd[0], cmd, env);
-			ft_free_split(env);
 		}
-		free_lst_envp(envp);
+		ft_free_split(env);
 		exit(1);
 	}
 	waitpid(p_id, &exit_status, 0);

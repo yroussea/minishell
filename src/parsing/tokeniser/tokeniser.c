@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:07:06 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/17 14:13:35 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:26:44 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ size_t	jump_token(char *s, char **token, size_t *count, t_bool *bool)
 	return (tmp);
 }
 
-void	conc_good_token(char *r, char *s, uint j)
+void	conc_good_token(char *r, char *s, int j)
 {
 	if (j == -1)
 		ft_strlcpy(r, " ", 2);
@@ -65,7 +65,7 @@ void	conc_good_token(char *r, char *s, uint j)
 char	**ft_tokeniser(char *s, char **token)
 {
 	char	**result;
-	uint	j;
+	int		j;
 	size_t	k;
 
 	k = 0;

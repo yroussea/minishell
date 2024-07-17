@@ -6,7 +6,7 @@
 /*   By: basverdi <basverdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:38:06 by basverdi          #+#    #+#             */
-/*   Updated: 2024/07/17 14:18:14 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:23:04 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ t_bool	display_prompt(t_lst_envp *lst_envp)
 	prompt = NULL;
 	while (1)
 	{
-		no_color = no_emojy_rl(lst_envp);
 		set_sigaction(0);
+		no_color = no_emojy_rl(lst_envp);
 		prompt = get_prompt(lst_envp, prompt, no_color);
 		line = readline(prompt);
 		ft_magic_free("%1", prompt);
